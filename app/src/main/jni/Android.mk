@@ -64,41 +64,12 @@ include $(PREBUILT_STATIC_LIBRARY)
 
 # -------------------- Plugins / helpers native code
 
-# Almalence Almashot shared library
-include $(MY_CORE_PATH)/almashot/Android.mk
 
 # Image Conversion and other utilities - implementation
 include $(MY_CORE_PATH)/utils/Android.mk
 
 # Image Conversion and other utilities - interface to Java
 include $(MY_CORE_PATH)/utils-jni/Android.mk
-
-# DRO plugin
-include $(MY_CORE_PATH)/dro/Android.mk
-
-# Bestshot plugin
-include $(MY_CORE_PATH)/bestshot/Android.mk
-
-# Night plugin
-include $(MY_CORE_PATH)/nightprocessing/Android.mk
-
-# HDR plugin
-include $(MY_CORE_PATH)/hdrprocessing/Android.mk
-
-# Object Removal plugin
-include $(MY_CORE_PATH)/objectremoval/Android.mk
-
-# Sequence photo plugin
-include $(MY_CORE_PATH)/sequence/Android.mk
-
-# Group shot plugin
-include $(MY_CORE_PATH)/groupshot/Android.mk
-
-# Panorama plugin
-include $(MY_CORE_PATH)/panorama/Android.mk
-
-# High-resolution portrait plugin
-include $(MY_CORE_PATH)/hiresportrait/Android.mk
 
 # Pre-shot plugin
 include $(MY_CORE_PATH)/preshot/Android.mk

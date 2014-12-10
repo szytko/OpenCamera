@@ -187,50 +187,6 @@ public class PreshotProcessingPlugin extends PluginProcessing implements OnTouch
 
 		for (int i = 0; i < imagesAmount; i++)
 		{
-			// if (!isSlowMode)
-			// {
-			// byte[] data = null;
-			//
-			// if (mCameraMirrored)
-			// {
-			// data = PreShot.GetFromBufferNV21(i, 0, 0, 1);
-			// } else
-			// data = PreShot.GetFromBufferNV21(i, 0, 0, 0);
-			//
-			// if (data.length == 0)
-			// {
-			// return null;
-			// }
-			//
-			// int frame = SwapHeap.SwapToHeap(data);
-			//
-			// PluginManager.getInstance().addToSharedMem("resultframe" + (i +
-			// 1) + sessionID, String.valueOf(frame));
-			// PluginManager.getInstance().addToSharedMem("resultframelen" + (i
-			// + 1) + sessionID,
-			// String.valueOf(data.length));
-			//
-			// } else if (isSlowMode)
-			// {
-			// byte[] data = PreShot.GetFromBufferSimpleNV21(i,
-			// MainScreen.getImageHeight(),
-			// MainScreen.getImageWidth());
-			//
-			// if (data.length == 0)
-			// {
-			// return null;
-			// }
-			//
-			// int frame = SwapHeap.SwapToHeap(data);
-			//
-			// PluginManager.getInstance().addToSharedMem("resultframe" + (i +
-			// 1) + sessionID, String.valueOf(frame));
-			// PluginManager.getInstance().addToSharedMem("resultframelen" + (i
-			// + 1) + sessionID,
-			// String.valueOf(data.length));
-			// PluginManager.getInstance().addToSharedMem("resultframeformat" +
-			// (i + 1) + sessionID, "jpeg");
-			// }
 
 			int iOrientation = PreShot.getOrientation(i);
 			if (isSlowMode)

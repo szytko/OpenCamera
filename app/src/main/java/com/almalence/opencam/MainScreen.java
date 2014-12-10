@@ -102,27 +102,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.almalence.plugins.capture.panoramaaugmented.PanoramaAugmentedCapturePlugin;
-import com.almalence.plugins.capture.video.VideoCapturePlugin;
 import com.almalence.util.AppWidgetNotifier;
 import com.almalence.util.Util;
 
-//<!-- -+-
 import com.almalence.opencam.cameracontroller.CameraController;
-//import com.almalence.opencam.cameracontroller.HALv3;
 import com.almalence.opencam.ui.AlmalenceGUI;
 import com.almalence.opencam.ui.GLLayer;
 import com.almalence.opencam.ui.GUI;
 import com.almalence.util.AppRater;
 
-//-+- -->
-/* <!-- +++
- import com.almalence.opencam_plus.cameracontroller.CameraController;
- //import com.almalence.opencam_plus.cameracontroller.HALv3;
- import com.almalence.opencam_plus.ui.AlmalenceGUI;
- import com.almalence.opencam_plus.ui.GLLayer;
- import com.almalence.opencam_plus.ui.GUI;
- +++ --> */
 
 /***
  * MainScreen - main activity screen with camera functionality
@@ -880,16 +868,6 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 					.toArray(new CharSequence[CameraController.MultishotResolutionsNamesList.size()]);
 			entryValues = CameraController.MultishotResolutionsIdxesList
 					.toArray(new CharSequence[CameraController.MultishotResolutionsIdxesList.size()]);
-		} else if (mode == MODE_PANORAMA)
-		{
-			opt1 = sImageSizePanoramaBackPref;
-			opt2 = sImageSizePanoramaFrontPref;
-			PanoramaAugmentedCapturePlugin.onDefaultSelectResolutons();
-			currentIdx = PanoramaAugmentedCapturePlugin.prefResolution;
-			entries = PanoramaAugmentedCapturePlugin.getResolutionspicturenameslist().toArray(
-					new CharSequence[PanoramaAugmentedCapturePlugin.getResolutionspicturenameslist().size()]);
-			entryValues = PanoramaAugmentedCapturePlugin.getResolutionspictureidxeslist().toArray(
-					new CharSequence[PanoramaAugmentedCapturePlugin.getResolutionspictureidxeslist().size()]);
 		} else if (mode == MODE_VIDEO)
 		{
 			opt1 = sImageSizeVideoBackPref;
@@ -900,12 +878,7 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 
 			CharSequence[] entriesTmp = new CharSequence[6];
 			CharSequence[] entryValuesTmp = new CharSequence[6];
-			if (CamcorderProfile.hasProfile(CameraController.getCameraIndex(), VideoCapturePlugin.QUALITY_4K))
-			{
-				entriesTmp[idx] = "4K";
-				entryValuesTmp[idx] = "5";
-				idx++;
-			}
+
 			if (CamcorderProfile.hasProfile(CameraController.getCameraIndex(), CamcorderProfile.QUALITY_1080P))
 			{
 				entriesTmp[idx] = "1080p";
@@ -993,53 +966,6 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 					});
 				}
 
-				if (mode == MODE_PANORAMA)
-				{
-					lp.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
-					{
-						// @Override
-						public boolean onPreferenceChange(Preference preference, Object newValue)
-						{
-							int value = Integer.parseInt(newValue.toString());
-							PanoramaAugmentedCapturePlugin.prefResolution = value;
-
-							for (int i = 0; i < PanoramaAugmentedCapturePlugin.getResolutionspictureidxeslist().size(); i++)
-							{
-								if (PanoramaAugmentedCapturePlugin.getResolutionspictureidxeslist().get(i)
-										.equals(newValue))
-								{
-									final int idx = i;
-									final Point point = PanoramaAugmentedCapturePlugin.getResolutionspicturesizeslist()
-											.get(idx);
-
-									// frames_fit_count may decrease when
-									// returning to main view due to slightly
-									// more memory used, so in text messages we
-									// report both exact and decreased count to
-									// the user
-									final int frames_fit_count = (int) (PanoramaAugmentedCapturePlugin
-											.getAmountOfMemoryToFitFrames() / PanoramaAugmentedCapturePlugin
-											.getFrameSizeInBytes(point.x, point.y));
-
-									{
-										Toast.makeText(
-												MainScreen.getInstance(),
-												String.format(
-														MainScreen
-																.getInstance()
-																.getString(
-																		R.string.pref_plugin_capture_panoramaaugmented_imageheight_warning),
-														frames_fit_count), Toast.LENGTH_SHORT).show();
-
-										return true;
-									}
-								}
-							}
-
-							return true;
-						}
-					});
-				}
 			}
 		}
 

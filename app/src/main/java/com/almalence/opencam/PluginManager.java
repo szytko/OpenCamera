@@ -104,10 +104,8 @@ import com.almalence.plugins.capture.burst.BurstCapturePlugin;
 import com.almalence.plugins.capture.expobracketing.ExpoBracketingCapturePlugin;
 import com.almalence.plugins.capture.multishot.MultiShotCapturePlugin;
 import com.almalence.plugins.capture.night.NightCapturePlugin;
-import com.almalence.plugins.capture.panoramaaugmented.PanoramaAugmentedCapturePlugin;
 import com.almalence.plugins.capture.preshot.PreshotCapturePlugin;
 import com.almalence.plugins.capture.standard.CapturePlugin;
-import com.almalence.plugins.capture.video.VideoCapturePlugin;
 import com.almalence.plugins.export.standard.ExportPlugin;
 import com.almalence.plugins.export.standard.GPSTagsConverter;
 import com.almalence.plugins.export.standard.ExifDriver.ExifDriver;
@@ -115,18 +113,13 @@ import com.almalence.plugins.export.standard.ExifDriver.ExifManager;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueByteArray;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueNumber;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueRationals;
-import com.almalence.plugins.processing.bestshot.BestshotProcessingPlugin;
-import com.almalence.plugins.processing.hdr.HDRProcessingPlugin;
 import com.almalence.plugins.processing.multishot.MultiShotProcessingPlugin;
-import com.almalence.plugins.processing.night.NightProcessingPlugin;
-import com.almalence.plugins.processing.panorama.PanoramaProcessingPlugin;
 import com.almalence.plugins.processing.preshot.PreshotProcessingPlugin;
 import com.almalence.plugins.processing.simple.SimpleProcessingPlugin;
 import com.almalence.plugins.vf.aeawlock.AeAwLockVFPlugin;
 import com.almalence.plugins.vf.barcodescanner.BarcodeScannerVFPlugin;
 import com.almalence.plugins.vf.focus.FocusVFPlugin;
 import com.almalence.plugins.vf.grid.GridVFPlugin;
-import com.almalence.plugins.vf.gyro.GyroVFPlugin;
 import com.almalence.plugins.vf.histogram.HistogramVFPlugin;
 import com.almalence.plugins.vf.infoset.InfosetVFPlugin;
 import com.almalence.plugins.vf.zoom.ZoomVFPlugin;
@@ -137,14 +130,9 @@ import com.almalence.util.exifreader.metadata.Directory;
 import com.almalence.util.exifreader.metadata.Metadata;
 import com.almalence.util.exifreader.metadata.exif.ExifIFD0Directory;
 import com.almalence.util.exifreader.metadata.exif.ExifSubIFDDirectory;
-/* <!-- +++
-import com.almalence.opencam_plus.cameracontroller.CameraController;
-import com.almalence.opencam_plus.ui.AlmalenceGUI.ShutterButton;
- +++ --> */
-//<!-- -+-
+
 import com.almalence.opencam.cameracontroller.CameraController;
 import com.almalence.opencam.ui.AlmalenceGUI.ShutterButton;
-//-+- -->
 
 /***
  * Plugins managing class.
@@ -326,10 +314,6 @@ public class PluginManager implements PluginManagerInterface
 		pluginList.put(barcodeScannerVFPlugin.getID(), barcodeScannerVFPlugin);
 		listVF.add(barcodeScannerVFPlugin);
 
-		GyroVFPlugin gyroVFPlugin = new GyroVFPlugin();
-		pluginList.put(gyroVFPlugin.getID(), gyroVFPlugin);
-		listVF.add(gyroVFPlugin);
-
 		ZoomVFPlugin zoomVFPlugin = new ZoomVFPlugin();
 		pluginList.put(zoomVFPlugin.getID(), zoomVFPlugin);
 		listVF.add(zoomVFPlugin);
@@ -371,17 +355,9 @@ public class PluginManager implements PluginManagerInterface
 		pluginList.put(multiShotCapturePlugin.getID(), multiShotCapturePlugin);
 		listCapture.add(multiShotCapturePlugin);
 
-		VideoCapturePlugin videoCapturePlugin = new VideoCapturePlugin();
-		pluginList.put(videoCapturePlugin.getID(), videoCapturePlugin);
-		listCapture.add(videoCapturePlugin);
-
 		PreshotCapturePlugin backInTimeCapturePlugin = new PreshotCapturePlugin();
 		pluginList.put(backInTimeCapturePlugin.getID(), backInTimeCapturePlugin);
 		listCapture.add(backInTimeCapturePlugin);
-
-		PanoramaAugmentedCapturePlugin panoramaAugmentedCapturePlugin = new PanoramaAugmentedCapturePlugin();
-		pluginList.put(panoramaAugmentedCapturePlugin.getID(), panoramaAugmentedCapturePlugin);
-		listCapture.add(panoramaAugmentedCapturePlugin);
 
 		PreshotProcessingPlugin backInTimeProcessingPlugin = new PreshotProcessingPlugin();
 		pluginList.put(backInTimeProcessingPlugin.getID(), backInTimeProcessingPlugin);
@@ -392,25 +368,9 @@ public class PluginManager implements PluginManagerInterface
 		pluginList.put(simpleProcessingPlugin.getID(), simpleProcessingPlugin);
 		listProcessing.add(simpleProcessingPlugin);
 
-		NightProcessingPlugin nightProcessingPlugin = new NightProcessingPlugin();
-		pluginList.put(nightProcessingPlugin.getID(), nightProcessingPlugin);
-		listProcessing.add(nightProcessingPlugin);
-
-		HDRProcessingPlugin hdrProcessingPlugin = new HDRProcessingPlugin();
-		pluginList.put(hdrProcessingPlugin.getID(), hdrProcessingPlugin);
-		listProcessing.add(hdrProcessingPlugin);
-
 		MultiShotProcessingPlugin multiShotProcessingPlugin = new MultiShotProcessingPlugin();
 		pluginList.put(multiShotProcessingPlugin.getID(), multiShotProcessingPlugin);
 		listProcessing.add(multiShotProcessingPlugin);
-
-		PanoramaProcessingPlugin panoramaProcessingPlugin = new PanoramaProcessingPlugin();
-		pluginList.put(panoramaProcessingPlugin.getID(), panoramaProcessingPlugin);
-		listProcessing.add(panoramaProcessingPlugin);
-
-		BestshotProcessingPlugin bestshotProcessingPlugin = new BestshotProcessingPlugin();
-		pluginList.put(bestshotProcessingPlugin.getID(), bestshotProcessingPlugin);
-		listProcessing.add(bestshotProcessingPlugin);
 
 		// Filter
 
@@ -2376,8 +2336,12 @@ public class PluginManager implements PluginManagerInterface
 
 			Calendar d = Calendar.getInstance();
 
-			int imagesAmount = Integer.parseInt(getFromSharedMem("amountofresultframes" + Long.toString(sessionID)));
-			
+			int imagesAmount = 0;
+            try {
+                imagesAmount = Integer.parseInt(getFromSharedMem("amountofresultframes" + Long.toString(sessionID)));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 			if (imagesAmount == 0)
 				imagesAmount = 1;
 

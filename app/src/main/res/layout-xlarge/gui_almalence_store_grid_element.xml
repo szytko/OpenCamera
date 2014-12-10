@@ -55,7 +55,7 @@
 	        android:textColor="#57a25c"        
 	        android:textSize="15sp">
 	 </TextView>
-	    
+
 	 <ImageView
 	        android:id="@+id/storeSaleImage"
 	        android:layout_height="45dip"
@@ -67,5 +67,5 @@
 	        android:visibility="gone"    
 	        >
 	 </ImageView>
-     
+
 </RelativeLayout>

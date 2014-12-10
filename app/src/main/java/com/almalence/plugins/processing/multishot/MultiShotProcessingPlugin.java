@@ -36,19 +36,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.almalence.SwapHeap;
 import com.almalence.asynctaskmanager.OnTaskCompleteListener;
-import com.almalence.plugins.processing.groupshot.GroupShotProcessingPlugin;
-import com.almalence.plugins.processing.objectremoval.ObjectRemovalProcessingPlugin;
-import com.almalence.plugins.processing.sequence.SequenceProcessingPlugin;
 import com.almalence.ui.RotateLayout;
-/* <!-- +++
- import com.almalence.opencam_plus.MainScreen;
- import com.almalence.opencam_plus.PluginManager;
- import com.almalence.opencam_plus.PluginProcessing;
- import com.almalence.opencam_plus.R;
- +++ --> */
-// <!-- -+-
 import com.almalence.opencam.MainScreen;
 import com.almalence.opencam.PluginManager;
 import com.almalence.opencam.PluginProcessing;
@@ -70,10 +59,6 @@ public class MultiShotProcessingPlugin extends PluginProcessing implements OnTas
 	private static int								WAITING							= -1;
 
 	private View									mButtonsLayout;
-
-	private static GroupShotProcessingPlugin		groupShotProcessingPlugin		= new GroupShotProcessingPlugin();
-	private static SequenceProcessingPlugin			sequenceProcessingPlugin		= new SequenceProcessingPlugin();
-	private static ObjectRemovalProcessingPlugin	objectRemovalProcessingPlugin	= new ObjectRemovalProcessingPlugin();
 
 	private int										selectedPlugin					= CANCELLED;
 	private long									sessionID;
@@ -154,17 +139,6 @@ public class MultiShotProcessingPlugin extends PluginProcessing implements OnTas
 	@Override
 	public View getPostProcessingView()
 	{
-		if (selectedPlugin == GROUP_SHOT)
-		{
-			return groupShotProcessingPlugin.getPostProcessingView();
-		} else if (selectedPlugin == SEQUENCE)
-		{
-			return sequenceProcessingPlugin.getPostProcessingView();
-		} else if (selectedPlugin == OBJECT_REMOVAL)
-		{
-			return objectRemovalProcessingPlugin.getPostProcessingView();
-		}
-
 		return null;
 	}
 
@@ -174,10 +148,6 @@ public class MultiShotProcessingPlugin extends PluginProcessing implements OnTas
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainScreen.getInstance()
 				.getBaseContext());
 		mSaveInputPreference = prefs.getBoolean("saveInputPrefMultiShot", false);
-
-		groupShotProcessingPlugin.onStart();
-		sequenceProcessingPlugin.onStart();
-		objectRemovalProcessingPlugin.onStart();
 	}
 
 	@Override
@@ -220,19 +190,6 @@ public class MultiShotProcessingPlugin extends PluginProcessing implements OnTas
 			}
 		});
 
-		if (selectedPlugin == GROUP_SHOT)
-		{
-			GroupShotProcessingPlugin.setmYUVBufferList(mYUVBufferList);
-			groupShotProcessingPlugin.onStartProcessing(sessionID);
-		} else if (selectedPlugin == SEQUENCE)
-		{
-			SequenceProcessingPlugin.setmYUVBufferList(mYUVBufferList);
-			sequenceProcessingPlugin.onStartProcessing(sessionID);
-		} else if (selectedPlugin == OBJECT_REMOVAL)
-		{
-			ObjectRemovalProcessingPlugin.setYUVBufferList(mYUVBufferList);
-			objectRemovalProcessingPlugin.onStartProcessing(sessionID);
-		}
 	}
 
 	private void prepareDataForProcessing()
@@ -318,47 +275,16 @@ public class MultiShotProcessingPlugin extends PluginProcessing implements OnTas
 
 	public void onStartPostProcessing()
 	{
-		if (selectedPlugin == GROUP_SHOT)
-		{
-			groupShotProcessingPlugin.onStartPostProcessing();
-		} else if (selectedPlugin == SEQUENCE)
-		{
-			sequenceProcessingPlugin.onStartPostProcessing();
-		} else if (selectedPlugin == OBJECT_REMOVAL)
-		{
-			objectRemovalProcessingPlugin.onStartPostProcessing();
-		}
 	}
 
 	@Override
 	public void onClick(View v)
 	{
-		if (selectedPlugin == GROUP_SHOT)
-		{
-			groupShotProcessingPlugin.onClick(v);
-		} else if (selectedPlugin == SEQUENCE)
-		{
-			sequenceProcessingPlugin.onClick(v);
-		} else if (selectedPlugin == OBJECT_REMOVAL)
-		{
-			objectRemovalProcessingPlugin.onClick(v);
-		}
 	}
 
 	@Override
 	public boolean handleMessage(Message msg)
 	{
-		if (selectedPlugin == GROUP_SHOT)
-		{
-			return ((Callback) groupShotProcessingPlugin).handleMessage(msg);
-		} else if (selectedPlugin == SEQUENCE)
-		{
-			return ((Callback) sequenceProcessingPlugin).handleMessage(msg);
-		} else if (selectedPlugin == OBJECT_REMOVAL)
-		{
-			return ((Callback) objectRemovalProcessingPlugin).handleMessage(msg);
-		}
-
 		return false;
 	}
 
@@ -366,17 +292,6 @@ public class MultiShotProcessingPlugin extends PluginProcessing implements OnTas
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		boolean res = false;
-
-		if (selectedPlugin == GROUP_SHOT)
-		{
-			res = groupShotProcessingPlugin.onKeyDown(keyCode, event);
-		} else if (selectedPlugin == SEQUENCE)
-		{
-			res = sequenceProcessingPlugin.onKeyDown(keyCode, event);
-		} else if (selectedPlugin == OBJECT_REMOVAL)
-		{
-			res = objectRemovalProcessingPlugin.onKeyDown(keyCode, event);
-		}
 
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{

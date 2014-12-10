@@ -47,16 +47,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.almalence.SwapHeap;
-/* <!-- +++
- import com.almalence.opencam_plus.cameracontroller.CameraController;
- import com.almalence.opencam_plus.CameraParameters;
- import com.almalence.opencam_plus.MainScreen;
- import com.almalence.opencam_plus.PluginCapture;
- import com.almalence.opencam_plus.PluginManager;
- import com.almalence.opencam_plus.R;
- import com.almalence.opencam_plus.ui.GUI.CameraParameter;
- +++ --> */
-// <!-- -+-
 import com.almalence.opencam.CameraParameters;
 import com.almalence.opencam.MainScreen;
 import com.almalence.opencam.PluginCapture;
@@ -64,8 +54,6 @@ import com.almalence.opencam.PluginManager;
 import com.almalence.opencam.cameracontroller.CameraController;
 import com.almalence.opencam.ui.GUI.CameraParameter;
 import com.almalence.opencam.R;
-//-+- -->
-import com.almalence.plugins.processing.night.AlmaShotNight;
 
 import com.almalence.util.ImageConversion;
 
@@ -523,7 +511,7 @@ public class NightCapturePlugin extends PluginCapture
 		int h = (int)(imageHeight/zoom);
 		int x0 = imageWidth/2-w/2;
 		int y0 = imageHeight/2-h/2;
-		boolean clipped = AlmaShotNight.CheckClipping(frameForExposure, imageWidth, imageHeight, x0, y0, w, h);
+		boolean clipped = false;
 		
 		// free memory allocated for the frame
 		SwapHeap.FreeFromHeap(frameForExposure);

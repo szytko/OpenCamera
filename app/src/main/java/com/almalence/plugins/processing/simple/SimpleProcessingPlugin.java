@@ -45,8 +45,6 @@ public class SimpleProcessingPlugin extends PluginProcessing
 {
 	private long			sessionID				= 0;
 
-	private static boolean	DROLocalTMPreference	= true;
-	private static int		prefPullYUV				= 7; // 9;
 
 	private int				modePrefDro = 1;
 	
@@ -89,38 +87,9 @@ public class SimpleProcessingPlugin extends PluginProcessing
 		{
 			int orientation = Integer.parseInt(PluginManager.getInstance().getFromSharedMem(
 					"frameorientation" + i + sessionID));
-			String isDRO = PluginManager.getInstance().getFromSharedMem("isdroprocessing" + sessionID);
 
-			if (isDRO != null && isDRO.equals("0"))
-			{
-				AlmaShotDRO.Initialize();
 
-				int inputYUV = 0;
-				inputYUV = Integer.parseInt(PluginManager.getInstance().getFromSharedMem("frame" + i + sessionID));
 
-				float[] gammaTable = new float[] {0.5f, 0.6f, 0.7f};
-				int yuv = AlmaShotDRO.DroProcess(inputYUV, mImageWidth, mImageHeight, 1.5f, DROLocalTMPreference, 0,
-						prefPullYUV, 0.35f, gammaTable[modePrefDro]);
-
-				AlmaShotDRO.Release();
-
-				if (orientation == 90 || orientation == 270)
-				{
-					PluginManager.getInstance().addToSharedMem("saveImageWidth" + sessionID,
-							String.valueOf(mImageHeight));
-					PluginManager.getInstance().addToSharedMem("saveImageHeight" + sessionID,
-							String.valueOf(mImageWidth));
-				} else
-				{
-					PluginManager.getInstance().addToSharedMem("saveImageWidth" + sessionID,
-							String.valueOf(mImageWidth));
-					PluginManager.getInstance().addToSharedMem("saveImageHeight" + sessionID,
-							String.valueOf(mImageHeight));
-				}
-
-				PluginManager.getInstance().addToSharedMem("resultframe" + i + sessionID, String.valueOf(yuv));
-			} else
-			{
 				int frame = Integer.parseInt(PluginManager.getInstance().getFromSharedMem("frame" + i + sessionID));
 				int len = Integer.parseInt(PluginManager.getInstance().getFromSharedMem("framelen" + i + sessionID));
 				
@@ -136,7 +105,7 @@ public class SimpleProcessingPlugin extends PluginProcessing
 						String.valueOf(mImageWidth));
 				PluginManager.getInstance().addToSharedMem("saveImageHeight" + sessionID,
 						String.valueOf(mImageHeight));
-			}
+
 
 			boolean cameraMirrored = Boolean.parseBoolean(PluginManager.getInstance().getFromSharedMem(
 					"framemirrored" + i + sessionID));

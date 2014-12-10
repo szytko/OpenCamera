@@ -4,6 +4,10 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.1"
 
+    lintOptions {
+        abortOnError false
+    }
+
     sourceSets.main {
         jniLibs.srcDir 'src/main/libs'
         jni.srcDirs = []
