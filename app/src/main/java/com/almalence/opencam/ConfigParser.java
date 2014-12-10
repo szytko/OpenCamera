@@ -237,10 +237,6 @@ public class ConfigParser
 		{
 			if (id != null)
 				mode.Export = id;
-		} else if (tag.equals("sku"))
-		{
-			if (id != null)
-				mode.SKU = id;
 		} else if (tag.equals("howtotext"))
 		{
 			if (id != null)

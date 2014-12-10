@@ -64,7 +64,6 @@ public class Mode
 	public String		howtoText;		// text string describing how to use
 										// mode
 
-	public String		SKU;			// SKU for billing purposes
 
 	public String		icon;			// mode icon name
 	public String		iconHAL;		// mode icon name
@@ -85,6 +84,5 @@ public class Mode
 		VF = new ArrayList<String>();
 		Filter = new ArrayList<String>();
 
-		SKU = "";
 	}
 }
