@@ -57,7 +57,7 @@ public class CapturePlugin extends PluginCapture
 																									// On
 																									// 1=DRO
 																									// Off
-	private Switch				modeSwitcher;
+	//private Switch				modeSwitcher;
 	public static final String	CAMERA_IMAGE_BUCKET_NAME	= Environment.getExternalStorageDirectory().toString()
 																	+ "/DCIM/Camera/tmp_raw_img";
 
@@ -96,14 +96,16 @@ public class CapturePlugin extends PluginCapture
 	public void onCreate()
 	{
 		LayoutInflater inflator = MainScreen.getInstance().getLayoutInflater();
-		modeSwitcher = (Switch) inflator.inflate(R.layout.plugin_capture_standard_modeswitcher, null, false);
+		//modeSwitcher = (Switch) inflator.inflate(R.layout.plugin_capture_standard_modeswitcher, null, false);
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainScreen.getMainContext());
 		ModePreference = prefs.getString("modeStandardPref", "1");
-		modeSwitcher.setTextOn("DRO On");
+		/*
+        modeSwitcher.setTextOn("DRO On");
 		modeSwitcher.setTextOff("DRO Off");
 		modeSwitcher.setChecked(ModePreference.compareTo("0") == 0 ? true : false);
-		modeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+
+        modeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
 		{
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isDro)
@@ -145,6 +147,7 @@ public class CapturePlugin extends PluginCapture
 
 		if (PluginManager.getInstance().getProcessingCounter() == 0)
 			modeSwitcher.setEnabled(true);
+        */
 	}
 
 	@Override
@@ -201,7 +204,7 @@ public class CapturePlugin extends PluginCapture
 	@Override
 	public void onGUICreate()
 	{
-		MainScreen.getGUIManager().removeViews(modeSwitcher, R.id.specialPluginsLayout3);
+		//MainScreen.getGUIManager().removeViews(modeSwitcher, R.id.specialPluginsLayout3);
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
@@ -209,10 +212,9 @@ public class CapturePlugin extends PluginCapture
 		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-		((RelativeLayout) MainScreen.getInstance().findViewById(R.id.specialPluginsLayout3)).addView(this.modeSwitcher,
-				params);
+		//((RelativeLayout) MainScreen.getInstance().findViewById(R.id.specialPluginsLayout3)).addView(this.modeSwitcher, params);
 
-		this.modeSwitcher.setLayoutParams(params);
+		//this.modeSwitcher.setLayoutParams(params);
 		// this.modeSwitcher.requestLayout();
 		//
 		// ((RelativeLayout)
@@ -227,7 +229,7 @@ public class CapturePlugin extends PluginCapture
 	@Override
 	public void onStop()
 	{
-		MainScreen.getGUIManager().removeViews(modeSwitcher, R.id.specialPluginsLayout3);
+		//MainScreen.getGUIManager().removeViews(modeSwitcher, R.id.specialPluginsLayout3);
 	}
 
 	@Override
