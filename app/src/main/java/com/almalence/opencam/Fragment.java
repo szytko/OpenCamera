@@ -180,13 +180,15 @@ public class Fragment extends PreferenceFragment implements OnSharedPreferenceCh
 								Toast.LENGTH_LONG).show();
 					}
 
+
 					if (v == 2)
 					{
+                        /*
 						Intent intent = new Intent(Preferences.thiz, FolderPicker.class);
-
 						intent.putExtra(MainScreen.sSavePathPref, v_old);
-
 						Preferences.thiz.startActivity(intent);
+					    */
+                        Toast.makeText(MainScreen.getInstance(), "FolderPicker was needed", Toast.LENGTH_LONG).show();
 					}
 
 					return true;
