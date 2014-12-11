@@ -85,7 +85,6 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.util.Log;
-import android.util.Size;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -99,12 +98,6 @@ import android.widget.Toast;
 
 import com.almalence.SwapHeap;
 
-import com.almalence.plugins.capture.bestshot.BestShotCapturePlugin;
-import com.almalence.plugins.capture.burst.BurstCapturePlugin;
-import com.almalence.plugins.capture.expobracketing.ExpoBracketingCapturePlugin;
-import com.almalence.plugins.capture.multishot.MultiShotCapturePlugin;
-import com.almalence.plugins.capture.night.NightCapturePlugin;
-import com.almalence.plugins.capture.preshot.PreshotCapturePlugin;
 import com.almalence.plugins.capture.standard.CapturePlugin;
 import com.almalence.plugins.export.standard.ExportPlugin;
 import com.almalence.plugins.export.standard.GPSTagsConverter;
@@ -113,8 +106,6 @@ import com.almalence.plugins.export.standard.ExifDriver.ExifManager;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueByteArray;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueNumber;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueRationals;
-import com.almalence.plugins.processing.multishot.MultiShotProcessingPlugin;
-import com.almalence.plugins.processing.preshot.PreshotProcessingPlugin;
 import com.almalence.plugins.processing.simple.SimpleProcessingPlugin;
 import com.almalence.plugins.vf.aeawlock.AeAwLockVFPlugin;
 import com.almalence.plugins.vf.barcodescanner.BarcodeScannerVFPlugin;
@@ -335,44 +326,13 @@ public class PluginManager implements PluginManagerInterface
 		pluginList.put(testCapturePlugin.getID(), testCapturePlugin);
 		listCapture.add(testCapturePlugin);
 
-		ExpoBracketingCapturePlugin expoBracketingCapturePlugin = new ExpoBracketingCapturePlugin();
-		pluginList.put(expoBracketingCapturePlugin.getID(), expoBracketingCapturePlugin);
-		listCapture.add(expoBracketingCapturePlugin);
 
-		NightCapturePlugin nightCapturePlugin = new NightCapturePlugin();
-		pluginList.put(nightCapturePlugin.getID(), nightCapturePlugin);
-		listCapture.add(nightCapturePlugin);
-
-		BurstCapturePlugin burstCapturePlugin = new BurstCapturePlugin();
-		pluginList.put(burstCapturePlugin.getID(), burstCapturePlugin);
-		listCapture.add(burstCapturePlugin);
-
-		BestShotCapturePlugin bestShotCapturePlugin = new BestShotCapturePlugin();
-		pluginList.put(bestShotCapturePlugin.getID(), bestShotCapturePlugin);
-		listCapture.add(bestShotCapturePlugin);
-
-		MultiShotCapturePlugin multiShotCapturePlugin = new MultiShotCapturePlugin();
-		pluginList.put(multiShotCapturePlugin.getID(), multiShotCapturePlugin);
-		listCapture.add(multiShotCapturePlugin);
-
-		PreshotCapturePlugin backInTimeCapturePlugin = new PreshotCapturePlugin();
-		pluginList.put(backInTimeCapturePlugin.getID(), backInTimeCapturePlugin);
-		listCapture.add(backInTimeCapturePlugin);
-
-		PreshotProcessingPlugin backInTimeProcessingPlugin = new PreshotProcessingPlugin();
-		pluginList.put(backInTimeProcessingPlugin.getID(), backInTimeProcessingPlugin);
-		listCapture.add(backInTimeProcessingPlugin);
 
 		// Processing
 		SimpleProcessingPlugin simpleProcessingPlugin = new SimpleProcessingPlugin();
 		pluginList.put(simpleProcessingPlugin.getID(), simpleProcessingPlugin);
 		listProcessing.add(simpleProcessingPlugin);
 
-		MultiShotProcessingPlugin multiShotProcessingPlugin = new MultiShotProcessingPlugin();
-		pluginList.put(multiShotProcessingPlugin.getID(), multiShotProcessingPlugin);
-		listProcessing.add(multiShotProcessingPlugin);
-
-		// Filter
 
 		// Export
 		ExportPlugin testExportPlugin = new ExportPlugin();
