@@ -19,7 +19,7 @@
 		<sku/>
 		<howtotext  id=""/>
 	</mode>
-
+<!--
 	<mode id="expobracketing" name="expobracketing_mode_name"  savename="BKT">
 	    <icon		id="gui_almalence_mode_expobracketing"/>
 	    <vf 		id="com.almalence.plugins.gridvf"/>
@@ -50,5 +50,5 @@
 		<sku		id="plugin_almalence_multishot"/>
 		<howtotext  id=""/>
 	</mode>
-
+-->
 </config>	

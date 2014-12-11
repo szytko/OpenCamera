@@ -588,12 +588,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 				put(iso3200_2, CameraParameters.ISO_3200);
 			}
 		};
-
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mainContext);
-
-		String modeID = PluginManager.getInstance().getActiveModeID();
-
-
 	}
 
 
@@ -687,10 +681,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 	}
 
 	/* Get different list and maps of camera parameters */
-	public static List<Integer> getIsoValuesList()
-	{
-		return iso_values;
-	}
 
 	public static List<String> getIsoDefaultList()
 	{
@@ -702,10 +692,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 		return key_iso;
 	}
 
-	public static Map<Integer, Integer> getIsoModeHALv3()
-	{
-		return mode_iso_HALv3;
-	}
 
 	/* ^^^ Get different list and maps of camera parameters */
 
@@ -725,20 +711,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 		return pviewBuffer;
 	}
 
-	/* ^^^ Preview buffer methods */
 
-
-	public static void needCameraRelaunch(boolean relaunch)
-	{
-		needRelaunch = relaunch;
-	}
-	
-	public static boolean isCameraRelaunch()
-	{
-		return needRelaunch;
-	}
-	
-	
 	public static boolean isSuperModePossible()
 	{
 		boolean SuperModeOk = false;
@@ -831,10 +804,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 
 
 		pluginManager.selectImageDimension(); // updates SX, SY values
-
-		// if (CameraController.isHALv3)
-		// HALv3.setupImageReadersHALv3();
-
 
 			Message msg = new Message();
 			msg.what = PluginManager.MSG_CAMERA_READY;
@@ -1240,26 +1209,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 	}
 
 	// ------------ CAMERA PARAMETERS AND CAPABILITIES
-	// SECTION-------------------------------------------
-	public static boolean isAutoExposureLockSupported()
-	{
-		return false;
-	}
 
-	public static boolean isAutoWhiteBalanceLockSupported()
-	{
-		return false;
-	}
-
-	/*
-	 * CAMERA parameters access functions
-	 * 
-	 * Camera.Parameters get/set Camera scene modes getSupported/set Camera
-	 * white balance getSupported/set Camera focus modes getSupported/set Camera
-	 * flash modes getSupported/set
-	 * 
-	 * For API14 Camera focus areas get/set Camera metering areas get/set
-	 */
 	public static boolean isFrontCamera()
 	{
 		return CameraMirrored;
@@ -2255,36 +2205,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 		setCameraParameters(cp);
 	}
 
-	public static float getHorizontalViewAngle()
-	{
-
-			if (camera != null)
-				return camera.getParameters().getHorizontalViewAngle();
-
-
-		return 55.4f;
-	}
-
-	public static float getVerticalViewAngle()
-	{
-
-			if (camera != null)
-				return camera.getParameters().getVerticalViewAngle();
-
-			
-
-
-		return 42.7f;
-	}
-
-	// ^^^^^^^^^^^ CAMERA PARAMETERS AND CAPABILITIES
-	// SECTION---------------------------------------------
-
-	// ------------ CAPTURE AND FOCUS FUNCTION ----------------------------
-
-	// Experimental code to take multiple images. Works only with HALv3
-	// interface in API 19(currently minimum API version for Android L increased
-	// to 21)
 	protected static int[]		pauseBetweenShots	= null;
 	protected static int[]		evValues			= null;
 
@@ -2323,31 +2243,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 
 	}
 
-	public static boolean autoFocus(Camera.AutoFocusCallback listener)
-	{
-		synchronized (SYNC_OBJECT)
-		{
-
-				if (CameraController.getCamera() != null
-						&& CameraController.mCaptureState != CameraController.CAPTURE_STATE_CAPTURING)
-				{
-					CameraController.setFocusState(CameraController.FOCUS_STATE_FOCUSING);
-					try
-					{
-						CameraController.getCamera().autoFocus(listener);
-					} catch (Exception e)
-					{
-						e.printStackTrace();
-						Log.e(TAG, "autoFocus: " + e.getMessage());
-						return false;
-					}
-					return true;
-				}
-
-
-			return false;
-		}
-	}
 
 	public static boolean autoFocus()
 	{
