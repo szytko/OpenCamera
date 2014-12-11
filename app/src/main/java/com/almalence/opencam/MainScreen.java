@@ -1727,17 +1727,8 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 				surfaceList.add(mImageReaderRAW.getSurface());
 		}
 
-		// sfl.add(mImageReaderJPEG.getSurface());
 		CameraController.setPreviewSurface(mImageReaderPreviewYUV.getSurface());
 
-//		guiManager.setupViewfinderPreviewSize(new CameraController.Size(this.previewWidth, this.previewHeight));
-		// guiManager.setupViewfinderPreviewSize(new CameraController.Size(1280,
-		// 960));
-
-		CameraController.setCaptureFormat(captureFormat);
-		// configure camera with all the surfaces to be ever used
-
-		CameraController.createCaptureSession(surfaceList);
 	}
 
 	private void prepareMeteringAreas()

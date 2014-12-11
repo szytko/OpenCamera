@@ -2410,10 +2410,7 @@ public class PluginManager implements PluginManagerInterface
 						}
 					}
 				}
-				else if(format != null && format.equalsIgnoreCase("dng"))
-				{
-					saveDNGPicture(i, sessionID, os, x, y, orientation, cameraMirrored);
-				}
+
 				else
 				{// if result in nv21 format
 					int yuv = Integer.parseInt(getFromSharedMem("resultframe" + i + Long.toString(sessionID)));
@@ -3106,52 +3103,7 @@ public class PluginManager implements PluginManagerInterface
 		}
 	}
 	
-	@TargetApi(21)
-	public void saveDNGPicture(int frameNum, long sessionID, OutputStream os, int width, int height, int orientation, boolean cameraMirrored)
-	{
-		DngCreator creator = new DngCreator(CameraController.getCameraCharacteristics(),
-											this.getFromRAWCaptureResults("captureResult" + frameNum + sessionID));
-		byte[] frame = SwapHeap.SwapFromHeap(
-				Integer.parseInt(getFromSharedMem("resultframe" + frameNum + Long.toString(sessionID))),
-				Integer.parseInt(getFromSharedMem("resultframelen" + frameNum + Long.toString(sessionID))));
-		
-		ByteBuffer buff = ByteBuffer.allocateDirect(frame.length);
-		buff.put(frame);
-		
-		int exif_orientation = ExifInterface.ORIENTATION_NORMAL;
-		switch ((orientation + additionalRotationValue + 360) % 360)
-		{
-		default:
-		case 0:
-			exif_orientation = ExifInterface.ORIENTATION_NORMAL;
-			break;
-		case 90:
-			exif_orientation = cameraMirrored ? ExifInterface.ORIENTATION_ROTATE_270
-					: ExifInterface.ORIENTATION_ROTATE_90;
-			break;
-		case 180:
-			exif_orientation = ExifInterface.ORIENTATION_ROTATE_180;
-			break;
-		case 270:
-			exif_orientation = cameraMirrored ? ExifInterface.ORIENTATION_ROTATE_90
-					: ExifInterface.ORIENTATION_ROTATE_270;
-			break;
-		}
-		
-		try
-		{
-			creator.setOrientation(exif_orientation);
-			creator.writeByteBuffer(os, new Size(width, height), buff , 0);
-		}
-		catch (IOException e)
-		{
-			creator.close();
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		creator.close();
-	}
+
 
 	private void rotateImage(File file, Matrix matrix)
 	{

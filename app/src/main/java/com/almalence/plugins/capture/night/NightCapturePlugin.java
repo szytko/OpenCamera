@@ -130,21 +130,9 @@ public class NightCapturePlugin extends PluginCapture
 	public void onCreate()
 	{
 		usingCamera2API = CameraController.isUseHALv3(); 
-		usingSuperMode = CameraController.isUseSuperMode();
 
-		if (usingSuperMode)
-		{
-			CameraCharacteristics camCharacter = CameraController.getCameraCharacteristics();
-			minExposure = camCharacter.get(CameraCharacteristics.SENSOR_INFO_EXPOSURE_TIME_RANGE).getLower();
-			minSensitivity = camCharacter.get(CameraCharacteristics.SENSOR_INFO_SENSITIVITY_RANGE).getLower();
-			if (minExposure < 1000) minExposure = 1000; // not expecting minimum exposure to be below 1usec
-			if (minSensitivity < 25) minSensitivity = 25; // not expecting minimum sensitivity to be below ISO25
-			//Log.i("NightCapturePlugin", "minSensitivity: "+minSensitivity+" minExposure: "+minExposure+"ns");
-		}
-		else
-		{
-			cameraPreview = new GLCameraPreview(MainScreen.getMainContext());
-		}
+		cameraPreview = new GLCameraPreview(MainScreen.getMainContext());
+
 		
 		nightVisionLayerShowPref = MainScreen.getAppResources().getString(R.string.NightVisionLayerShow);
 		nightCaptureFocusPref = MainScreen.getAppResources().getString(R.string.NightCaptureFocusPref);
