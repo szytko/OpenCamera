@@ -22,8 +22,6 @@ by Almalence Inc. All Rights Reserved.
 // <!-- -+-
 package com.almalence.opencam;
 
-//-+- -->
-
 public abstract class PluginViewfinder extends Plugin
 {
 	public PluginViewfinder(String ID, int preferenceID, int advancedPreferenceID, int quickControlID,

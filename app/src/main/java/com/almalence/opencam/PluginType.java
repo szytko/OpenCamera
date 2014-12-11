@@ -22,8 +22,6 @@ by Almalence Inc. All Rights Reserved.
 // <!-- -+-
 package com.almalence.opencam;
 
-//-+- -->
-
 /***
  * Currently available plugin types
  ***/

@@ -42,8 +42,6 @@ public class Preferences extends PreferenceActivity
 {
 	public static PreferenceActivity	thiz;
 
-	// Called only on Honeycomb and later
-	// loading headers for common and plugins
 	@Override
 	public void onResume()
 	{
@@ -63,30 +61,20 @@ public class Preferences extends PreferenceActivity
 
 	}
 
-	public static void closePrefs()
-	{
-		thiz.finish();
-	}
-
 	public static void setScreenBrightness(boolean setMax)
 	{
 		try
 		{
 			Window window = thiz.getWindow();
-			WindowManager.LayoutParams layoutpars = window.getAttributes();
+			WindowManager.LayoutParams layoutParams = window.getAttributes();
 
-			// Set the brightness of this window
 			if (setMax)
-				layoutpars.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+				layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
 			else
-				layoutpars.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+				layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
 
-			// Apply attribute changes to this window
-			window.setAttributes(layoutpars);
-		} catch (Exception e)
-		{
-
-		}
+			window.setAttributes(layoutParams);
+		} catch (Exception ignored) { }
 	}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)

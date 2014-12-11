@@ -65,11 +65,6 @@ public class CapturePlugin extends PluginCapture {
     public void onResume() {
         inCapture = false;
         aboutToTakePicture = false;
-
-        if (captureRAW)
-            MainScreen.setCaptureFormat(CameraController.RAW);
-        else
-            MainScreen.setCaptureFormat(CameraController.JPEG);
     }
 
     @Override

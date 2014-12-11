@@ -5844,6 +5844,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		return false;
 	}
 
+    /*
 	private int getRelativeLeft(View myView)
 	{
 		if (myView.getParent() == myView.getRootView())
@@ -5859,7 +5860,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		else
 			return myView.getTop() + getRelativeTop((View) myView.getParent());
 	}
-
+    */
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
 	{
@@ -6030,10 +6031,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 			// -+- -->
 		}
 
-		if (keyCode == KeyEvent.KEYCODE_CAMERA /*
-												 * || keyCode ==
-												 * KeyEvent.KEYCODE_DPAD_CENTER
-												 */)
+		if (keyCode == KeyEvent.KEYCODE_CAMERA)
 		{
 			if (settingsControlsVisible || quickControlsChangeVisible || modeSelectorVisible)
 			{

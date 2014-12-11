@@ -4,7 +4,7 @@
 //<!-- -+-
 package com.almalence.opencam;
 
-//-+- -->
+
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -24,10 +24,6 @@ import android.util.Log;
 
 //<!-- -+-
 import com.almalence.opencam.ui.SelfTimerAndPhotoTimeLapse;
-//-+- -->
-/* <!-- +++
- import com.almalence.opencam_plus.ui.SelfTimerAndPhotoTimeLapse;
- +++ --> */
 
 public class AlarmReceiver extends BroadcastReceiver
 {
@@ -89,9 +85,7 @@ public class AlarmReceiver extends BroadcastReceiver
 			{
 				takePicture();
 			}
-		} catch (NullPointerException e)
-		{
-		}
+		} catch (NullPointerException ignored){}
 	}
 
 	public void takePicture()
@@ -147,7 +141,7 @@ public class AlarmReceiver extends BroadcastReceiver
 
 		Editor e = prefs.edit();
 		e.putInt(MainScreen.sPhotoTimeLapseCount, prefs.getInt(MainScreen.sPhotoTimeLapseCount, 0) + 1);
-		e.commit();
+		e.apply();
 		this.setAlarm(context, pauseBetweenShots);
 
 		ComponentName receiver = new ComponentName(context, AlarmReceiver.class);

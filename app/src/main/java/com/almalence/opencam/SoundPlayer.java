@@ -110,20 +110,6 @@ public class SoundPlayer implements Runnable
 		mAudioStreamType = AudioManager.STREAM_MUSIC;
 	}
 
-	public SoundPlayer(Context mContext, AssetFileDescriptor afd, boolean enforceAudible)
-	{
-		this.mContext = mContext;
-
-		mAfd = afd;
-		if (enforceAudible)
-		{
-			mAudioStreamType = 7;
-		} else
-		{
-			mAudioStreamType = AudioManager.STREAM_MUSIC;
-		}
-	}
-
 	public void play()
 	{
 		if (mThread == null)
@@ -150,9 +136,7 @@ public class SoundPlayer implements Runnable
 			try
 			{
 				mThread.join();
-			} catch (InterruptedException e)
-			{
-			}
+			} catch (InterruptedException ignored){}
 			mThread = null;
 		}
 		if (mAfd != null)
@@ -160,9 +144,7 @@ public class SoundPlayer implements Runnable
 			try
 			{
 				mAfd.close();
-			} catch (IOException e)
-			{
-			}
+			} catch (IOException ignored){}
 			mAfd = null;
 		}
 		if (mPlayer != null)
