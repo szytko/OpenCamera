@@ -70,7 +70,6 @@ public class NightCapturePlugin extends PluginCapture
 	// shared between activities
 	private static int			total_frames;
 
-	private boolean             usingCamera2API;
 	private boolean             usingSuperMode;
 	
 	private boolean             takingImageForExposure;
@@ -129,7 +128,6 @@ public class NightCapturePlugin extends PluginCapture
 	@TargetApi(21)
 	public void onCreate()
 	{
-		usingCamera2API = CameraController.isUseHALv3(); 
 
 		cameraPreview = new GLCameraPreview(MainScreen.getMainContext());
 
@@ -459,12 +457,9 @@ public class NightCapturePlugin extends PluginCapture
 
 		LinearLayout bottom_layout = (LinearLayout) MainScreen.getInstance().findViewById(R.id.mainButtons);
 
-		if (!usingCamera2API)
-		{
 			capturingDialog = Toast.makeText(MainScreen.getInstance(), R.string.hold_still, Toast.LENGTH_SHORT);
 			capturingDialog.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, bottom_layout.getHeight());
 			capturingDialog.show();
-		}
 
 		// reiniting for every shutter press
 		imagesTaken = 0;

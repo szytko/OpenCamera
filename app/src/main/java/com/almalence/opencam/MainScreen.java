@@ -939,10 +939,8 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 
 		if (cp != null)
 		{
-			if (!CameraController.isHALv3Supported())
 				cp.setEnabled(false);
-			else
-				cp.setEnabled(true);
+
 
 			cp.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
 			{
@@ -991,10 +989,8 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 				}
 			});
 
-			if (CameraController.isRAWCaptureSupported() && CameraController.isUseHALv3())
-				fp.setEnabled(true);
-			else
-				fp.setEnabled(false);
+
+			fp.setEnabled(false);
 		}
 	}
 
@@ -1062,8 +1058,7 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 		PluginManager.getInstance().onStop();
 		CameraController.onStop();
 
-		if (CameraController.isUseHALv3())
-			stopImageReaders();
+
 	}
 
 	@TargetApi(21)
@@ -1154,34 +1149,13 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 
 					captureRAW = prefs.getBoolean(MainScreen.sCaptureRAWPref, false);
 
-					CameraController.useHALv3(prefs.getBoolean(getResources()
-							.getString(R.string.Preference_UseHALv3Key), CameraController.isNexus() ? true : false));
-					prefs.edit()
-							.putBoolean(getResources().getString(R.string.Preference_UseHALv3Key),
-									CameraController.isUseHALv3()).commit();
-
-					// Log.e("MainScreen",
-					// "onResume. CameraController.setSurfaceHolderFixedSize(0, 0)");
-					CameraController.setSurfaceHolderFixedSize(1, 1);
 
 					MainScreen.getGUIManager().onResume();
 					PluginManager.getInstance().onResume();
 					CameraController.onResume();
 					MainScreen.thiz.mPausing = false;
 
-					if (CameraController.isUseHALv3())
-					{
-						MainScreen.thiz.findViewById(R.id.mainLayout2).setVisibility(View.VISIBLE);
-						Log.d("MainScreen", "onResume: CameraController.setupCamera(null)");
-						CameraController.setupCamera(null);
-
-						if (glView != null)
-						{
-							glView.onResume();
-							Log.d("GL", "glView onResume");
-						}
-					} else if ((surfaceCreated && (!CameraController.isCameraCreated())) ||
-					// this is for change mode without camera restart!
+					if ((surfaceCreated && (!CameraController.isCameraCreated())) ||
 							(surfaceCreated && MainScreen.getInstance().getSwitchingMode()))
 					{
 						MainScreen.thiz.findViewById(R.id.mainLayout2).setVisibility(View.VISIBLE);
@@ -1225,26 +1199,6 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 					.clearFlags(
 							WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
 									| WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-	}
-
-	public void relaunchCamera()
-	{
-		if (CameraController.isUseHALv3())
-		{
-			new CountDownTimer(100, 100)
-			{
-				public void onTick(long millisUntilFinished)
-				{
-					// Not used
-				}
-
-				public void onFinish()
-				{
-					PluginManager.getInstance().switchMode(
-							ConfigParser.getInstance().getMode(PluginManager.getInstance().getActiveModeID()));
-				}
-			}.start();
-		}
 	}
 
 	private long getAvailableInternalMemory()
@@ -1304,9 +1258,6 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 		// switchingMode);
 		CameraController.onPause(switchingMode);
 		switchingMode = false;
-
-		if (CameraController.isUseHALv3())
-			stopImageReaders();
 
 		this.findViewById(R.id.mainLayout2).setVisibility(View.INVISIBLE);
 
@@ -1368,15 +1319,7 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 						MainScreen.thiz.findViewById(R.id.mainLayout2).setVisibility(View.VISIBLE);
 						Log.d("MainScreen", "surfaceChanged: CameraController.setupCamera(null). SurfaceSize = "
 								+ width + "x" + height);
-						if (!CameraController.isUseHALv3())
-						{
-							CameraController.setupCamera(holder);
-						} else
-						{
-							// CameraController.setupCamera(null);
-							Log.e("MainScreen", "surfaceChanged: sendEmptyMessage(PluginManager.MSG_SURFACE_READY)");
-							messageHandler.sendEmptyMessage(PluginManager.MSG_SURFACE_READY);
-						}
+						CameraController.setupCamera(holder);
 					}
 				}
 			}.start();
@@ -1473,16 +1416,9 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 		if (!MainScreen.thiz.mPausing && surfaceCreated && (!CameraController.isCameraCreated()))
 		{
 			MainScreen.thiz.findViewById(R.id.mainLayout2).setVisibility(View.VISIBLE);
+            Log.d("MainScreen", "surfaceChangedMain: CameraController.setupCamera(null)");
+			CameraController.setupCamera(holder);
 
-			if (CameraController.isUseHALv3())
-			{
-				// CameraController.setupCamera(null);
-				messageHandler.sendEmptyMessage(PluginManager.MSG_SURFACE_READY);
-			} else
-			{
-				Log.d("MainScreen", "surfaceChangedMain: CameraController.setupCamera(null)");
-				CameraController.setupCamera(holder);
-			}
 		}
 	}
 
@@ -1505,14 +1441,7 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 		// full-size image
 		PluginManager.getInstance().setCameraPreviewSize();
 		// prepare list of surfaces to be used in capture requests
-		if (CameraController.isUseHALv3())
-		{
-			// Log.e("MainScreen",
-			// "configureCamera. Set isCameraConfiguring to TRUE");
-			// isCameraConfiguring = true;
-			configureHALv3Camera(captureFormat);
-		} else
-		{
+
 			Camera.Size sz = CameraController.getCameraParameters().getPreviewSize();
 
 			Log.e("MainScreen", "Viewfinder preview size: " + sz.width + "x" + sz.height);
@@ -1523,7 +1452,7 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 			CameraController.getCamera().setErrorCallback(CameraController.getInstance());
 
 			PluginManager.getInstance().sendMessage(PluginManager.MSG_CAMERA_CONFIGURED, 0);
-		}
+
 	}
 
 	private void onCameraConfigured()
@@ -1532,8 +1461,6 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 
 		Camera.Parameters cp = CameraController.getCameraParameters();
 
-		if (!CameraController.isUseHALv3())
-		{
 			try
 			{
 				// Nexus 5 is giving preview which is too dark without this
@@ -1554,8 +1481,6 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 				previewHeight = cp.getPreviewSize().height;
 			}
 
-		}
-
 		try
 		{
 			Util.initialize(mainContext);
@@ -1567,12 +1492,11 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 
 		prepareMeteringAreas();
 
-		if (!CameraController.isUseHALv3())
-		{
+
 			guiManager.onCameraCreate();
 			PluginManager.getInstance().onCameraParametersSetup();
 			guiManager.onPluginsInitialized();
-		}
+
 
 		// ----- Start preview and setup frame buffer if needed
 
@@ -1582,8 +1506,7 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 			@Override
 			public void onFinish()
 			{
-				if (!CameraController.isUseHALv3())
-				{
+
 					if (!CameraController.isCameraCreated())
 						return;
 					// exceptions sometimes happen here when resuming after
@@ -1599,12 +1522,7 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 
 					CameraController.getCamera().setPreviewCallbackWithBuffer(CameraController.getInstance());
 					CameraController.getCamera().addCallbackBuffer(CameraController.getPreviewBuffer());
-				} else
-				{
-					guiManager.onCameraCreate();
-					PluginManager.getInstance().onCameraParametersSetup();
-					guiManager.onPluginsInitialized();
-				}
+
 
 				PluginManager.getInstance().onCameraSetup();
 				guiManager.onCameraSetup();
@@ -1620,74 +1538,6 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 				// Not used
 			}
 		}.start();
-	}
-
-	@TargetApi(21)
-	private void configureHALv3Camera(int captureFormat)
-	{
-		isCameraConfiguring = true;
-
-		surfaceList = new ArrayList<Surface>();
-
-		// Log.d("MainScreen",
-		// "configureHALv3Camera. mImageReaderPreviewYUV size = " +
-		// mImageReaderPreviewYUV.getWidth() + " x " +
-		// mImageReaderPreviewYUV.getHeight());
-		Log.e("MainScreen", "configureHALv3Camera. surfaceHolder size = " + surfaceWidth + " x " + surfaceHeight);
-
-		// surfaceHolder.setFixedSize(surfaceWidth, surfaceHeight);
-		CameraController.setSurfaceHolderFixedSize(surfaceWidth, surfaceHeight);
-		// surfaceHolder.setFixedSize(1280, 960);
-		// mCameraSurface = surfaceHolder.getSurface();
-		// surfaceList.add(mCameraSurface); // surface for viewfinder preview
-		//
-		// if(captureFormat != CameraController.RAW) //when capture RAW preview
-		// frames is not available
-		// surfaceList.add(mImageReaderPreviewYUV.getSurface()); // surface for
-		// preview yuv
-		// // images
-		// if (captureFormat == CameraController.YUV)
-		// {
-		// Log.d("MainScreen", "add mImageReaderYUV " +
-		// mImageReaderYUV.getWidth() + " x " + mImageReaderYUV.getHeight());
-		// surfaceList.add(mImageReaderYUV.getSurface()); // surface for yuv
-		// image
-		// // capture
-		// } else if(captureFormat == CameraController.JPEG)
-		// {
-		// Log.d("MainScreen", "add mImageReaderJPEG " +
-		// mImageReaderJPEG.getWidth() + " x " + mImageReaderJPEG.getHeight());
-		// surfaceList.add(mImageReaderJPEG.getSurface()); // surface for jpeg
-		// image
-		// // capture
-		// }
-		// else if(captureFormat == CameraController.RAW)
-		// {
-		// Log.d("MainScreen", "add mImageReaderRAW + mImageReaderJPEG " +
-		// mImageReaderRAW.getWidth() + " x " + mImageReaderRAW.getHeight());
-		// surfaceList.add(mImageReaderJPEG.getSurface()); // surface for jpeg
-		// image
-		// // capture
-		// if(CameraController.isRAWCaptureSupported())
-		// surfaceList.add(mImageReaderRAW.getSurface());
-		// }
-		//
-		// // sfl.add(mImageReaderJPEG.getSurface());
-		// CameraController.setPreviewSurface(mImageReaderPreviewYUV.getSurface());
-		//
-		// guiManager.setupViewfinderPreviewSize(new
-		// CameraController.Size(this.previewWidth, this.previewHeight));
-		// // guiManager.setupViewfinderPreviewSize(new
-		// CameraController.Size(1280, 960));
-		//
-		// CameraController.setCaptureFormat(captureFormat);
-		// // configure camera with all the surfaces to be ever used
-		// // CameraController.createCaptureSession(sfl);
-		//
-		// // isCameraConfiguring = false;
-
-		// ^^ HALv3 code
-		// -------------------------------------------------------------------
 	}
 
 	@TargetApi(21)
@@ -2046,12 +1896,10 @@ public class MainScreen extends Activity implements ApplicationInterface, View.O
 				if (surfaceCreated)
 				{
 					configureCamera();
-					if (!CameraController.isUseHALv3())
-					{
+
 						PluginManager.getInstance().onGUICreate();
 						MainScreen.getGUIManager().onGUICreate();
 						// mCameraStarted = true;
-					}
 					mCameraStarted = true;
 				}
 			}
