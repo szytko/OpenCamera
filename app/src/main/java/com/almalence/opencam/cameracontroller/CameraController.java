@@ -895,6 +895,8 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 				cameraController.mVideoStabilizationSupported = getVideoStabilizationSupported();
 
+            // I think it is not needed
+            /*
 			// screen rotation
 			if (!pluginManager.shouldPreviewToGPU())
 			{
@@ -916,6 +918,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 					e.printStackTrace();
 				}
 			}
+			*/
 		} else
 			HALv3.openCameraHALv3();
 

@@ -36,7 +36,7 @@ public class GPSTagsConverter
 	/**
 	 * returns ref for latitude which is S or N.
 	 * 
-	 * @param latitude
+	 * @param longitude
 	 * @return S or N
 	 */
 	public static String longitudeRef(double longitude)
