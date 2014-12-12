@@ -74,6 +74,7 @@
 	    android:layout_alignParentBottom="true">
 
     <!-- android:src="@drawable/gui_almalence_gallery" -->
+          <!--
           	<RelativeLayout android:id="@+id/gallery_control"
             android:layout_weight="1"
 			android:layout_width="match_parent"
@@ -113,7 +114,7 @@
 				</ImageView>
 				</LinearLayout>
 			</RelativeLayout>
-		
+		-->
           	<LinearLayout 
           	    android:layout_height="@dimen/shutterHeight"
 	 	 	    android:layout_width="match_parent"
@@ -146,7 +147,8 @@
 					
 	 	 	   </LinearLayout>	 	
 		 	</LinearLayout>	 	
-		 	
+
+          <!--
 	 	 	<LinearLayout android:layout_height="@dimen/paramsLayoutHeight"
 	 	 	    android:layout_width="match_parent"
 	 	 	    android:orientation="vertical"
@@ -163,6 +165,7 @@
 			   		android:onClick="onButtonClick">
 			 	</com.almalence.ui.RotateImageView>
 		 	</LinearLayout>
+		 -->
  	</LinearLayout>
  	
 

@@ -43,38 +43,7 @@
     <favorites_list name="open-camera" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="PluginType.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.04" vertical-offset="0" max-vertical-offset="750">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PluginProcessing.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginProcessing.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PluginManagerInterface.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginManagerInterface.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-              <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -669,7 +638,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/MainScreen_old.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/plugins/capture/standard/CapturePlugin.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/MainScreen.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/ui/Panel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/SoundPlayer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/Preferences.java" />
@@ -678,6 +646,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginProcessing.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginManagerInterface.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/AlarmReceiver.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/gui_almalence_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-large/gui_almalence_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xlarge/gui_almalence_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java" />
       </list>
     </option>
   </component>
@@ -712,8 +684,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -774,6 +744,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -880,7 +851,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -906,16 +877,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-hdpi" />
+              <option name="myItemId" value="almalence" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1136,7 +1108,7 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908913" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23800196" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23800196" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3222331" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1144,14 +1116,14 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2575906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1439765" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35161605" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908913" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24068157" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24068157" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.10479922" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1284,25 +1256,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java</url>
-          <line>3925</line>
+          <line>3930</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java</url>
-          <line>3928</line>
+          <line>3933</line>
           <properties />
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java</url>
-          <line>6082</line>
+          <line>6087</line>
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java</url>
-          <line>6092</line>
+          <line>6097</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
@@ -1311,56 +1283,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xlarge/gui_almalence_store_grid_element.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="1140">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/plugins/vf/focus/FocusVFPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="11716" max-vertical-offset="12675">
-          <caret line="868" column="39" selection-start-line="868" selection-start-column="39" selection-end-line="868" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/CameraParameters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="181" max-vertical-offset="1215">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android_sdk/sdk/sources/android-21/android/hardware/Camera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="1244" max-vertical-offset="61365">
-          <caret line="140" column="13" selection-start-line="140" selection-start-column="13" selection-end-line="140" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="795">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/plugins/vf/barcodescanner/BarcodeScannerVFPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3977" max-vertical-offset="7995">
-          <caret line="359" column="9" selection-start-line="359" selection-start-column="9" selection-end-line="359" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/Mode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="1080">
@@ -1429,19 +1351,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3328841" vertical-offset="29753" max-vertical-offset="89820">
           <caret line="2142" column="16" selection-start-line="2142" selection-start-column="16" selection-end-line="2142" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/opencamera_main_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2937063" vertical-offset="0" max-vertical-offset="715">
           <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/Fragment.java">
@@ -1484,14 +1405,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/googsharing/Thumbnail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60993975" vertical-offset="1650" max-vertical-offset="7500">
-          <caret line="202" column="42" selection-start-line="202" selection-start-column="42" selection-end-line="202" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/asynctaskmanager/Task.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.5813253" vertical-offset="476" max-vertical-offset="1140">
@@ -1529,8 +1442,8 @@
         <state vertical-scroll-proportion="0.33283132" vertical-offset="17389" max-vertical-offset="36990">
           <caret line="1266" column="0" selection-start-line="1266" selection-start-column="0" selection-end-line="1266" selection-end-column="0" />
           <folding>
-            <element signature="e#37350#37373#0" expanded="true" />
-            <element signature="e#38113#38136#0" expanded="true" />
+            <element signature="e#37350#37373#0" expanded="false" />
+            <element signature="e#38113#38136#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1557,7 +1470,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3328841" vertical-offset="12038" max-vertical-offset="16605">
           <caret line="890" column="19" selection-start-line="890" selection-start-column="19" selection-end-line="890" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1565,7 +1477,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1415094" vertical-offset="2333" max-vertical-offset="5535">
           <caret line="227" column="13" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1815,34 +1726,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginProcessing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginManagerInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/ui/RotateDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34" vertical-offset="0" max-vertical-offset="750">
           <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21685083" vertical-offset="758" max-vertical-offset="90300">
-          <caret line="165" column="21" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -1860,7 +1747,7 @@
         <state vertical-scroll-proportion="10.454667" vertical-offset="33634" max-vertical-offset="48915">
           <caret line="2811" column="0" selection-start-line="2811" selection-start-column="0" selection-end-line="2811" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1889,10 +1776,161 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/www/plugin_help_multishot.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/plugin_processing_hdr_adjustments.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.123558484" vertical-offset="0" max-vertical-offset="1455">
+          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/ui/AlmalenceGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8042763" vertical-offset="87231" max-vertical-offset="92385">
+          <caret line="6242" column="0" selection-start-line="6242" selection-start-column="0" selection-end-line="6242" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#41945#42028#0" expanded="true" />
+            <element signature="e#42043#42126#0" expanded="true" />
+            <element signature="e#43244#43357#0" expanded="true" />
+            <element signature="e#43352#43353#0" expanded="true" />
+            <element signature="e#49981#50261#0" expanded="true" />
+            <element signature="e#50254#50255#0" expanded="true" />
+            <element signature="e#50297#50522#0" expanded="true" />
+            <element signature="e#50516#50517#0" expanded="true" />
+            <element signature="e#52486#52599#0" expanded="true" />
+            <element signature="e#52594#52595#0" expanded="true" />
+            <element signature="e#54533#54602#0" expanded="true" />
+            <element signature="e#54886#54955#0" expanded="true" />
+            <element signature="e#132443#132514#0" expanded="true" />
+            <element signature="e#133133#133204#0" expanded="true" />
+            <element signature="e#133834#133905#0" expanded="true" />
+            <element signature="e#134528#134599#0" expanded="true" />
+            <element signature="e#135235#135306#0" expanded="true" />
+            <element signature="e#135938#136009#0" expanded="true" />
+            <element signature="e#136641#136712#0" expanded="true" />
+            <element signature="e#137423#137494#0" expanded="true" />
+            <element signature="e#151354#151418#0" expanded="true" />
+            <element signature="e#151425#151496#0" expanded="true" />
+            <element signature="e#191775#191776#0" expanded="true" />
+            <element signature="e#191831#191832#0" expanded="true" />
+            <element signature="e#191868#191869#0" expanded="true" />
+            <element signature="e#191927#191928#0" expanded="true" />
+            <element signature="e#205440#205441#0" expanded="true" />
+            <element signature="e#205456#205457#0" expanded="true" />
+            <element signature="e#205506#205507#0" expanded="true" />
+            <element signature="e#205522#205523#0" expanded="true" />
+            <element signature="e#206688#206793#0" expanded="true" />
+            <element signature="e#206788#206789#0" expanded="true" />
+            <element signature="e#206911#207145#0" expanded="true" />
+            <element signature="e#207140#207141#0" expanded="true" />
+            <element signature="e#207240#207241#0" expanded="true" />
+            <element signature="e#207261#207262#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/googsharing/Thumbnail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14195584" vertical-offset="0" max-vertical-offset="7500">
+          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/www/features.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.1373534" vertical-offset="679" max-vertical-offset="1635">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04" vertical-offset="0" max-vertical-offset="750">
+        <state vertical-scroll-proportion="0.04731861" vertical-offset="0" max-vertical-offset="634">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/gui_almalence_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30636832" vertical-offset="2162" max-vertical-offset="14925">
+          <caret line="156" column="49" selection-start-line="156" selection-start-column="34" selection-end-line="156" selection-end-column="49" />
+          <folding>
+            <element signature="e#4601#4623#0" expanded="true" />
+            <element signature="e#4962#4984#0" expanded="true" />
+            <element signature="e#5380#5402#0" expanded="true" />
+            <element signature="e#5430#5452#0" expanded="true" />
+            <element signature="e#7088#7115#0" expanded="true" />
+            <element signature="e#7141#7168#0" expanded="true" />
+            <element signature="e#7641#7668#0" expanded="true" />
+            <element signature="e#7694#7721#0" expanded="true" />
+            <element signature="e#8307#8331#0" expanded="true" />
+            <element signature="e#8549#8582#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-large/gui_almalence_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35800344" vertical-offset="2162" max-vertical-offset="14790">
+          <caret line="158" column="56" selection-start-line="158" selection-start-column="39" selection-end-line="158" selection-end-column="56" />
+          <folding>
+            <element signature="e#4596#4618#0" expanded="true" />
+            <element signature="e#7063#7090#0" expanded="true" />
+            <element signature="e#7116#7143#0" expanded="true" />
+            <element signature="e#7616#7643#0" expanded="true" />
+            <element signature="e#7669#7696#0" expanded="true" />
+            <element signature="e#8281#8305#0" expanded="true" />
+            <element signature="e#8522#8555#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xlarge/gui_almalence_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.13253012" vertical-offset="1817" max-vertical-offset="14445">
+          <caret line="116" column="12" selection-start-line="116" selection-start-column="12" selection-end-line="116" selection-end-column="12" />
+          <folding>
+            <element signature="e#4599#4621#0" expanded="true" />
+            <element signature="e#4960#4982#0" expanded="true" />
+            <element signature="e#5378#5400#0" expanded="true" />
+            <element signature="e#5428#5450#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginProcessing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43217665" vertical-offset="71" max-vertical-offset="705">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/almalence/opencam/PluginManagerInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30757096" vertical-offset="0" max-vertical-offset="634">
+          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
           <folding />
         </state>
       </provider>
