@@ -163,7 +163,6 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 	// If quick settings layout is showing now
 
 
-	private SelfTimerAndPhotoTimeLapse			selfTimer;
 
 	// Assoc list for storing association between mode button and mode ID
 	private Map<View, String>					buttonModeViewAssoc;
@@ -1004,8 +1003,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 				PluginManager.getInstance().onOrientationChanged(getDisplayOrientation());
 
-				if (selfTimer != null)
-					selfTimer.setOrientation();
+
 			}
 		};
 	}
@@ -1298,8 +1296,6 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		// add self-timer control
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainScreen.getMainContext());
 		boolean showDelayedCapturePrefCommon = prefs.getBoolean(MainScreen.sShowDelayedCapturePref, false);
-		selfTimer = new SelfTimerAndPhotoTimeLapse();
-		selfTimer.addSelfTimerControl(showDelayedCapturePrefCommon);
 
 		LinearLayout infoLayout = (LinearLayout) guiView.findViewById(R.id.infoLayout);
 		RelativeLayout.LayoutParams infoParams = (RelativeLayout.LayoutParams) infoLayout.getLayoutParams();
@@ -6392,16 +6388,17 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		}.start();
 	}
 
+
 	public void stopCaptureIndication()
 	{
+        /*
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainScreen.getMainContext());
 		boolean photoTimeLapseActive = prefs.getBoolean(MainScreen.sPhotoTimeLapseActivePref, false);
 		if (photoTimeLapseActive) {
 			MainScreen.getInstance().guiManager.setShutterIcon(ShutterButton.DEFAULT);
-			selfTimer.updateTimelapseCount();			
 			return;
 		}
-		
+		*/
 		captureIndication = false;
 		if (!PluginManager.getInstance().getActiveModeID().equals("video"))
 		{
@@ -6411,15 +6408,15 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 	public void showCaptureIndication()
 	{
+        /*
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainScreen.getMainContext());
 		boolean photoTimeLapseActive = prefs.getBoolean(MainScreen.sPhotoTimeLapseActivePref, false);
 		boolean photoTimeLapseIsRunning = prefs.getBoolean(MainScreen.sPhotoTimeLapseIsRunningPref, false);
 		if (photoTimeLapseActive && photoTimeLapseIsRunning) {
 			MainScreen.getInstance().guiManager.setShutterIcon(ShutterButton.TIMELAPSE_ACTIVE);
-			selfTimer.updateTimelapseCount();			
 			return;
 		}
-
+        */
 		new CountDownTimer(400, 200)
 		{
 			public void onTick(long millisUntilFinished)

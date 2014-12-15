@@ -436,6 +436,7 @@ public class PluginManager implements PluginManagerInterface
 				R.anim.plugin_capture_selftimer_countdown);
 		countdownAnimation.setFillAfter(true);
 
+        /*
 		LayoutInflater inflator = MainScreen.getInstance().getLayoutInflater();
 		countdownLayout = (RelativeLayout) inflator.inflate(R.layout.plugin_capture_selftimer_layout, null, false);
 		countdownView = (TextView) countdownLayout.findViewById(R.id.countdown_text);
@@ -443,6 +444,7 @@ public class PluginManager implements PluginManagerInterface
 		photoTimeLapseLayout = (RelativeLayout) inflator.inflate(R.layout.plugin_capture_photo_timelapse_layout, null,
 				false);
 		photoTimeLapseView = (TextView) photoTimeLapseLayout.findViewById(R.id.photo_timelapse_text);
+		*/
 	}
 
 	// parse config to get camera and modes configurations
@@ -674,13 +676,14 @@ public class PluginManager implements PluginManagerInterface
 
 		isRestarting = true;
 
-		MainScreen.getGUIManager().removeViews(countdownLayout, R.id.specialPluginsLayout);
+		//MainScreen.getGUIManager().removeViews(countdownLayout, R.id.specialPluginsLayout);
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT);
 
 		params.addRule(RelativeLayout.CENTER_IN_PARENT);
 
+        /*
 		((RelativeLayout) MainScreen.getInstance().findViewById(R.id.specialPluginsLayout)).addView(
 				this.countdownLayout, params);
 
@@ -689,17 +692,20 @@ public class PluginManager implements PluginManagerInterface
 		this.countdownLayout.setVisibility(View.INVISIBLE);
 
 		MainScreen.getGUIManager().removeViews(photoTimeLapseLayout, R.id.specialPluginsLayout);
-
+        *
+        */
 		params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
 		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
+        /*
 		((RelativeLayout) MainScreen.getInstance().findViewById(R.id.specialPluginsLayout)).addView(
 				this.photoTimeLapseLayout, params);
 
 		this.photoTimeLapseLayout.setLayoutParams(params);
 		this.photoTimeLapseLayout.requestLayout();
 		this.photoTimeLapseLayout.setVisibility(View.INVISIBLE);
+		*/
 	}
 
 	private boolean	isUserClicked	= true;
@@ -2005,11 +2011,11 @@ public class PluginManager implements PluginManagerInterface
 	final Handler			countdownHandler				= new Handler();
 	final Handler			finalcountdownHandler			= new Handler();
 
-	private RelativeLayout	countdownLayout					= null;
-	private TextView		countdownView					= null;
+	//private RelativeLayout	countdownLayout					= null;
+	//private TextView		countdownView					= null;
 
-	private RelativeLayout	photoTimeLapseLayout			= null;
-	private TextView		photoTimeLapseView				= null;
+	//private RelativeLayout	photoTimeLapseLayout			= null;
+	//private TextView		photoTimeLapseView				= null;
 
 	private Animation		countdownAnimation				= null;
 
@@ -2030,12 +2036,13 @@ public class PluginManager implements PluginManagerInterface
 		{
 			public void onTick(long millisUntilFinished)
 			{
+                /*
 				countdownView.setRotation(90 - MainScreen.getOrientation());
 				countdownView.setText(String.valueOf(millisUntilFinished / 1000));
 				countdownView.clearAnimation();
 				countdownLayout.setVisibility(View.VISIBLE);
 				countdownView.startAnimation(countdownAnimation);
-
+                */
 				if (!delayedCaptureFlashPrefCommon && !delayedCaptureSoundPrefCommon)
 					return;
 
@@ -2061,9 +2068,10 @@ public class PluginManager implements PluginManagerInterface
 
 			public void onFinish()
 			{
+                /*
 				countdownView.clearAnimation();
 				countdownLayout.setVisibility(View.GONE);
-
+                */
 				countdownHandler.removeCallbacks(flashOff);
 				finalcountdownHandler.removeCallbacks(flashBlink);
 				if (delayedCaptureFlashPrefCommon)

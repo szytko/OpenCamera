@@ -23,7 +23,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 //<!-- -+-
-import com.almalence.opencam.ui.SelfTimerAndPhotoTimeLapse;
+//import com.almalence.opencam.ui.SelfTimerAndPhotoTimeLapse;
 
 public class AlarmReceiver extends BroadcastReceiver
 {
@@ -120,7 +120,7 @@ public class AlarmReceiver extends BroadcastReceiver
 			return;
 		}
 
-		pauseBetweenShots = Long.parseLong(SelfTimerAndPhotoTimeLapse.stringTimelapseInterval[pauseBetweenShotsVal]);
+		pauseBetweenShots = 1;
 
 		pauseBetweenShotsMeasurment = prefs.getInt(MainScreen.sPhotoTimeLapseCaptureIntervalMeasurmentPref, 0);
 
