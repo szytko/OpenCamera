@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
+
+    lintOptions {
+        abortOnError false
+    }
+
+    sourceSets.main {
+        jniLibs.srcDir 'src/main/libs'
+        jni.srcDirs = []
+    }
+
+    defaultConfig {
+        //applicationId "com.almalence.opencam"
+        minSdkVersion 14
+        targetSdkVersion 21
+
+        ndk {
+            moduleName "gomp"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+}
+configurations {
+    all*.exclude group: 'com.android.support', module: 'support-v4'
+}
+
+dependencies {
+    compile files('libs/android-support-v13.jar')
+    //compile files('libs/androidexiv2.jar')
+    //compile files('libs/aspectjrt-1.7.3.jar')
+    //compile files('libs/isoparser-1.0.2.jar')
+    //compile files('libs/openiab-0.9.7.2.jar')
+
+    compile group: 'me.dm7.barcodescanner',
+            name:'zxing',
+            version: '1.5'
+}

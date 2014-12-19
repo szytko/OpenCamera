@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/guiAlmalenceLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/changeModeToast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/selectModeIcon"
+            android:layout_width="@dimen/mainButtonHeight"
+            android:layout_height="@dimen/mainButtonHeight"
+            android:layout_gravity="center_vertical|left"
+            android:background="@android:color/transparent"
+            android:paddingBottom="2dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:scaleType="fitXY"></com.almalence.ui.RotateImageView>
+
+        <TextView
+            android:id="@+id/selectModeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/selectModeIcon"
+            android:gravity="center"
+            android:paddingBottom="2dp"
+            android:paddingRight="4dp"
+            android:paddingTop="2dp"
+            android:textSize="@dimen/blockingTitleSize" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/blockingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#97000000"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/blockingText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/blockingText"
+            android:textSize="@dimen/blockingTitleSize" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/postprocessingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:visibility="gone"></RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/mainButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/blacktransparentlayerbottom"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shutterHeight"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/buttonShutterContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/shutterHeight"
+                android:layout_gravity="center"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <com.almalence.ui.RotateImageView
+                    android:id="@+id/buttonShutter"
+                    android:layout_width="@dimen/shutterHeight"
+                    android:layout_height="@dimen/shutterHeight"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/transparent"
+                    android:onClick="onButtonClick"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:paddingTop="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/button_shutter" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/mainButtonsVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1"
+        android:background="@drawable/blacktransparentlayerbottom"
+        android:gravity="bottom|center"
+        android:visibility="gone">
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/buttonVideoPause"
+            android:layout_width="@dimen/paramsLayoutHeight"
+            android:layout_height="@dimen/paramsLayoutHeight"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="15dip"
+            android:layout_marginRight="20dip"
+            android:layout_toLeftOf="@+id/buttonVideoStop"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plugin_capture_video_pause"></com.almalence.ui.RotateImageView>
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/buttonVideoStop"
+            android:layout_width="@dimen/paramsLayoutHeight"
+            android:layout_height="@dimen/paramsLayoutHeight"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="15dip"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plugin_capture_video_stop_square"></com.almalence.ui.RotateImageView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fullscreenLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:visibility="gone"></RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_width="@dimen/infoLayoutWidth"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/mainButtons"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/paramsLayout"
+        android:layout_marginTop="@dimen/viewfinderViewsMarginTop"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:visibility="visible"></LinearLayout>
+
+    <!-- Layout for plugin's buttons and views. Fill all space between top and bottom menu
+             Separeted to 5 zones for different plugin type
+             Viewfinder plugin is able to put view into any place on layout, not only in its zone -->
+    <RelativeLayout
+        android:id="@+id/pluginsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/mainButtons"
+        android:layout_below="@+id/paramsLayout"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:layout_marginTop="@dimen/viewfinderViewsMarginTop"
+        android:layout_toLeftOf="@+id/infoLayout"
+        android:visibility="visible"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/specialPluginsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:visibility="visible"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/specialPluginsLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/mainButtons"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:visibility="visible"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/specialPluginsLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/mainButtons"
+        android:layout_below="@+id/paramsLayout"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:layout_marginTop="@dimen/viewfinderViewsMarginTop"
+        android:layout_toLeftOf="@+id/infoLayout"
+        android:visibility="visible"></RelativeLayout>
+
+
+    <!-- Top menu for main camera parameters: Scene mode, WB, Flash mode, Focus mode and Preferences button   -->
+    <LinearLayout
+        android:id="@+id/paramsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/paramsLayoutHeight"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:background="@drawable/blacktransparentlayertop"
+        android:orientation="horizontal">
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/evButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/sceneButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/wbButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/focusButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/flashButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/isoButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/meteringButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/camerachangeButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="7dip"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/qcLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/paramsLayout"
+        android:layout_gravity="top"
+        android:background="@drawable/blacktransparentlayerpulldownmenu"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone">
+
+        <GridView
+            android:id="@+id/qcGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:padding="6dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+    </RelativeLayout>
+
+    <com.almalence.ui.RotateImageView
+        android:id="@+id/Unlock"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_gravity="top|left"
+        android:layout_marginTop="130dip"
+        android:background="@android:color/transparent"
+        android:src="@drawable/unlock"
+        android:visibility="gone" />
+
+
+    <RelativeLayout
+        android:id="@+id/viewPagerLayoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/store_background"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/storeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/headerStoreImageSize"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/store_header"></ImageView>
+
+        <RelativeLayout
+            android:id="@+id/viewPagerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/storeHeader"
+            android:background="@drawable/store_background"></RelativeLayout>
+    </RelativeLayout>
+
+    <!-- -->
+    <RelativeLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mainButtons"
+        android:layout_below="@+id/topPanel"
+        android:layout_marginTop="@dimen/buttonsLayoutMarginTop">
+
+        <LinearLayout
+            android:id="@+id/evLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dip"
+            android:background="@drawable/ev_background"
+            android:orientation="horizontal"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/evMinusButton"
+                android:layout_width="@dimen/exposureButtonSize"
+                android:layout_height="@dimen/exposureButtonSize"
+                android:layout_marginRight="5dip"
+                android:background="@android:color/transparent"
+                android:onClick="onButtonClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_evminus" />
+
+            <LinearLayout
+                android:id="@+id/seekbarLayout"
+                android:layout_width="@dimen/exposureSeekBarWidth"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/evSeekBar"
+                    android:layout_width="@dimen/exposureSeekBarWidth"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:progressDrawable="@drawable/ev_bar" />
+
+                <LinearLayout
+                    android:id="@+id/seekbartextLayout"
+                    android:layout_width="@dimen/exposureSeekBarWidth"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/seekBarLeftText"
+                        android:layout_width="@dimen/exposureTitleWidth"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="10dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/exposureTitleSize"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seekBarCenterText"
+                        android:layout_width="@dimen/exposureCenterTitleWidth"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/ev_zero"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/exposureTitleSize"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seekBarRightText"
+                        android:layout_width="@dimen/exposureTitleWidth"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/exposureTitleSize"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/evPlusButton"
+                android:layout_width="@dimen/exposureButtonSize"
+                android:layout_height="@dimen/exposureButtonSize"
+                android:layout_marginLeft="5dip"
+                android:background="@android:color/transparent"
+                android:onClick="onButtonClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_evplus" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/scenemodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blacktransparentlayersettings"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/scenemodeGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:stretchMode="columnWidth" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wbLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blacktransparentlayersettings"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/wbGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:stretchMode="columnWidth" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/focusmodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blacktransparentlayersettings"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/focusmodeGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:stretchMode="columnWidth" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/flashmodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blacktransparentlayersettings"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/flashmodeGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:stretchMode="columnWidth" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/isoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blacktransparentlayersettings"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/isoGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:stretchMode="columnWidth" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/meteringLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blacktransparentlayersettings"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/meteringmodeGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:stretchMode="columnWidth" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/vfLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mainButtons"
+        android:layout_gravity="bottom|right"
+        android:orientation="vertical"
+        android:visibility="gone"></LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/modeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@drawable/blacktransparentlayerpulldownmenu"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone">
+
+        <GridView
+            android:id="@+id/modeGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <com.almalence.ui.Panel
+        xmlns:my="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        my:animationDuration="30"
+        my:closedHandle="@drawable/gui_almalence_handle_down"
+        my:downSpace="@dimen/paramsLayoutHeight"
+        my:linearFlying="true"
+        my:openedHandle="@drawable/gui_almalence_handle_up"
+        my:position="top">
+
+        <ImageButton
+            android:id="@+id/panelHandle"
+            android:layout_width="match_parent"
+            android:layout_height="10dip"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/paramsLayoutHeight"
+            android:background="@drawable/blacktransparentlayerpulldownmenu"
+            android:paddingBottom="5dip" />
+
+        <LinearLayout
+            android:id="@id/panelContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/blacktransparentlayerpulldownmenu"
+            android:orientation="vertical">
+
+            <include layout="@layout/gui_almalence_panel" />
+        </LinearLayout>
+    </com.almalence.ui.Panel>
+
+</RelativeLayout>
