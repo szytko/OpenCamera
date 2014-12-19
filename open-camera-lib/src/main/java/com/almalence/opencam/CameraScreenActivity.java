@@ -1057,17 +1057,6 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
 
         Camera.Parameters cp = CameraController.getCameraParameters();
 
-        try {
-            // Nexus 5 is giving preview which is too dark without this
-            if (Build.MODEL.contains("Nexus 5")) {
-                cp.setPreviewFpsRange(7000, 30000);
-                CameraController.setCameraParameters(cp);
-                cp = CameraController.getCameraParameters();
-            }
-        } catch (RuntimeException e) {
-            Log.d("MainScreen", "MainScreen.setupCamera unable setParameters " + e.getMessage());
-        }
-
         if (cp != null) {
             previewWidth = cp.getPreviewSize().width;
             previewHeight = cp.getPreviewSize().height;

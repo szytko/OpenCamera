@@ -717,12 +717,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 	{
 		return (isSuperModePossible() ) || isVideoModeLaunched;
 	}
-	
-	public static boolean isNexus()
-	{
-		return Build.MODEL.contains("Nexus 5");
-	}
-
 
 	public static boolean isRAWCaptureSupported()
 	{
@@ -855,16 +849,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 		if (cs == null)
 			return;
 
-		if (Build.MODEL.contains("HTC One X"))
-		{
-			if (!CameraController.isFrontCamera())
-			{
-				Camera.Size additional = null;
-				additional = CameraController.getCamera().new Size(3264, 2448);
-				cs.add(additional);
-			}
-		}
-		
 		int iHighestIndex = 0;
 		Camera.Size sHighest = cs.get(0);
 
@@ -876,9 +860,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 			int currSizeHeight = s.height;
 			int highestSizeWidth = sHighest.width;
 			int highestSizeHeight = sHighest.height;
-
-			if (Build.MODEL.contains("GT-I9190") && isFrontCamera() && (currSizeWidth * currSizeHeight == 1920 * 1080))
-				continue;
 
 			if ((long) currSizeWidth * currSizeHeight > (long) highestSizeWidth * highestSizeHeight)
 			{
@@ -2513,19 +2494,9 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mainContext);
 				//if true - evLatency will be doubled. 
 				boolean isSlow = prefs.getBoolean("PreferenceExpoSlow", false);
-				
-				// Note 3 & LG G3 need more time to change exposure.
-				if (Build.MODEL.contains("SM-N900"))
-					evLatency = 20*(isSlow?2:1);
-				else if (Build.MODEL.contains("LG-D855"))
-					evLatency = 30*(isSlow?2:1);
-				else
-				{
-					// message to capture image will be emitted a few frames after
-					// setExposure
-					evLatency = 10*(isSlow?2:1);// the minimum value at which Galaxy Nexus is
+				evLatency = 10*(isSlow?2:1);// the minimum value at which Galaxy Nexus is
 												// changing exposure in a stable way
-				}
+
 			} else
 			{
 				new CountDownTimer(500, 500)
