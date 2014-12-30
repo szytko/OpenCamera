@@ -1,11 +1,4 @@
-/* <!-- +++
- package com.almalence.opencam_plus;
- +++ --> */
-//<!-- -+-
 package com.almalence.opencam;
-
-
-
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -20,9 +13,7 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
-
-//<!-- -+-
-//import com.almalence.opencam.ui.SelfTimerAndPhotoTimeLapse;
+import com.almalence.opencam.cameracontroller.CameraProvider;
 
 public class AlarmReceiver extends BroadcastReceiver
 {
@@ -73,7 +64,7 @@ public class AlarmReceiver extends BroadcastReceiver
 
 		try
 		{
-			if (CameraScreenActivity.getCameraController().getCamera() == null)
+			if (CameraProvider.getInstance().getCamera() == null)
 			{
 				Intent dialogIntent = new Intent(context, CameraScreenActivity.class);
 				dialogIntent.addFlags(Intent.FLAG_FROM_BACKGROUND | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT

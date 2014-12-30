@@ -48,6 +48,7 @@ import com.almalence.opencam.R;
 import com.almalence.opencam.SoundPlayer;
 import com.almalence.opencam.cameracontroller.CameraController;
 //-+- -->
+import com.almalence.opencam.cameracontroller.CameraProvider;
 import com.almalence.ui.RotateImageView;
 import com.almalence.util.ImageConversion;
 import com.google.zxing.BinaryBitmap;
@@ -237,7 +238,7 @@ public class BarcodeScannerVFPlugin extends PluginViewfinder
 		{
 			return;
 		}
-		Camera camera = CameraController.getCamera();
+		Camera camera = CameraProvider.getInstance().getCamera();
 		if (null == camera)
 		{
 			return;

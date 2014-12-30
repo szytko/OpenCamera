@@ -67,6 +67,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.almalence.opencam.cameracontroller.CameraProvider;
 import com.almalence.util.Util;
 import com.almalence.opencam.cameracontroller.CameraController;
 import com.almalence.opencam.ui.AlmalenceGUI;
@@ -1046,7 +1048,7 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
         CameraController.allocatePreviewBuffer(sz.width * sz.height
                 * ImageFormat.getBitsPerPixel(CameraController.getCameraParameters().getPreviewFormat()) / 8);
 
-        CameraController.getCamera().setErrorCallback(CameraController.getInstance());
+        CameraProvider.getInstance().getCamera().setErrorCallback(CameraController.getInstance());
 
         PluginManager.getInstance().sendMessage(PluginManager.MSG_CAMERA_CONFIGURED, 0);
 
@@ -1095,8 +1097,8 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
                     return;
                 }
 
-                CameraController.getCamera().setPreviewCallbackWithBuffer(CameraController.getInstance());
-                CameraController.getCamera().addCallbackBuffer(CameraController.getPreviewBuffer());
+                CameraProvider.getInstance().getCamera().setPreviewCallbackWithBuffer(CameraController.getInstance());
+                CameraProvider.getInstance().getCamera().addCallbackBuffer(CameraController.getPreviewBuffer());
 
 
                 PluginManager.getInstance().onCameraSetup();

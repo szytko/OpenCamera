@@ -58,6 +58,7 @@ import com.almalence.opencam_plus.cameracontroller.CameraController.Size;
 //<!-- -+-
 import com.almalence.opencam.cameracontroller.CameraController;
 import com.almalence.opencam.cameracontroller.CameraController.Size;
+import com.almalence.opencam.cameracontroller.CameraProvider;
 //-+- -->
 
 
@@ -375,7 +376,7 @@ public abstract class Plugin
 	// called to set specific plugin's camera parameters
 	public void setupCameraParameters()
 	{
-		Camera camera = CameraController.getCamera();
+		Camera camera = CameraProvider.getInstance().getCamera();
 		if (null == camera)
 			return;
 

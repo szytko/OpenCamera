@@ -32,6 +32,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import com.almalence.opencam.PluginManager;
 import com.almalence.opencam.cameracontroller.CameraController;
+import com.almalence.opencam.cameracontroller.CameraProvider;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -128,7 +129,7 @@ public class GLLayer extends GLSurfaceView implements SurfaceHolder.Callback, Re
 				}
 			});
 
-			final Camera camera = CameraController.getCamera();
+			final Camera camera = CameraProvider.getInstance().getCamera();
 			if (camera == null)
 			{
 				return;
