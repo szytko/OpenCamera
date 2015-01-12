@@ -1356,7 +1356,7 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
     }
 
     public void menuButtonPressed() {
-        PluginManager.getInstance().menuButtonPressed();
+        //PluginManager.getInstance().menuButtonPressed();
     }
 
     public void showOpenGLLayer(final int version) {

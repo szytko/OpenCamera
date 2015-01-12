@@ -13,4 +13,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Open camera" />
+
+    <Button
+        android:id="@+id/btnFlashlightToggle"
+        android:layout_below="@id/btnCameraStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Turn on flashlight"/>
+
+    <SurfaceView
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/preview"
+        />
 </RelativeLayout>

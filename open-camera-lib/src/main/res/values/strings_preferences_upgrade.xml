@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>	
+<resources>
+    <!--
 	<string name="Pref_Upgrde_All_Preference_Title">Unlock all forever</string>
 	<string name="Pref_Upgrde_All_Preference_Summary">Activate all features and modes, even future version additions</string>
 	
@@ -28,5 +29,5 @@
 	<string name="Pref_Upgrde_SubscriptionYear_Year">year</string>
 	<string name="storeWhatsnew">  Version 3.25\n\n   New:\n    - HDR video (for Android 4.3 and higher)\n    - pause for video\n    - level tool\n    - sweep panorama\n\n   Improved:\n    - panorama capture and processing\n    - DRO, HDR, Night processing\n    - multishots combined in one mode\n    - faster processing\n\n   Bug fixes:\n    - video fixed\n    - stability fixes</string>
 	<string name="storeFeatures"></string>
-	
+	-->
 </resources>

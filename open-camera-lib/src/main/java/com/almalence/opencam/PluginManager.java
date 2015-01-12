@@ -102,7 +102,7 @@ import com.almalence.plugins.export.standard.ExifDriver.Values.ValueNumber;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueRationals;
 import com.almalence.plugins.processing.simple.SimpleProcessingPlugin;
 import com.almalence.plugins.vf.aeawlock.AeAwLockVFPlugin;
-import com.almalence.plugins.vf.barcodescanner.BarcodeScannerVFPlugin;
+//import com.almalence.plugins.vf.barcodescanner.BarcodeScannerVFPlugin;
 import com.almalence.plugins.vf.focus.FocusVFPlugin;
 import com.almalence.plugins.vf.grid.GridVFPlugin;
 import com.almalence.plugins.vf.histogram.HistogramVFPlugin;
@@ -295,10 +295,11 @@ public class PluginManager implements PluginManagerInterface
 		pluginList.put(histgramVFPlugin.getID(), histgramVFPlugin);
 		listVF.add(histgramVFPlugin);
 
+        /*
 		BarcodeScannerVFPlugin barcodeScannerVFPlugin = new BarcodeScannerVFPlugin();
 		pluginList.put(barcodeScannerVFPlugin.getID(), barcodeScannerVFPlugin);
 		listVF.add(barcodeScannerVFPlugin);
-
+        */
 		ZoomVFPlugin zoomVFPlugin = new ZoomVFPlugin();
 		pluginList.put(zoomVFPlugin.getID(), zoomVFPlugin);
 		listVF.add(zoomVFPlugin);

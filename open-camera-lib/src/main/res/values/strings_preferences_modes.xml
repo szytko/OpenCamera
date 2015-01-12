@@ -11,11 +11,6 @@
 	<string name="Pref_Video_Title">Video</string>
 	<string name="Pref_MultiShot_Title">Smart multishot</string>
 	<string name="Pref_Preshot_Title">Pre-shot</string>
-	<!-- 
-	<string name="Pref_ObjectRemoval_Title">Object removal</string>
-	<string name="Pref_Groupshot_Title">Group shot</string>
-	<string name="Pref_Sequence_Title">Sequence photo</string>
-	 -->
 	<string name="Pref_PanoramaAugmented_Title">Panorama</string>
 	<string name="Pref_BestShot_Title">Best shot</string>
 	

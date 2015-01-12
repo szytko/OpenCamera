@@ -2467,7 +2467,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		initPluginSettingsControls(PluginManager.getInstance().getActivePlugins(PluginType.Export));
 
 		// The very last control is always MORE SETTINGS
-		addQuickSetting(SettingsType.MORE, false);
+		//addQuickSetting(SettingsType.MORE, false);
 
 		settingsAdapter.Elements = settingsViews;
 
@@ -3994,7 +3994,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
             guiView.findViewById(R.id.wbLayout).setVisibility(View.VISIBLE);
         }
         if(iButton == MODE_FOCUS ){
-            guiView.findViewById(R.id.flashmodeLayout).setVisibility(View.VISIBLE);
+            guiView.findViewById(R.id.focusmodeLayout).setVisibility(View.VISIBLE);
         }
         if(iButton == MODE_FLASH ){
             guiView.findViewById(R.id.flashmodeLayout).setVisibility(View.VISIBLE);

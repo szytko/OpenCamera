@@ -6,7 +6,7 @@
 	<mode id="single" name="single_mode_name" savename="">
 		<icon		id="gui_almalence_mode_single"/>
 	    <vf 		id="com.almalence.plugins.histogramvf"/> 
-	    <vf 		id="com.almalence.plugins.barcodescannervf"/>   
+	    <!--<vf 		id="com.almalence.plugins.barcodescannervf"/> -->  
 	    <vf 		id="com.almalence.plugins.gridvf"/>
 	    <vf 		id="com.almalence.plugins.zoomvf"/>
 	    <vf 		id="com.almalence.plugins.focusvf"/>

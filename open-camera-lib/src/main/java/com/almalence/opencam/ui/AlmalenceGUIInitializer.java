@@ -536,6 +536,7 @@ public class AlmalenceGUIInitializer {
         }
     };
 
+    /*
     public static final Map<String, String>	UNLOCK_MODE_PREFERENCES		= new HashMap<String, String>()
     {
         {
@@ -550,5 +551,5 @@ public class AlmalenceGUIInitializer {
             put("panorama_augmented",
                     "plugin_almalence_panorama");
         }
-    };
+    };*/
 }

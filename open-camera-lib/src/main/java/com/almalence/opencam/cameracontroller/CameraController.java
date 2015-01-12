@@ -220,7 +220,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 	
 	private static Size								imageSize;
 
-	public static final int							MIN_MPIX_SUPPORTED				= 1280 * 720;
+	public static final int							MIN_MPIX_SUPPORTED				= 1080 * 720;
 
 	// Lists of resolutions, their indexes and names (for capturing and preview)
 	protected static List<Long>						ResolutionsMPixList;
@@ -728,41 +728,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 
 	public static void setupCamera(SurfaceHolder holder)
 	{
-
-        /*
-			if (camera == null || CameraScreenActivity.getInstance().getSwitchingMode())
-			{
-				try
-				{
-					if (!CameraScreenActivity.getInstance().getSwitchingMode())
-					{
-						if (Camera.getNumberOfCameras() > 0)
-							camera = Camera.open(CameraIndex);
-						else
-							camera = Camera.open();
-					}
-					CameraScreenActivity.getInstance().switchingMode(false);
-
-					Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-					Camera.getCameraInfo(CameraIndex, cameraInfo);
-					if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
-						CameraMirrored = true;
-					else
-						CameraMirrored = false;
-
-				} catch (RuntimeException e)
-				{
-					Log.e(TAG, "Unable to open camera");
-					camera = null;
-				}
-
-				if (camera == null)
-				{
-					Toast.makeText(mainContext, "Unable to start camera", Toast.LENGTH_LONG).show();
-					return;
-				}
-			}
-		*/
         if (CameraProvider.getInstance().getCamera() == null)
         {
             Toast.makeText(mainContext, "Unable to start camera", Toast.LENGTH_LONG).show();
@@ -2170,17 +2135,6 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 
 	}
 
-	public static void setPictureSize(int width, int height)
-	{
-		final Camera.Parameters cp = getCameraParameters();
-		if (cp == null)
-		{
-			return;
-		}
-
-		cp.setPictureSize(width, height);
-		setCameraParameters(cp);
-	}
 
 	public static void setJpegQuality(int quality)
 	{

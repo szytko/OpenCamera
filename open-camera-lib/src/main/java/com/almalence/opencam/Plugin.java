@@ -51,15 +51,9 @@ import android.widget.ImageView;
 
 import com.almalence.asynctaskmanager.Task;
 
-/* <!-- +++
-import com.almalence.opencam_plus.cameracontroller.CameraController;
-import com.almalence.opencam_plus.cameracontroller.CameraController.Size;
-+++ --> */
-//<!-- -+-
 import com.almalence.opencam.cameracontroller.CameraController;
 import com.almalence.opencam.cameracontroller.CameraController.Size;
 import com.almalence.opencam.cameracontroller.CameraProvider;
-//-+- -->
 
 
 /***
@@ -289,8 +283,8 @@ public abstract class Plugin
 		List<CameraController.Size> cs = CameraController.getResolutionsSizeList();
 		int defaultCaptureIdx = -1;
 		long defaultCaptureMpix = 0;
-		int defaultCaptureWidth = 0;
-		int defaultCaptureHeight = 0;
+		int defaultCaptureWidth = 3;
+		int defaultCaptureHeight = 2;
 		long CaptureMpix = 0;
 		int CaptureWidth = 0;
 		int CaptureHeight = 0;
@@ -305,7 +299,7 @@ public abstract class Plugin
 
 			if ((mpix >= CameraController.MIN_MPIX_SUPPORTED) && (mpix < maxMpix))
 			{
-				if (mpix > defaultCaptureMpix && mpix <= MPIX_8)
+				if (mpix > defaultCaptureMpix && (float)defaultCaptureHeight/(float)defaultCaptureWidth == (float)s.getHeight()/(float)s.getWidth()  )
 				{
 					defaultCaptureIdx = Integer.parseInt(CameraController.getResolutionsIdxesList().get(ii));
 					defaultCaptureMpix = mpix;
