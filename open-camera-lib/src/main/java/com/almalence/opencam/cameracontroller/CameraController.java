@@ -596,7 +596,10 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 
 	public static void onResume()
 	{
+        //HDR mode and expobracketing is turn off completely
+        /*
 		String modeID = PluginManager.getInstance().getActiveModeID();
+
 		if (modeID.equals("hdrmode") || modeID.equals("expobracketing"))
 		{
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mainContext);
@@ -615,13 +618,15 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 				cdt = null;
 			}
 		}
-        
+        */
         total_frames = 0;
 
 	}
 
 	public static void onPause(boolean isModeSwitching)
 	{
+        //HDR mode and expobracketing is turn off completely
+        /*
 		String modeID = PluginManager.getInstance().getActiveModeID();
 		if (modeID.equals("hdrmode") || modeID.equals("expobracketing"))
 		{
@@ -633,7 +638,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 				cdt = null;
 			}
 		}
-        
+        */
         total_frames = 0;
         
 		// reset torch

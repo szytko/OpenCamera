@@ -228,7 +228,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="onButtonClick" />
-
+        <!--
         <com.almalence.ui.RotateImageView
             android:id="@+id/sceneButton"
             android:layout_width="0dip"
@@ -238,7 +238,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="onButtonClick" />
-
+        -->
         <com.almalence.ui.RotateImageView
             android:id="@+id/wbButton"
             android:layout_width="0dip"
@@ -249,6 +249,7 @@
             android:background="@android:color/transparent"
             android:onClick="onButtonClick" />
 
+        <!--
         <com.almalence.ui.RotateImageView
             android:id="@+id/focusButton"
             android:layout_width="0dip"
@@ -258,6 +259,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="onButtonClick" />
+        -->
 
         <com.almalence.ui.RotateImageView
             android:id="@+id/flashButton"
@@ -269,6 +271,8 @@
             android:background="@android:color/transparent"
             android:onClick="onButtonClick" />
 
+
+        <!--
         <com.almalence.ui.RotateImageView
             android:id="@+id/isoButton"
             android:layout_width="0dip"
@@ -289,6 +293,7 @@
             android:background="@android:color/transparent"
             android:onClick="onButtonClick" />
 
+
         <com.almalence.ui.RotateImageView
             android:id="@+id/camerachangeButton"
             android:layout_width="0dip"
@@ -298,6 +303,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="onButtonClick" />
+            -->
     </LinearLayout>
 
     <RelativeLayout
