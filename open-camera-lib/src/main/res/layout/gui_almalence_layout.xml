@@ -367,13 +367,14 @@
             android:background="@drawable/store_background"></RelativeLayout>
     </RelativeLayout>
 
-    <!-- -->
+    <!-- android:layout_below="@+id/topPanel" -->
     <RelativeLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/mainButtons"
-        android:layout_below="@+id/topPanel"
+        android:layout_below="@id/paramsLayout"
+
         android:layout_marginTop="@dimen/buttonsLayoutMarginTop">
 
         <LinearLayout
@@ -642,6 +643,7 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <!--
     <com.almalence.ui.Panel
         xmlns:my="http://schemas.android.com/apk/res-auto"
         android:id="@+id/topPanel"
@@ -674,5 +676,6 @@
             <include layout="@layout/gui_almalence_panel" />
         </LinearLayout>
     </com.almalence.ui.Panel>
+    -->
 
 </RelativeLayout>

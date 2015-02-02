@@ -102,11 +102,11 @@ public class Panel extends LinearLayout {
 
     private State mState;
     private Interpolator mInterpolator;
-    private final GestureDetector mGestureDetector;
+    //private final GestureDetector mGestureDetector;
     private int mContentHeight;
     private int mContentWidth;
     private final int mOrientation;
-    private final PanelOnGestureListener mGestureListener;
+    //private final PanelOnGestureListener mGestureListener;
 
     public Panel(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -122,9 +122,9 @@ public class Panel extends LinearLayout {
         mOrientation = (mPosition == TOP || mPosition == BOTTOM) ? VERTICAL : HORIZONTAL;
         setOrientation(mOrientation);
         mState = State.READY;
-        mGestureListener = new PanelOnGestureListener();
-        mGestureDetector = new GestureDetector(mGestureListener);
-        mGestureDetector.setIsLongpressEnabled(false);
+        //mGestureListener = new PanelOnGestureListener();
+        //mGestureDetector = new GestureDetector(mGestureListener);
+        //mGestureDetector.setIsLongpressEnabled(false);
     }
 
     /**
@@ -378,7 +378,7 @@ public class Panel extends LinearLayout {
                     // initial
                     // panel's
                     // position
-                    mGestureListener.setScroll(initX, initY);
+                    //mGestureListener.setScroll(initX, initY);
                     setInitialPosition = false;
                     // for
                     // offsetLocation
@@ -398,6 +398,7 @@ public class Panel extends LinearLayout {
                 // event
                 event.offsetLocation(initX, initY);
             }
+            /*
             if (!mGestureDetector.onTouchEvent(event)) {
                 if (action == MotionEvent.ACTION_UP) {
                     // tup
@@ -406,7 +407,7 @@ public class Panel extends LinearLayout {
                     // scrolling
                     post(startAnimation);
                 }
-            }
+            }*/
             return false;
         }
     };
@@ -585,6 +586,7 @@ public class Panel extends LinearLayout {
         }
     }
 
+    /*
     class PanelOnGestureListener implements OnGestureListener {
         float scrollY;
         float scrollX;
@@ -667,6 +669,9 @@ public class Panel extends LinearLayout {
             return true;
         }
     }
+
+
+    */
 
     // corrects margin between content and handler
     public void reorder(boolean toTop, boolean isFromGUI) {
