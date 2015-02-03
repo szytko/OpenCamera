@@ -135,7 +135,7 @@ public class VerticalSeekBar extends SeekBar
 		{
 			// Only enact listener if the progress has actually changed
 			lastProgress = progress;
-			onChangeListener.onProgressChanged(this, progress, true);
+			onChangeListener.onProgressChanged(this, progress, false);
 		}
 	}
 

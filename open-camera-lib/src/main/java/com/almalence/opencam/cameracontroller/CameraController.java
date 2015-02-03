@@ -1188,8 +1188,11 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 	{
 		try
 		{
-		if (CameraProvider.getInstance().getCamera() != null)
-			return CameraProvider.getInstance().getCamera().getParameters();
+		    if (CameraProvider.getInstance().getCamera() != null) {
+                Camera.Parameters params = CameraProvider.getInstance().getCamera().getParameters();
+                //Log.e("Params", params.flatten());
+                return params;
+            }
 		}
 		catch (Exception e)
 		{
@@ -1338,6 +1341,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 			if (cp != null)
 			{
 				cp.setZoom(value);
+
 				setCameraParameters(cp);
 			}
 
@@ -1348,8 +1352,13 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
 	public static float getZoom()
 	{
 
-			Camera.Parameters cp = getCameraParameters();
-			return (cp.getZoom() / 10.0f + 1f);
+        Camera.Parameters cp = getCameraParameters();
+        if(cp.get("curr_zoom_level")!=null){
+            int currZoomLevel = cp.getInt("curr_zoom_level");
+            return (currZoomLevel / 10.0f + 1f);
+        }
+
+		return (cp.getZoom() / 10.0f + 1f);
 
 	}
 	

@@ -1196,6 +1196,19 @@ public class PluginManager implements PluginManagerInterface
 		return (res > 0 ? true : false);
 	}
 
+    public boolean onKeyUp(boolean isFromMain, int keyCode, KeyEvent event)
+    {
+        int res = 0;
+        for (int i = 0; i < activeVF.size(); i++) {
+            Plugin p = pluginList.get(activeVF.get(i));
+            if(p instanceof ZoomVFPlugin){
+                res += ((ZoomVFPlugin)p).onKeyUp(keyCode, event) ? 1 : 0;
+            }
+        }
+        return (res > 0 ? true : false);
+
+    }
+
 	/******************************************************************************************************
 	 * VF/Capture Interfaces
 	 ******************************************************************************************************/

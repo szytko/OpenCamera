@@ -111,7 +111,7 @@ import com.almalence.opencam.cameracontroller.CameraController;
  * AlmalenceGUI is an instance of GUI class, implements current GUI
  ***/
 
-public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener, View.OnLongClickListener,
+public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener, /*View.OnLongClickListener,*/
 		View.OnClickListener
 {
 	private SharedPreferences	preferences;
@@ -634,11 +634,11 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		//guiView.findViewById(R.id.camerachangeButton).setOnTouchListener(CameraScreenActivity.getInstance());
 
 		// Long clicks are needed to open quick controls customization layout
-		guiView.findViewById(R.id.evButton).setOnLongClickListener(this);
+		//guiView.findViewById(R.id.evButton).setOnLongClickListener(this);
 		//guiView.findViewById(R.id.sceneButton).setOnLongClickListener(this);
-		guiView.findViewById(R.id.wbButton).setOnLongClickListener(this);
+		//guiView.findViewById(R.id.wbButton).setOnLongClickListener(this);
 		//guiView.findViewById(R.id.focusButton).setOnLongClickListener(this);
-		guiView.findViewById(R.id.flashButton).setOnLongClickListener(this);
+		//guiView.findViewById(R.id.flashButton).setOnLongClickListener(this);
 		//guiView.findViewById(R.id.isoButton).setOnLongClickListener(this);
 		//guiView.findViewById(R.id.meteringButton).setOnLongClickListener(this);
 		//guiView.findViewById(R.id.camerachangeButton).setOnLongClickListener(this);
@@ -671,8 +671,8 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		((LinearLayout) CameraScreenActivity.getInstance().findViewById(R.id.evLayout)).setOnTouchListener(CameraScreenActivity
 				.getInstance());
 
-		shutterButton = ((RotateImageView) guiView.findViewById(R.id.buttonShutter));
-		shutterButton.setOnLongClickListener(this);
+		//shutterButton = ((RotateImageView) guiView.findViewById(R.id.buttonShutter));
+		//shutterButton.setOnLongClickListener(this);
 
 	}
 
@@ -890,7 +890,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 				qcView.setOnTouchListener(CameraScreenActivity.getInstance());
 				qcView.setOnClickListener(this);
-				qcView.setOnLongClickListener(this);
+				//qcView.setOnLongClickListener(this);
 
 				topMenuPluginButtons.put(plugin.getID(), qcView);
 			}
@@ -965,7 +965,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		LayoutInflater inflator = CameraScreenActivity.getInstance().getLayoutInflater();
 		quickControl = inflator.inflate(R.layout.gui_almalence_invisible_button,
 				(ViewGroup) guiView.findViewById(R.id.paramsLayout), false);
-		quickControl.setOnLongClickListener(this);
+		//quickControl.setOnLongClickListener(this);
 		quickControl.setOnClickListener(this);
 	}
 
@@ -3271,8 +3271,10 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		}
 	}
 
+    /*
 	public boolean onLongClick(View v)
 	{
+
 		if (quickControlsChangeVisible)
 			return true;
 
@@ -3289,7 +3291,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		}
 		return true;
 	}
-
+    */
 	@Override
 	public void onClick(View v)
 	{

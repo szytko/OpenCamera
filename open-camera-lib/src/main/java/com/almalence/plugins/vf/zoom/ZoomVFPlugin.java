@@ -21,11 +21,13 @@ package com.almalence.plugins.vf.zoom;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -65,7 +67,7 @@ import com.almalence.ui.VerticalSeekBar;
 public class ZoomVFPlugin extends PluginViewfinder
 {
 	private VerticalSeekBar		zoomBar					= null;
-	private int					zoomCurrent				= 0;
+	private float 				zoomCurrent				= 0;
 	private View				zoomPanelView			= null;
 	private LinearLayout		zoomPanel				= null;
 
@@ -186,10 +188,11 @@ public class ZoomVFPlugin extends PluginViewfinder
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
 			{
-				if (fromUser)
+                if (fromUser)
 				{
 					zoomHandler.removeMessages(CLOSE_ZOOM_PANEL);
-					zoomModify(progress - zoomCurrent);
+					zoomModify(progress - (int)zoomCurrent);
+                    zoomSetValue();
 				}
 			}
 		});
@@ -273,46 +276,62 @@ public class ZoomVFPlugin extends PluginViewfinder
 			zoomPanel.setVisibility(View.GONE);
 	}
 
-	private void zoomModify(int delta)
-	{
-		if (CameraController.isZoomSupported())
-		{
-			try
-			{
-				zoomCurrent += delta;
 
-				if (zoomCurrent < 0)
-				{
-					zoomCurrent = 0;
-				} else if (zoomCurrent > CameraController.getMaxZoom())
-				{
-					zoomCurrent = CameraController.getMaxZoom();
-				}
+    private void zoomSetValue(){
 
-				CameraController.setZoom(zoomCurrent);
+        CameraController.setZoom((int)zoomCurrent);
 
-				zoomBar.setProgressAndThumb(zoomCurrent);
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
+    }
 
+    private void zoomModify(int delta) {
+        if (CameraController.isZoomSupported()) {
+            try {
+
+
+                zoomCurrent += delta;
+
+                if (zoomCurrent < 0) {
+                    zoomCurrent = 0;
+                } else if (zoomCurrent > CameraController.getMaxZoom()) {
+                    zoomCurrent = CameraController.getMaxZoom();
+                }
+
+                zoomBar.setProgressAndThumb((int)zoomCurrent);
+                //Log.e("ZOOM", "Current: " +zoomCurrent+" REAL: "+CameraController.getZoom());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public boolean onKeyUp(int keyCode, KeyEvent event)
+    {
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_ZOOM_OUT || keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_ZOOM_IN)
+        {
+            this.zoomSetValue();
+        }
+
+        return false;
+    }
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 //		if (!isEnabled)
 //			return false;
 
-		if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_ZOOM_OUT)
-		{
-			this.zoomModify(-1);
-			return true;
-		} else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_ZOOM_IN)
-		{
-			this.zoomModify(1);
-			return true;
-		}
+
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_ZOOM_OUT)
+        {
+            this.zoomModify(-1);
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_ZOOM_IN)
+        {
+            this.zoomModify(1);
+            return true;
+        }
 		return false;
 	}
 

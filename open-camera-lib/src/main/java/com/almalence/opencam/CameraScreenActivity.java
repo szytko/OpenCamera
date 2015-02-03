@@ -1228,6 +1228,18 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
         return mAFLocked;
     }
 
+
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_ZOOM_OUT || keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_ZOOM_IN)
+        {
+            return PluginManager.getInstance().onKeyUp(true, keyCode, event);
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, @NotNull KeyEvent event) {
         if (!mApplicationStarted)
