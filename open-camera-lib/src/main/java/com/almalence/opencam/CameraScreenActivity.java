@@ -1445,6 +1445,8 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
         return CameraScreenActivity.thiz.getResources();
     }
 
+
+    //TODO: Settings saves
     private void resetOrSaveSettings() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(CameraScreenActivity.getMainContext());
         Editor prefsEditor = prefs.edit();
@@ -1488,7 +1490,7 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
             prefsEditor.apply();
         }
 
-        isSaving = prefs.getBoolean("SaveConfiguration_WBMode", false);
+        isSaving = prefs.getBoolean("SaveConfiguration_WBMode", true);
         if (!isSaving) {
             prefsEditor.putInt(sWBModePref, sDefaultValue);
             prefsEditor.apply();
@@ -1512,7 +1514,7 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
             prefsEditor.apply();
         }
 
-        isSaving = prefs.getBoolean("SaveConfiguration_ExpoCompensation", false);
+        isSaving = prefs.getBoolean("SaveConfiguration_ExpoCompensation", true);
         if (!isSaving) {
             prefsEditor.putInt(CameraScreenActivity.sEvPref, 0);
             prefsEditor.apply();

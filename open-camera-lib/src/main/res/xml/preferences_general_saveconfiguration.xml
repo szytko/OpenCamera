@@ -15,21 +15,25 @@
                        android:title="@string/Pref_SaveConfiguration_FocusMode_Title"
                        android:defaultValue="true"
                        android:key="SaveConfiguration_FocusMode"/>
-	<CheckBoxPreference
+	<!-- TODO: WB save-->
+    <CheckBoxPreference
                        android:title="@string/Pref_SaveConfiguration_WBMode_Title"
-                       android:defaultValue="false"
+                       android:defaultValue="true"
                        android:key="SaveConfiguration_WBMode"/>
 	<CheckBoxPreference
                        android:title="@string/Pref_SaveConfiguration_ISOMode_Title"
                        android:defaultValue="false"
                        android:key="SaveConfiguration_ISOMode"/>
-	<CheckBoxPreference
+    <!-- TODO: Flash save-->
+    <CheckBoxPreference
                        android:title="@string/Pref_SaveConfiguration_FlashMode_Title"
                        android:defaultValue="true"
                        android:key="SaveConfiguration_FlashMode"/>
-	<CheckBoxPreference
+
+    <!-- TODO: EV save-->
+    <CheckBoxPreference
                        android:title="@string/Pref_SaveConfiguration_ExpoCompensation_Title"
-                       android:defaultValue="false"
+                       android:defaultValue="true"
                        android:key="SaveConfiguration_ExpoCompensation"/>
 	<CheckBoxPreference
                        android:title="@string/Pref_SaveConfiguration_FrontRear_Title"
