@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/open-camera.iml" filepath="$PROJECT_DIR$/open-camera.iml" />
-      <module fileurl="file://$PROJECT_DIR$/open-camera-gradle.iml" filepath="$PROJECT_DIR$/open-camera-gradle.iml" />
       <module fileurl="file://$PROJECT_DIR$/open-camera-lib/open-camera-lib.iml" filepath="$PROJECT_DIR$/open-camera-lib/open-camera-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/testapplication/testapplication.iml" filepath="$PROJECT_DIR$/testapplication/testapplication.iml" />
     </modules>

@@ -47,6 +47,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -808,6 +809,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 	}
 
+    //TODO - setting proper image size
 	@Override
 	public void setupViewfinderPreviewSize(CameraController.Size previewSize)
 	{
@@ -817,6 +819,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		float cameraAspect = (float) previewSize.getWidth() / previewSize.getHeight();
 
 		RelativeLayout ll = (RelativeLayout) CameraScreenActivity.getInstance().findViewById(R.id.mainLayout1);
+
 
 		int previewSurfaceWidth = ll.getWidth();
 		int previewSurfaceHeight = ll.getHeight();
@@ -828,10 +831,17 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		DisplayMetrics metrics = new DisplayMetrics();
 		CameraScreenActivity.getInstance().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		int screen_height = metrics.heightPixels;
+        int screen_width = metrics.widthPixels;
 
+
+        lp.width = previewSize.getHeight();
+        lp.height = previewSize.getWidth();
+        lp.topMargin =  (screen_height - lp.height)/2;
+
+        /*
 		lp.width = previewSurfaceWidth;
 		lp.height = previewSurfaceHeight;
-		if (Math.abs(surfaceAspect - cameraAspect) > 0.05d)
+        if (Math.abs(surfaceAspect - cameraAspect) > 0.05d)
 		{
 			if (surfaceAspect > cameraAspect && (Math.abs(1 - cameraAspect) > 0.05d))
 			{
@@ -839,8 +849,8 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 				// if wide-screen - decrease width of surface
 				lp.width = previewSurfaceWidth;
 
-				lp.height = (int) (screen_height - 2 * paramsLayoutHeight);
-				lp.topMargin = (int) (paramsLayoutHeight);
+				lp.height = (screen_height - 2 * paramsLayoutHeight);
+				lp.topMargin =  paramsLayoutHeight;
 			} else if (surfaceAspect > cameraAspect)
 			{
 				int paramsLayoutHeight = (int) CameraScreenActivity.getAppResources().getDimension(R.dimen.paramsLayoutHeight);
@@ -848,15 +858,18 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 				lp.width = previewSurfaceWidth;
 
 				lp.height = previewSurfaceWidth;
-				lp.topMargin = (int) (paramsLayoutHeight);
+				lp.topMargin =  paramsLayoutHeight;
 			}
 		}
-		
-		Log.e("GUI", "setLayoutParams. width = " + lp.width + " height = " + lp.height);
-		CameraScreenActivity.getPreviewSurfaceView().setLayoutParams(lp);
+		*/
+
+		Log.e("GUI", "setLayoutParams. width = " + lp.width + " height = " + lp.height+" margin="+lp.topMargin );
+
 		guiView.findViewById(R.id.fullscreenLayout).setLayoutParams(lp);
 		guiView.findViewById(R.id.specialPluginsLayout).setLayoutParams(lp);
-	}
+        CameraScreenActivity.getPreviewSurfaceView().setLayoutParams(lp);
+
+    }
 
 	/*
 	 * Each plugin may have only one top menu button Icon id and Title (plugin's
