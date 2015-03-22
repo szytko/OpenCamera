@@ -24,7 +24,6 @@ import com.almalence.util.exifreader.lang.BufferBoundsException;
 import com.almalence.util.exifreader.lang.BufferReader;
 import com.almalence.util.exifreader.lang.annotations.NotNull;
 import com.almalence.util.exifreader.metadata.Metadata;
-import com.almalence.util.exifreader.metadata.MetadataReader;
 
 /**
  * Decodes the comment stored within Jpeg files, populating a <code>Metadata</code> object with tag values in a
@@ -32,7 +31,7 @@ import com.almalence.util.exifreader.metadata.MetadataReader;
  *
  * @author Drew Noakes http://drewnoakes.com
  */
-public class JpegCommentReader implements MetadataReader
+public class JpegCommentReader
 {
     /**
      * Performs the Jpeg data extraction, adding found values to the specified

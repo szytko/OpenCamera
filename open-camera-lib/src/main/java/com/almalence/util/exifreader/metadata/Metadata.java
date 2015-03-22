@@ -61,16 +61,6 @@ public final class Metadata
     }
 
     /**
-     * Returns a count of unique directories in this metadata collection.
-     *
-     * @return the number of unique directory types set for this metadata collection
-     */
-    public int getDirectoryCount()
-    {
-        return _directoryList.size();
-    }
-
-    /**
      * Returns a <code>Directory</code> of specified type.  If this <code>Metadata</code> object already contains
      * such a directory, it is returned.  Otherwise a new instance of this directory will be created and stored within
      * this Metadata object.
@@ -118,32 +108,5 @@ public final class Metadata
         // So after get(Class<T>) it is for sure the result is from type T.
 
         return (T)_directoryByClass.get(type);
-    }
-
-    /**
-     * Indicates whether a given directory type has been created in this metadata
-     * repository.  Directories are created by calling <code>getOrCreateDirectory(Class)</code>.
-     *
-     * @param type the Directory type
-     * @return true if the metadata directory has been created
-     */
-    public boolean containsDirectory(Class<? extends Directory> type)
-    {
-        return _directoryByClass.containsKey(type);
-    }
-
-    /**
-     * Indicates whether any errors were reported during the reading of metadata values.
-     * This value will be true if Directory.hasErrors() is true for one of the contained Directory objects.
-     *
-     * @return whether one of the contained directories has an error
-     */
-    public boolean hasErrors()
-    {
-        for (Directory directory : _directoryList) {
-            if (directory.hasErrors())
-                return true;
-        }
-        return false;
     }
 }

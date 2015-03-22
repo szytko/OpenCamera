@@ -24,14 +24,13 @@ import com.almalence.util.exifreader.lang.BufferBoundsException;
 import com.almalence.util.exifreader.lang.BufferReader;
 import com.almalence.util.exifreader.lang.annotations.NotNull;
 import com.almalence.util.exifreader.metadata.Metadata;
-import com.almalence.util.exifreader.metadata.MetadataReader;
 
 /**
  * Decodes Jpeg SOF0 data, populating a <code>Metadata</code> object with tag values in a <code>JpegDirectory</code>.
  *
  * @author Darrell Silver http://www.darrellsilver.com and Drew Noakes http://drewnoakes.com
  */
-public class JpegReader implements MetadataReader
+public class JpegReader
 {
     /**
      * Performs the Jpeg data extraction, adding found values to the specified

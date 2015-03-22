@@ -41,9 +41,4 @@ public class ImageProcessingException extends CompoundException
     {
         super(message, cause);
     }
-
-    public ImageProcessingException(@Nullable Throwable cause)
-    {
-        super(cause);
-    }
 }

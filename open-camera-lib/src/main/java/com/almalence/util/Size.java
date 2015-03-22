@@ -29,15 +29,6 @@ public class Size
 		height = h;
 	}
 
-	public boolean isValid()
-	{
-		if (width > 0 && height > 0)
-		{
-			return true;
-		}
-		return false;
-	}
-
 	public int getWidth()
 	{
 		return width;

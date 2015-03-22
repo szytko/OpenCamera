@@ -26,7 +26,6 @@ import com.almalence.util.exifreader.lang.Rational;
 import com.almalence.util.exifreader.lang.annotations.NotNull;
 import com.almalence.util.exifreader.metadata.Directory;
 import com.almalence.util.exifreader.metadata.Metadata;
-import com.almalence.util.exifreader.metadata.MetadataReader;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +36,7 @@ import java.util.Set;
  *
  * @author Drew Noakes http://drewnoakes.com
  */
-public class ExifReader implements MetadataReader
+public class ExifReader
 {
     //  extract a reusable TiffReader from this class with hooks for special tag handling and subdir following
     
@@ -108,24 +107,6 @@ public class ExifReader implements MetadataReader
             }
 
             extractIFD(metadata, metadata.getOrCreateDirectory(ExifIFD0Directory.class), TIFF_HEADER_START_OFFSET, reader);
-        } catch (BufferBoundsException e) {
-            directory.addError("Exif data segment ended prematurely");
-        }
-    }
-
-    /**
-     * Performs the Exif data extraction on a TIFF/RAW, adding found values to the specified
-     * instance of <code>Metadata</code>.
-     *
-     * @param reader   The BufferReader from which TIFF data should be read.
-     * @param metadata The Metadata object into which extracted values should be merged.
-     */
-    public void extractTiff(@NotNull BufferReader reader, @NotNull Metadata metadata)
-    {
-        final ExifIFD0Directory directory = metadata.getOrCreateDirectory(ExifIFD0Directory.class);
-
-        try {
-            extractIFD(metadata, directory, 0, reader);
         } catch (BufferBoundsException e) {
             directory.addError("Exif data segment ended prematurely");
         }

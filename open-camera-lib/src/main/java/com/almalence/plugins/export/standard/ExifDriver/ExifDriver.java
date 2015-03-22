@@ -53,10 +53,7 @@ import com.almalence.plugins.export.standard.ExifDriver.Values.ValueRationals;
  */
 public class ExifDriver
 {
-	// Private constants
 
-	private final String				LOGTAG								= getClass().getName();
-	// Datatypes
 	public static final int				FORMAT_UNSIGNED_BYTE				= 0x01;
 	public static final int				FORMAT_ASCII_STRINGS				= 0x02;
 	public static final int				FORMAT_UNSIGNED_SHORT				= 0x03;
@@ -78,92 +75,27 @@ public class ExifDriver
 	// IFD0-related tags, some of them are presented in IFD1 too
 	public static final int				TAG_IMAGE_WIDTH						= 0x0100;
 	public static final int				TAG_IMAGE_HEIGHT					= 0x0101;
-	public static final int				TAG_BITS_PER_SAMPLE					= 0x0102;
-	public static final int				TAG_COMPRESSION						= 0x0103;
-	public static final int				TAG_PHOTOMETRIC_INTERPRETATION		= 0x0106;
 	public static final int				TAG_ORIENTATION						= 0x0112;
-	public static final int				TAG_SAMPLES_PER_PIXEL				= 0x0115;
-	public static final int				TAG_PLANAR_CONFIGURATION			= 0x011c;
-	public static final int				TAG_YCBCR_SUBSAMPLING				= 0x0212;
-	public static final int				TAG_YCBCRPOSITIONING				= 0x0213;
-	public static final int				TAG_XRESOLUTION						= 0x011a;
-	public static final int				TAG_YRESOLUTION						= 0x011b;
-	public static final int				TAG_RESOLUTION_UNIT					= 0x0128;
-	public static final int				TAG_STRIP_OFFSETS					= 0x0111;
-	public static final int				TAG_ROWS_PER_STRIP					= 0x0116;
-	public static final int				TAG_STRIP_BYTECOUNTS				= 0x0117;
 	public static final int				TAG_JPEG_INTERCHANGE_FORMAT			= 0x0201;
 	public static final int				TAG_JPEG_INTERCHANGE_FORMAT_LENGTH	= 0x0202;
-	public static final int				TAG_TRANSFER_FUNCTION				= 0x012d;
-	public static final int				TAG_WHITE_POINT						= 0x013e;
-	public static final int				TAG_PRIMARY_CHROMATICITIES			= 0x013f;
-	public static final int				TAG_YCBCR_COEFICIENTS				= 0x0211;
-	public static final int				TAG_REFERENCE_BLACK_WHITE			= 0x0214;
 	public static final int				TAG_DATETIME						= 0x0132;
-	public static final int				TAG_IMAGE_DESCRIPTION				= 0x010e;
-	public static final int				TAG_MAKE							= 0x010f;
-	public static final int				TAG_MODEL							= 0x0110;
 	public static final int				TAG_SOFTWARE						= 0x0131;
-	public static final int				TAG_ARTIST							= 0x013b;
 	public static final int				TAG_COPYRIGHT						= 0x8298;
 	// IFD Exif tags
 	public static final int				TAG_EXIF_VERSION					= 0x9000;
-	public static final int				TAG_FLASHPIX_VERSION				= 0xa000;
-	public static final int				TAG_COLOR_SPACE						= 0xa001;
-	public static final int				TAG_COMPONENT_CONFIGURATION			= 0x9101;
-	public static final int				TAG_COMPRESSED_BITS_PER_PIXEL		= 0x9102;
-	public static final int				TAG_PIXEL_X_DIMENSION				= 0xa002;
-	public static final int				TAG_PIXEL_Y_DIMENSION				= 0xa003;
-	public static final int				TAG_MARKER_NOTE						= 0x927c;
-	public static final int				TAG_USER_COMMENT					= 0x9286;
-	public static final int				TAG_RELATED_SOUND_FILE				= 0xa004;
 	public static final int				TAG_DATETIME_ORIGINAL				= 0x9003;
 	public static final int				TAG_DATETIME_DIGITIZED				= 0x9004;
-	public static final int				TAG_SUB_SEC_TIME					= 0x9290;
-	public static final int				TAG_SUB_SEC_TIME_ORIGINAL			= 0x9291;
-	public static final int				TAG_SUB_SEC_TIME_DIGITIZED			= 0x9292;
-	public static final int				TAG_IMAGE_UNIQUE_ID					= 0xa420;
 	public static final int				TAG_EXPOSURE_TIME					= 0x829a;
-	public static final int				TAG_FNUMBER							= 0x829d;
-	public static final int				TAG_EXPOSURE_PROGRAM				= 0x8822;
 	public static final int				TAG_SPECTRAL_SENSITIVITY			= 0x8824;
 	public static final int				TAG_ISO_SPEED_RATINGS				= 0x8827;
-	public static final int				TAG_OECF							= 0x8828;
-	public static final int				TAG_SHUTTER_SPEED_VALUE				= 0x9201;
 	public static final int				TAG_APERTURE_VALUE					= 0x9202;
-	public static final int				TAG_BRIGHTNESS_VALUE				= 0x9203;
-	public static final int				TAG_EXPOSURE_BIAS_VALUE				= 0x9204;
-	public static final int				TAG_MAX_APERTURE_VALUE				= 0x9205;
-	public static final int				TAG_SUBJECT_DISTANCE				= 0x9206;
 	public static final int				TAG_METERING_MODE					= 0x9207;
 	public static final int				TAG_LIGHT_SOURCE					= 0x9208;
 	public static final int				TAG_FLASH							= 0x9209;
 	public static final int				TAG_FOCAL_LENGTH					= 0x920a;
-	public static final int				TAG_SUBJECT_AREA					= 0x9214;
-	public static final int				TAG_FLASH_ENERGY					= 0xa20b;
-	public static final int				TAG_SPATIAL_FREQUENCY_RESPONSE		= 0xa20c;
-	public static final int				TAG_FOCAL_PLANE_X_RESOLUTION		= 0xa20e;
-	public static final int				TAG_FOCAL_PLANE_Y_RESOLUTION		= 0xa20f;
-	public static final int				TAG_FOCAL_PLANE_RESOLUTION_UNIT		= 0xa210;
-	public static final int				TAG_SUBJECT_LOCATION				= 0xA214;
-	public static final int				TAG_EXPOSURE_INDEX					= 0xA215;
-	public static final int				TAG_SENSING_METHOD					= 0xA217;
-	public static final int				TAG_FILE_SOURCE						= 0xA300;
-	public static final int				TAG_SCENE_TYPE						= 0xA301;
-	public static final int				TAG_CFA_PATTERN						= 0xA302;
-	public static final int				TAG_CUSTOM_RENDERED					= 0xA401;
-	public static final int				TAG_EXPOSURE_MODE					= 0xA402;
+
 	public static final int				TAG_WHITE_BALANCE					= 0xA403;
-	public static final int				TAG_DIGITAL_ZOOM_RATIO				= 0xA404;
-	public static final int				TAG_FOCAL_LENGTH_35MM_FILM			= 0xA405;
 	public static final int				TAG_SCENE_CAPTURE_TYPE				= 0xA406;
-	public static final int				TAG_GAIN_CONTROL					= 0xA407;
-	public static final int				TAG_CONTRAST						= 0xA408;
-	public static final int				TAG_SATURATION						= 0xA409;
-	public static final int				TAG_SHARPNESS						= 0xA40A;
-	public static final int				TAG_DEVICE_SETTING_DESCRIPTION		= 0xA40B;
-	public static final int				TAG_SUBJECT_DISTANCE_RANGE			= 0xA40C;
-	// IFD GPS tags
 	public static final int				TAG_GPS_VERSION_ID					= 0x0;
 	public static final int				TAG_GPS_LATITUDE_REF				= 0x1;
 	public static final int				TAG_GPS_LATITUDE					= 0x2;
@@ -171,34 +103,7 @@ public class ExifDriver
 	public static final int				TAG_GPS_LONGITUDE					= 0x4;
 	public static final int				TAG_GPS_ALTITUDE_REF				= 0x5;
 	public static final int				TAG_GPS_ALTITUDE					= 0x6;
-	public static final int				TAG_GPS_TIME_STAMP					= 0x7;
-	public static final int				TAG_GPS_SATELITES					= 0x8;
-	public static final int				TAG_GPS_STATUS						= 0x9;
-	public static final int				TAG_GPS_MEASURE_MODE				= 0xa;
-	public static final int				TAG_GPS_DOP							= 0xb;
-	public static final int				TAG_GPS_SPEED_REF					= 0xc;
-	public static final int				TAG_GPS_SPEED						= 0xd;
-	public static final int				TAG_GPS_TRACK_REF					= 0xe;
-	public static final int				TAG_GPS_TRACK						= 0xf;
-	public static final int				TAG_GPS_SLMG_DIRECTION_REF			= 0x10;
-	public static final int				TAG_GPS_SLMG_DIRECTION				= 0x11;
-	public static final int				TAG_GPS_MAP_DATUM					= 0x12;
-	public static final int				TAG_GPS_DEST_LATITUDE_REF			= 0x13;
-	public static final int				TAG_GPS_DEST_LATITUDE				= 0x14;
-	public static final int				TAG_GPS_DEST_LONGITUDE_REF			= 0x15;
-	public static final int				TAG_GPS_DEST_LONGITUDE				= 0x16;
-	public static final int				TAG_GPS_DEST_BEARING_REF			= 0x17;
-	public static final int				TAG_GPS_DEST_BEARING				= 0x18;
-	public static final int				TAG_GPS_DEST_DISTANCE_REF			= 0x19;
-	public static final int				TAG_GPS_DEST_DISTANCE				= 0x1a;
-	public static final int				TAG_GPS_PROCESSING_METHOD			= 0x1b;
-	public static final int				TAG_GPS_AREA_INFORMATION			= 0x1c;
 	public static final int				TAG_GPS_DATE_STAMP					= 0x1d;
-	public static final int				TAG_GPS_DIFFERENTIAL				= 0x1e;
-	// IFD Interoperability tags
-	public static final int				TAG_INTEROPERABILITY_1				= 0x1;
-	public static final int				TAG_INTEROPERABILITY_2				= 0x2;
-	// Length of Exif data size declaration - 2B
 	private final int					LENGTH_EXIF_SIZE_DECL				= 2;
 	private final int					LENGTH_APP1_EXIF_HEADER				= 10;										// APP1Marker+EXIF
 																														// size
@@ -254,10 +159,6 @@ public class ExifDriver
 		}
 	}
 
-	public String getSourceFile()
-	{
-		return sourceFile;
-	}
 
 	/**
 	 * Constructor. Do the basics like find Exif data and prepare them to array.
@@ -795,15 +696,5 @@ public class ExifDriver
 	public HashMap<Integer, ExifValue> getIfdGps()
 	{
 		return ifdGps;
-	}
-
-	public HashMap<Integer, ExifValue> getIfd1()
-	{
-		return ifd1;
-	}
-
-	public HashMap<Integer, ExifValue> getIfdIOper()
-	{
-		return ifdIOper;
 	}
 }

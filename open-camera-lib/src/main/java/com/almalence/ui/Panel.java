@@ -18,11 +18,6 @@ by Almalence Inc. All Rights Reserved.
 
 package com.almalence.ui;
 
-/* <!-- +++
- import com.almalence.opencam_plus.MainScreen;
- import com.almalence.opencam_plus.R;
- +++ --> */
-// <!-- -+-
 
 import com.almalence.opencam.CameraScreenActivity;
 import com.almalence.opencam.R;
@@ -33,8 +28,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,11 +95,9 @@ public class Panel extends LinearLayout {
 
     private State mState;
     private Interpolator mInterpolator;
-    //private final GestureDetector mGestureDetector;
     private int mContentHeight;
     private int mContentWidth;
     private final int mOrientation;
-    //private final PanelOnGestureListener mGestureListener;
 
     public Panel(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -122,19 +113,6 @@ public class Panel extends LinearLayout {
         mOrientation = (mPosition == TOP || mPosition == BOTTOM) ? VERTICAL : HORIZONTAL;
         setOrientation(mOrientation);
         mState = State.READY;
-        //mGestureListener = new PanelOnGestureListener();
-        //mGestureDetector = new GestureDetector(mGestureListener);
-        //mGestureDetector.setIsLongpressEnabled(false);
-    }
-
-    /**
-     * Sets the listener that receives a notification when the panel becomes
-     * open/close.
-     *
-     * @param onPanelListener The listener to be notified when the panel is opened/closed.
-     */
-    public void setOnPanelListener(OnPanelListener onPanelListener) {
-        panelListener = onPanelListener;
     }
 
     /**
@@ -162,35 +140,6 @@ public class Panel extends LinearLayout {
      */
     public void setInterpolator(Interpolator i) {
         mInterpolator = i;
-    }
-
-    /**
-     * Set the opened state of Panel.
-     *
-     * @param open    True if Panel is to be opened, false if Panel is to be closed.
-     * @param animate True if use animation, false otherwise.
-     */
-    public void setOpen(boolean open, boolean animate) {
-        if (isOpen() ^ open) {
-            mIsShrinking = !open;
-            if (animate) {
-                mState = State.ABOUT_TO_ANIMATE;
-                if (!mIsShrinking) {
-                    // this could make flicker so we test mState in
-                    // dispatchDraw()
-                    // to see if is equal to ABOUT_TO_ANIMATE
-                    mContent.setVisibility(VISIBLE);
-                }
-                post(startAnimation);
-            } else {
-                mContent.setVisibility(open ? VISIBLE : GONE);
-                postProcess();
-            }
-        }
-        if (!open) {
-            startScrolling = false;
-            firstTime = true;
-        }
     }
 
     /**
@@ -274,30 +223,21 @@ public class Panel extends LinearLayout {
         super.dispatchDraw(canvas);
     }
 
-    private float ensureRange(float v, int min, int max) {
-        v = Math.max(v, min);
-        v = Math.min(v, max);
-        return v;
-    }
-
     public OnTouchListener touchListener = new OnTouchListener() {
         int initX;
         int initY;
         boolean setInitialPosition;
 
         public boolean onTouch(View v, MotionEvent event) {
-            // if controls
-            // locked - skip
-            // any events
             if (CameraScreenActivity.getGUIManager().lockControls)
                 return false;
 
             int action = event.getAction();
 
             if (v == CameraScreenActivity.getPreviewSurfaceView()
-                    || v == ((View) CameraScreenActivity.getInstance()
+                    || v == (CameraScreenActivity.getInstance()
                     .findViewById(R.id.mainLayout1))
-                    || v.getParent() == (View) CameraScreenActivity
+                    || v.getParent() == CameraScreenActivity
                     .getInstance().findViewById(
                             R.id.paramsLayout)) {
                 if (!mOpened) {
@@ -342,17 +282,6 @@ public class Panel extends LinearLayout {
                 initY = 0;
                 if (mContent.getVisibility() == GONE) {
                     mContent.getBackground().setAlpha(0);
-                    // since
-                    // we
-                    // may
-                    // not
-                    // know
-                    // content
-                    // dimensions
-                    // we
-                    // use
-                    // factors
-                    // here
                     if (mOrientation == VERTICAL) {
                         initY = mPosition == TOP ? -1 : 1;
                     } else {
@@ -362,316 +291,17 @@ public class Panel extends LinearLayout {
                 setInitialPosition = true;
             } else {
                 if (setInitialPosition) {
-                    // now
-                    // we
-                    // know
-                    // content
-                    // dimensions,
-                    // so we
-                    // multiply
-                    // factors...
                     initX *= mContentWidth;
                     initY *= mContentHeight;
-                    // ...
-                    // and
-                    // set
-                    // initial
-                    // panel's
-                    // position
-                    //mGestureListener.setScroll(initX, initY);
                     setInitialPosition = false;
-                    // for
-                    // offsetLocation
-                    // we
-                    // have
-                    // to
-                    // invert
-                    // values
                     initX = -initX;
                     initY = -initY;
                 }
-                // offset
-                // every
-                // ACTION_MOVE
-                // &
-                // ACTION_UP
-                // event
                 event.offsetLocation(initX, initY);
             }
-            /*
-            if (!mGestureDetector.onTouchEvent(event)) {
-                if (action == MotionEvent.ACTION_UP) {
-                    // tup
-                    // up
-                    // after
-                    // scrolling
-                    post(startAnimation);
-                }
-            }*/
             return false;
         }
     };
-
-    Runnable startAnimation = new Runnable() {
-        public void run() {
-            // this is why
-            // we post this
-            // Runnable
-            // couple of
-            // lines above:
-            // now its save
-            // to use
-            // mContent.getHeight()
-            // &&
-            // mContent.getWidth()
-            TranslateAnimation animation;
-            int fromXDelta = 0, toXDelta = 0, fromYDelta = 0, toYDelta = 0;
-            if (mState == State.FLYING) {
-                mIsShrinking = (mPosition == TOP || mPosition == LEFT)
-                        ^ (mVelocity > 0);
-            }
-            if (mContentHeight == 0 || mContentWidth == 0)
-                return;
-            int calculatedDuration;
-            if (mOrientation == VERTICAL) {
-                int height = mContentHeight;
-                if (!mIsShrinking) {
-                    fromYDelta = mPosition == TOP ? -height
-                            : height;
-                } else {
-                    toYDelta = mPosition == TOP ? -height : height;
-                }
-                if (mState == State.TRACKING) {
-                    if (Math.abs(mTrackY - fromYDelta) < Math
-                            .abs(mTrackY - toYDelta)) {
-                        mIsShrinking = !mIsShrinking;
-                        toYDelta = fromYDelta;
-                    }
-                    fromYDelta = (int) mTrackY;
-                } else if (mState == State.FLYING) {
-                    fromYDelta = (int) mTrackY;
-                }
-                // for
-                // FLYING
-                // events we
-                // calculate
-                // animation
-                // duration
-                // based on
-                // flying
-                // velocity
-                // also for
-                // very high
-                // velocity
-                // make sure
-                // duration
-                // >= 20 ms
-                if (mState == State.FLYING && mLinearFlying) {
-                    calculatedDuration = mDuration
-                            * Math.abs(toYDelta - fromYDelta)
-                            / mContentHeight;
-                    calculatedDuration = Math.max(
-                            calculatedDuration, 20);
-                } else {
-                    calculatedDuration = mDuration
-                            * Math.abs(toYDelta - fromYDelta)
-                            / mContentHeight;
-                }
-            } else {
-                int width = mContentWidth;
-                if (!mIsShrinking) {
-                    fromXDelta = mPosition == LEFT ? -width : width;
-                } else {
-                    toXDelta = mPosition == LEFT ? -width : width;
-                }
-                if (mState == State.TRACKING) {
-                    if (Math.abs(mTrackX - fromXDelta) < Math
-                            .abs(mTrackX - toXDelta)) {
-                        mIsShrinking = !mIsShrinking;
-                        toXDelta = fromXDelta;
-                    }
-                    fromXDelta = (int) mTrackX;
-                } else if (mState == State.FLYING) {
-                    fromXDelta = (int) mTrackX;
-                }
-                // for
-                // FLYING
-                // events we
-                // calculate
-                // animation
-                // duration
-                // based on
-                // flying
-                // velocity
-                // also for
-                // very high
-                // velocity
-                // make sure
-                // duration
-                // >= 20 ms
-                if (mState == State.FLYING && mLinearFlying) {
-                    calculatedDuration = (int) (1000 * Math
-                            .abs((toXDelta - fromXDelta)
-                                    / mVelocity));
-                    calculatedDuration = Math.max(
-                            calculatedDuration, 20);
-                } else {
-                    calculatedDuration = mDuration
-                            * Math.abs(toXDelta - fromXDelta)
-                            / mContentWidth;
-                }
-            }
-
-            mTrackX = mTrackY = 0;
-            if (calculatedDuration == 0) {
-                mState = State.READY;
-                if (mIsShrinking) {
-                    mContent.setVisibility(GONE);
-                }
-                postProcess();
-                return;
-            }
-
-            animation = new TranslateAnimation(fromXDelta,
-                    toXDelta, fromYDelta, toYDelta);
-            animation.setDuration(calculatedDuration);
-            animation.setAnimationListener(animationListener);
-            if (mState == State.FLYING && mLinearFlying) {
-                animation.setInterpolator(new LinearInterpolator());
-            } else if (mInterpolator != null) {
-                animation.setInterpolator(mInterpolator);
-            }
-            startAnimation(animation);
-        }
-    };
-
-    private final AnimationListener animationListener = new AnimationListener() {
-        public void onAnimationEnd(Animation animation) {
-            mState = State.READY;
-            if (mIsShrinking) {
-                mContent.setVisibility(GONE);
-            }
-            postProcess();
-        }
-
-        public void onAnimationRepeat(Animation animation) {
-        }
-
-        public void onAnimationStart(Animation animation) {
-            mState = State.ANIMATING;
-        }
-    };
-
-    private void postProcess() {
-        if (mIsShrinking && mClosedHandle != null) {
-            moving = 0;
-            reorder(locationTop, false);
-            mHandle.setBackgroundDrawable(mClosedHandle);
-            mOpened = false;
-            startScrolling = false;
-        } else if (!mIsShrinking && mOpenedHandle != null) {
-            mOpened = true;
-            startScrolling = false;
-            firstTime = true;
-            mContent.getBackground().setAlpha(255);
-            mHandle.setBackgroundDrawable(mOpenedHandle);
-        }
-        // invoke listener if any
-        if (panelListener != null) {
-            if (mIsShrinking) {
-                panelListener.onPanelClosed(Panel.this);
-            } else {
-                panelListener.onPanelOpened(Panel.this);
-            }
-        }
-    }
-
-    /*
-    class PanelOnGestureListener implements OnGestureListener {
-        float scrollY;
-        float scrollX;
-
-        public void setScroll(int initScrollX, int initScrollY) {
-            scrollX = initScrollX;
-            scrollY = initScrollY;
-        }
-
-        public boolean onDown(MotionEvent e) {
-            scrollX = scrollY = 0;
-            if (mState != State.READY) {
-                // we are animating or just about to animate
-                return false;
-            }
-            mState = State.ABOUT_TO_ANIMATE;
-            mIsShrinking = mContent.getVisibility() == VISIBLE;
-            if (!mIsShrinking) {
-                // this could make flicker so we test mState in dispatchDraw()
-                // to see if is equal to ABOUT_TO_ANIMATE
-                mContent.setVisibility(VISIBLE);
-            }
-            return true;
-        }
-
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            mState = State.FLYING;
-            mVelocity = mOrientation == VERTICAL ? velocityY : velocityX;
-            post(startAnimation);
-            return true;
-        }
-
-        public void onLongPress(MotionEvent e) {
-        }
-
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            if (startScrolling && firstTime) {
-                distanceY += mContentHeight;
-                firstTime = false;
-            }
-            mState = State.TRACKING;
-            float tmpY = 0, tmpX = 0;
-            if (outsideControl && e2.getY() > (mContentHeight))
-                return true;
-
-            if (scrollY > -450)
-                reorder(true, false);
-            if (mOrientation == VERTICAL) {
-
-                scrollY -= distanceY;
-                if (mPosition == TOP) {
-                    tmpY = ensureRange(scrollY, -mContentHeight, 0);
-                } else {
-                    tmpY = ensureRange(scrollY, 0, mContentHeight);
-                }
-            } else {
-                scrollX -= distanceX;
-                if (mPosition == LEFT) {
-                    tmpX = ensureRange(scrollX, -mContentWidth, 0);
-                } else {
-                    tmpX = ensureRange(scrollX, 0, mContentWidth);
-                }
-            }
-            if (tmpX != mTrackX || tmpY != mTrackY) {
-                mTrackX = tmpX;
-                mTrackY = tmpY;
-                moving++;
-                invalidate();
-            }
-
-            return true;
-        }
-
-        public void onShowPress(MotionEvent e) {
-        }
-
-        public boolean onSingleTapUp(MotionEvent e) {
-            // simple tap: click
-            post(startAnimation);
-            return true;
-        }
-    }
-
-
-    */
 
     // corrects margin between content and handler
     public void reorder(boolean toTop, boolean isFromGUI) {

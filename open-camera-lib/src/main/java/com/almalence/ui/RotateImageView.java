@@ -16,25 +16,16 @@
 
 package com.almalence.ui;
 
-/* <!-- +++
- import com.almalence.opencam_plus.MainScreen;
- import com.almalence.opencam_plus.R;
- +++ --> */
-// <!-- -+-
+
 import com.almalence.opencam.CameraScreenActivity;
 import com.almalence.opencam.R;
-//-+- -->
+
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.media.ThumbnailUtils;
 import android.util.AttributeSet;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
@@ -53,7 +44,7 @@ public class RotateImageView extends ImageView
 	private int					mStartDegree		= 0;
 	private int					mTargetDegree		= 0;
 
-	private boolean				mClockwise			= false, mEnableAnimation = true;
+	private boolean				mClockwise			= false;
 
 	private long				mAnimationStartTime	= 0;
 	private long				mAnimationEndTime	= 0;
@@ -70,15 +61,6 @@ public class RotateImageView extends ImageView
 		this(context, null);
 	}
 
-	public void enableAnimation(boolean enable)
-	{
-		mEnableAnimation = enable;
-	}
-
-	protected int getDegree()
-	{
-		return mTargetDegree;
-	}
 
 	public void setOrientation(int orientation)
 	{
@@ -162,47 +144,6 @@ public class RotateImageView extends ImageView
 		canvas.restoreToCount(saveCount);
 	}
 
-	private Bitmap				mThumb;
-	private Drawable[]			mThumbs;
-	private TransitionDrawable	mThumbTransition;
-
-	public void setBitmap(Bitmap bitmap)
-	{
-		// Make sure uri and original are consistently both null or both
-		// non-null.
-		if (bitmap == null)
-		{
-			mThumb = null;
-			mThumbs = null;
-			setImageDrawable(null);
-			setVisibility(GONE);
-			return;
-		}
-
-		LayoutParams param = getLayoutParams();
-		final int miniThumbWidth = param.width - getPaddingLeft() - getPaddingRight();
-		final int miniThumbHeight = param.height - getPaddingTop() - getPaddingBottom();
-		mThumb = ThumbnailUtils.extractThumbnail(bitmap, miniThumbWidth, miniThumbHeight);
-		if (mThumbs == null || !mEnableAnimation)
-		{
-			mThumbs = new Drawable[2];
-			mThumbs[1] = new BitmapDrawable(getContext().getResources(), mThumb);
-			setImageDrawable(mThumbs[1]);
-		} else
-		{
-			mThumbs[0] = mThumbs[1];
-			mThumbs[1] = new BitmapDrawable(getContext().getResources(), mThumb);
-			mThumbTransition = new TransitionDrawable(mThumbs);
-			setImageDrawable(mThumbTransition);
-			mThumbTransition.startTransition(500);
-		}
-		setVisibility(VISIBLE);
-	}
-
-	public void enableFilter(boolean enabled)
-	{
-		mFilterEnabled = enabled;
-	}
 
 	public void setBackgroundEnabled(boolean enabled)
 	{

@@ -39,16 +39,6 @@ public final class BufferBoundsException extends Exception
         super(getMessage(buffer, index, bytesRequested));
     }
 
-    public BufferBoundsException(final String message)
-    {
-        super(message);
-    }
-
-    public BufferBoundsException(final String message, final IOException innerException)
-    {
-        super(message, innerException);
-    }
-
     private static String getMessage(@NotNull byte[] buffer, int index, int bytesRequested)
     {
         if (index < 0)

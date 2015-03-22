@@ -49,25 +49,6 @@ import java.util.Collection;
 public class ImageMetadataReader
 {
     private static final int JPEG_FILE_MAGIC_NUMBER = 0xFFD8;
-    private static final int MOTOROLA_TIFF_MAGIC_NUMBER = 0x4D4D;  // "MM"
-    private static final int INTEL_TIFF_MAGIC_NUMBER = 0x4949;     // "II"
-    private static final int PSD_MAGIC_NUMBER = 0x3842;            // "8B" note that the full magic number is 8BPS
-
-    /**
-     * Reads metadata from an input stream.  The file inputStream examined to determine its type and consequently the
-     * appropriate method to extract the data, though this inputStream transparent to the caller.
-     *
-     * @param inputStream a stream from which the image data may be read.  The stream must be positioned at the
-     *                    beginning of the image data.
-     * @return a populated Metadata object containing directories of tags with values and any processing errors.
-     * @throws ImageProcessingException for general processing errors.
-     */
-    @NotNull
-    public static Metadata readMetadata(@NotNull BufferedInputStream inputStream, boolean waitForBytes) throws ImageProcessingException, IOException
-    {
-        int magicNumber = readMagicNumber(inputStream);
-        return readMetadata(inputStream, null, magicNumber, waitForBytes);
-    }
 
     /**
      * Reads metadata from a file.  The file is examined to determine its type and consequently the appropriate
@@ -131,7 +112,6 @@ public class ImageMetadataReader
     public static void main(@NotNull String[] args) throws MetadataException, IOException
     {
         Collection<String> argList = new ArrayList<String>(Arrays.asList(args));
-        boolean thumbRequested = argList.remove("/thumb");
         boolean wikiFormat = argList.remove("/wiki");
 
         if (argList.size() < 1) {

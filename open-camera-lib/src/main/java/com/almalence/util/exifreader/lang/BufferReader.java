@@ -44,15 +44,6 @@ public interface BufferReader
     void setMotorolaByteOrder(boolean motorolaByteOrder);
 
     /**
-     * Gets the endianness of this reader.
-     * <ul>
-     * <li><code>true</code> for Motorola (or big) endianness</li>
-     * <li><code>false</code> for Intel (or little) endianness</li>
-     * </ul>
-     */
-    boolean isMotorolaByteOrder();
-
-    /**
      * Returns an unsigned 8-bit int calculated from one byte of data at the specified index.
      *
      * @param index position within the data buffer to read byte
@@ -106,16 +97,6 @@ public interface BufferReader
      */
     int getInt32(int index) throws BufferBoundsException;
 
-    /**
-     * Get a signed 64-bit integer from the buffer.
-     *
-     * @param index position within the data buffer to read first byte
-     * @return the 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF
-     * @throws BufferBoundsException the buffer does not contain enough bytes to service the request, or index is negative
-     */
-    long getInt64(int index) throws BufferBoundsException;
-
-    float getS15Fixed16(int index) throws BufferBoundsException;
 
     float getFloat32(int index) throws BufferBoundsException;
 

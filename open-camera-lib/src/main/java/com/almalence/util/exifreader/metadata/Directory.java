@@ -83,18 +83,6 @@ public abstract class Directory
 // VARIOUS METHODS
 
     /**
-     * Indicates whether the specified tag type has been set.
-     *
-     * @param tagType the tag type to check for
-     * @return true if a value exists for the specified tag type, false if not
-     */
-    @java.lang.SuppressWarnings({ "UnnecessaryBoxing" })
-    public boolean containsTag(int tagType)
-    {
-        return _tagMap.containsKey(Integer.valueOf(tagType));
-    }
-
-    /**
      * Returns an Iterator of Tag instances that have been set in this Directory.
      *
      * @return an Iterator of Tag instances
@@ -103,16 +91,6 @@ public abstract class Directory
     public Collection<Tag> getTags()
     {
         return _definedTagList;
-    }
-
-    /**
-     * Returns the number of tags set in this Directory.
-     *
-     * @return the number of tags set in this Directory
-     */
-    public int getTagCount()
-    {
-        return _definedTagList.size();
     }
 
     /**
@@ -139,16 +117,6 @@ public abstract class Directory
     }
 
     /**
-     * Gets a value indicating whether this directory has any error messages.
-     *
-     * @return true if the directory contains errors, otherwise false
-     */
-    public boolean hasErrors()
-    {
-        return _errorList.size() > 0;
-    }
-
-    /**
      * Used to iterate over any error messages contained in this directory.
      *
      * @return an iterable collection of error message strings.
@@ -157,12 +125,6 @@ public abstract class Directory
     public Iterable<String> getErrors()
     {
         return _errorList;
-    }
-
-    /** Returns the count of error messages in this directory. */
-    public int getErrorCount()
-    {
-        return _errorList.size();
     }
 
 // TAG SETTERS
@@ -244,50 +206,6 @@ public abstract class Directory
     {
         if (value == null)
             throw new NullPointerException("cannot set a null String");
-        setObject(tagType, value);
-    }
-
-    /**
-     * Sets a <code>String[]</code> (array) for the specified tag.
-     *
-     * @param tagType the tag identifier
-     * @param strings the String array to store
-     */
-    public void setStringArray(int tagType, @NotNull String[] strings)
-    {
-        setObjectArray(tagType, strings);
-    }
-
-    /**
-     * Sets a <code>boolean</code> value for the specified tag.
-     *
-     * @param tagType the tag's value as an int
-     * @param value   the value for the specified tag as a boolean
-     */
-    public void setBoolean(int tagType, boolean value)
-    {
-        setObject(tagType, value);
-    }
-
-    /**
-     * Sets a <code>long</code> value for the specified tag.
-     *
-     * @param tagType the tag's value as an int
-     * @param value   the value for the specified tag as a long
-     */
-    public void setLong(int tagType, long value)
-    {
-        setObject(tagType, value);
-    }
-
-    /**
-     * Sets a <code>java.util.Date</code> value for the specified tag.
-     *
-     * @param tagType the tag's value as an int
-     * @param value   the value for the specified tag as a java.util.Date
-     */
-    public void setDate(int tagType, @NotNull java.util.Date value)
-    {
         setObject(tagType, value);
     }
 
@@ -440,45 +358,6 @@ public abstract class Directory
     }
 
     /**
-     * Gets the specified tag's value as a String array, if possible.  Only supported
-     * where the tag is set as String[], String, int[], byte[] or Rational[].
-     *
-     * @param tagType the tag identifier
-     * @return the tag's value as an array of Strings. If the value is unset or cannot be converted, <code>null</code> is returned.
-     */
-    @Nullable
-    public String[] getStringArray(int tagType)
-    {
-        Object o = getObject(tagType);
-        if (o == null)
-            return null;
-        if (o instanceof String[])
-            return (String[])o;
-        if (o instanceof String)
-            return new String[] { (String)o };
-        if (o instanceof int[]) {
-            int[] ints = (int[])o;
-            String[] strings = new String[ints.length];
-            for (int i = 0; i < strings.length; i++)
-                strings[i] = Integer.toString(ints[i]);
-            return strings;
-        } else if (o instanceof byte[]) {
-            byte[] bytes = (byte[])o;
-            String[] strings = new String[bytes.length];
-            for (int i = 0; i < strings.length; i++)
-                strings[i] = Byte.toString(bytes[i]);
-            return strings;
-        } else if (o instanceof Rational[]) {
-            Rational[] rationals = (Rational[])o;
-            String[] strings = new String[rationals.length];
-            for (int i = 0; i < strings.length; i++)
-                strings[i] = rationals[i].toSimpleString(false);
-            return strings;
-        }
-        return null;
-    }
-
-    /**
      * Gets the specified tag's value as an int array, if possible.  Only supported
      * where the tag is set as String, Integer, int[], byte[] or Rational[].
      *
@@ -567,17 +446,6 @@ public abstract class Directory
         return null;
     }
 
-    /** Returns the specified tag's value as a double, if possible. */
-    public double getDouble(int tagType) throws MetadataException
-    {
-        Double value = getDoubleObject(tagType);
-        if (value!=null)
-            return value;
-        Object o = getObject(tagType);
-        if (o == null)
-            throw new MetadataException("Tag '" + getTagName(tagType) + "' has not been set -- check using containsTag() first");
-        throw new MetadataException("Tag '" + tagType + "' cannot be converted to a double.  It is of type '" + o.getClass() + "'.");
-    }
     /** Returns the specified tag's value as a Double.  If the tag is not set or cannot be converted, <code>null</code> is returned. */
     @Nullable
     public Double getDoubleObject(int tagType)
@@ -598,18 +466,6 @@ public abstract class Directory
         return null;
     }
 
-    /** Returns the specified tag's value as a float, if possible. */
-    public float getFloat(int tagType) throws MetadataException
-    {
-        Float value = getFloatObject(tagType);
-        if (value!=null)
-            return value;
-        Object o = getObject(tagType);
-        if (o == null)
-            throw new MetadataException("Tag '" + getTagName(tagType) + "' has not been set -- check using containsTag() first");
-        throw new MetadataException("Tag '" + tagType + "' cannot be converted to a float.  It is of type '" + o.getClass() + "'.");
-    }
-
     /** Returns the specified tag's value as a float.  If the tag is not set or cannot be converted, <code>null</code> is returned. */
     @Nullable
     public Float getFloatObject(int tagType)
@@ -626,37 +482,6 @@ public abstract class Directory
         }
         if (o instanceof Number)
             return ((Number)o).floatValue();
-        return null;
-    }
-
-    /** Returns the specified tag's value as a long, if possible. */
-    public long getLong(int tagType) throws MetadataException
-    {
-        Long value = getLongObject(tagType);
-        if (value!=null)
-            return value;
-        Object o = getObject(tagType);
-        if (o == null)
-            throw new MetadataException("Tag '" + getTagName(tagType) + "' has not been set -- check using containsTag() first");
-        throw new MetadataException("Tag '" + tagType + "' cannot be converted to a long.  It is of type '" + o.getClass() + "'.");
-    }
-
-    /** Returns the specified tag's value as a long.  If the tag is not set or cannot be converted, <code>null</code> is returned. */
-    @Nullable
-    public Long getLongObject(int tagType)
-    {
-        Object o = getObject(tagType);
-        if (o == null)
-            return null;
-        if (o instanceof String) {
-            try {
-                return Long.parseLong((String)o);
-            } catch (NumberFormatException nfe) {
-                return null;
-            }
-        }
-        if (o instanceof Number)
-            return ((Number)o).longValue();
         return null;
     }
 
@@ -694,60 +519,6 @@ public abstract class Directory
         return null;
     }
 
-    /**
-     * Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <code>null</code> is returned.
-     * <p/>
-     * If the underlying value is a {@link String}, then attempts will be made to parse the string as though it is in
-     * the current {@link TimeZone}.  If the {@link TimeZone} is known, call the overload that accepts one as an argument.
-     */
-    @Nullable
-    public java.util.Date getDate(int tagType)
-    {
-        return getDate(tagType, null);
-    }
-    
-    /**
-     * Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <code>null</code> is returned.
-     * <p/>
-     * If the underlying value is a {@link String}, then attempts will be made to parse the string as though it is in
-     * the {@link TimeZone} represented by the {@code timeZone} parameter (if it is non-null).  Note that this parameter
-     * is only considered if the underlying value is a string and parsing occurs, otherwise it has no effect.
-     */
-    @Nullable
-    public java.util.Date getDate(int tagType, @Nullable TimeZone timeZone)
-    {
-        Object o = getObject(tagType);
-
-        if (o == null)
-            return null;
-
-        if (o instanceof java.util.Date)
-            return (java.util.Date)o;
-
-        if (o instanceof String) {
-            // This seems to cover all known Exif date strings
-            // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
-            String[] datePatterns = {
-                    "yyyy:MM:dd HH:mm:ss",
-                    "yyyy:MM:dd HH:mm",
-                    "yyyy-MM-dd HH:mm:ss",
-                    "yyyy-MM-dd HH:mm",
-                    "yyyy.MM.dd HH:mm:ss",
-                    "yyyy.MM.dd HH:mm" };
-            String dateString = (String)o;
-            for (String datePattern : datePatterns) {
-                try {
-                    DateFormat parser = new SimpleDateFormat(datePattern);
-                    if (timeZone != null)
-                        parser.setTimeZone(timeZone);
-                    return parser.parse(dateString);
-                } catch (ParseException ex) {
-                    // simply try the next pattern
-                }
-            }
-        }
-        return null;
-    }
 
     /** Returns the specified tag's value as a Rational.  If the value is unset or cannot be converted, <code>null</code> is returned. */
     @Nullable
@@ -766,20 +537,6 @@ public abstract class Directory
             return new Rational((Long)o, 1);
 
         // NOTE not doing conversions for real number types
-
-        return null;
-    }
-
-    /** Returns the specified tag's value as an array of Rational.  If the value is unset or cannot be converted, <code>null</code> is returned. */
-    @Nullable
-    public Rational[] getRationalArray(int tagType)
-    {
-        Object o = getObject(tagType);
-        if (o == null)
-            return null;
-
-        if (o instanceof Rational[])
-            return (Rational[])o;
 
         return null;
     }

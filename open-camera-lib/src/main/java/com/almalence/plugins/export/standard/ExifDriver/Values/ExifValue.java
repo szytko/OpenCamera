@@ -51,7 +51,7 @@ public abstract class ExifValue {
 
 	/**
 	 * Returns int [][2] of components
-	 * 
+	 *
 	 * @return Array of components
 	 * @throws UndefinedValueAccessException
 	 */
@@ -73,7 +73,7 @@ public abstract class ExifValue {
 
 	/**
 	 * Set int[] of values
-	 * 
+	 *
 	 * @param _values
 	 * @throws UndefinedValueAccessException
 	 */
@@ -84,7 +84,7 @@ public abstract class ExifValue {
 
 	/**
 	 * Set int[][] array of values
-	 * 
+	 *
 	 * @param _values
 	 * @throws UndefinedValueAccessException
 	 */

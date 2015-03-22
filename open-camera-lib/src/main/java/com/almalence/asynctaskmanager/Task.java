@@ -32,22 +32,6 @@ public abstract class Task extends AsyncTask<Void, String, Boolean>
 	}
 
 	/* UI Thread */
-	public void setProgressTracker(IProgressTracker progressTracker)
-	{
-		// Attach to progress tracker
-		this.mProgressTracker = progressTracker;
-		// Initialize progress tracker with current task state
-		if (this.mProgressTracker != null)
-		{
-			this.mProgressTracker.onProgress(this.mProgressMessage);
-			if (this.mResult != null)
-			{
-				this.mProgressTracker.onComplete();
-			}
-		}
-	}
-
-	/* UI Thread */
 	@Override
 	protected void onCancelled()
 	{

@@ -45,14 +45,4 @@ public final class PhotographicConversions
         return Math.pow(ROOT_TWO, aperture);
     }
 
-    /**
-     * Converts a shutter speed to an exposure time.
-     *
-     * @param shutterSpeed the shutter speed to convert
-     * @return the exposure time of the specified shutter speed
-     */
-    public static double shutterSpeedToExposureTime(double shutterSpeed)
-    {
-        return (float) (1 / Math.exp(shutterSpeed * Math.log(2)));
-    }
 }

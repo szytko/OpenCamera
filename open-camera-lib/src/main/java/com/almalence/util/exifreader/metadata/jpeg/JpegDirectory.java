@@ -106,19 +106,4 @@ public class JpegDirectory extends Directory
         int tagType = JpegDirectory.TAG_JPEG_COMPONENT_DATA_1 + componentNumber;
         return (JpegComponent)getObject(tagType);
     }
-
-    public int getImageWidth() throws MetadataException
-    {
-        return getInt(JpegDirectory.TAG_JPEG_IMAGE_WIDTH);
-    }
-
-    public int getImageHeight() throws MetadataException
-    {
-        return getInt(JpegDirectory.TAG_JPEG_IMAGE_HEIGHT);
-    }
-
-    public int getNumberOfComponents() throws MetadataException
-    {
-        return getInt(JpegDirectory.TAG_JPEG_NUMBER_OF_COMPONENTS);
-    }
 }

@@ -305,6 +305,6 @@ public abstract class GUI
 	
 	public void openGallery(boolean isOpenExternal)
 	{}
-	
+
 	public View getMainView(){return (View)null;}
 }

@@ -18,20 +18,11 @@ by Almalence Inc. All Rights Reserved.
 
 package com.almalence.plugins.processing.simple;
 
-/* <!-- +++
- import com.almalence.opencam_plus.MainScreen;
- import com.almalence.opencam_plus.PluginManager;
- import com.almalence.opencam_plus.PluginProcessing;
- import com.almalence.opencam_plus.R;
- import com.almalence.opencam_plus.cameracontroller.CameraController;
- +++ --> */
-// <!-- -+-
 import com.almalence.opencam.CameraScreenActivity;
 import com.almalence.opencam.PluginManager;
 import com.almalence.opencam.PluginProcessing;
 import com.almalence.opencam.R;
 import com.almalence.opencam.cameracontroller.CameraController;
-//-+- -->
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

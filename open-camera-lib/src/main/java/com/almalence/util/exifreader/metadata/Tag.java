@@ -52,21 +52,6 @@ public class Tag
     }
 
     /**
-     * Gets the tag type in hex notation as a String with padded leading
-     * zeroes if necessary (i.e. <code>0x100E</code>).
-     *
-     * @return the tag type as a string in hexadecimal notation
-     */
-    @NotNull
-    public String getTagTypeHex()
-    {
-        String hex = Integer.toHexString(_tagType);
-        while (hex.length() < 4) 
-        	hex = "0" + hex;
-        return "0x" + hex;
-    }
-
-    /**
      * Get a description of the tag's value, considering enumerated values
      * and units.
      *
@@ -88,18 +73,6 @@ public class Tag
     public String getTagName()
     {
         return _directory.getTagName(_tagType);
-    }
-
-    /**
-     * Get the name of the directory in which the tag exists, such as
-     * <code>Exif</code>, <code>GPS</code> or <code>Interoperability</code>.
-     *
-     * @return name of the directory in which this tag exists
-     */
-    @NotNull
-    public String getDirectoryName()
-    {
-        return _directory.getName();
     }
 
     /**

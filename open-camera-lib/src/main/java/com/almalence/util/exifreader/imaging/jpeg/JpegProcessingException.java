@@ -42,8 +42,4 @@ public class JpegProcessingException extends ImageProcessingException
         super(message, cause);
     }
 
-    public JpegProcessingException(@Nullable Throwable cause)
-    {
-        super(cause);
-    }
 }

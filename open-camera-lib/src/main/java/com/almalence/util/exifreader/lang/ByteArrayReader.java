@@ -64,12 +64,6 @@ public class ByteArrayReader implements BufferReader
     }
 
     @Override
-    public boolean isMotorolaByteOrder()
-    {
-        return _isMotorolaByteOrder;
-    }
-
-    @Override
     public short getUInt8(int index) throws BufferBoundsException
     {
         checkBounds(index, 1);
@@ -157,8 +151,7 @@ public class ByteArrayReader implements BufferReader
         }
     }
 
-    @Override
-    public long getInt64(int index) throws BufferBoundsException
+    private long getInt64(int index) throws BufferBoundsException
     {
         checkBounds(index, 8);
 
@@ -182,27 +175,6 @@ public class ByteArrayReader implements BufferReader
                    ((long)_buffer[index + 2] << 16 & 0xFF0000L) |
                    ((long)_buffer[index + 1] << 8  & 0xFF00L) |
                    ((long)_buffer[index    ]       & 0xFFL);
-        }
-    }
-
-    @Override
-    public float getS15Fixed16(int index) throws BufferBoundsException
-    {
-        checkBounds(index, 4);
-
-        if (_isMotorolaByteOrder) {
-            float res = (_buffer[index    ] & 255) << 8 |
-                        (_buffer[index + 1] & 255);
-            int d =     (_buffer[index + 2] & 255) << 8 |
-                        (_buffer[index + 3] & 255);
-            return (float)(res + d/65536.0);
-        } else {
-            // this particular branch is untested
-            float res = (_buffer[index + 3] & 255) << 8 |
-                        (_buffer[index + 2] & 255);
-            int d =     (_buffer[index + 1] & 255) << 8 |
-                        (_buffer[index    ] & 255);
-            return (float)(res + d/65536.0);
         }
     }
 

@@ -56,12 +56,6 @@ public class CompoundException extends Exception
         _innerException = innerException;
     }
 
-    @Nullable
-    public Throwable getInnerException()
-    {
-        return _innerException;
-    }
-
     @NotNull
     public String toString()
     {

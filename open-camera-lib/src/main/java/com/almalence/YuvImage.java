@@ -21,11 +21,9 @@
 package com.almalence;
 
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
 
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
-import android.util.Log;
 
 /**
  * YuvImage contains YUV data and provides a method that compresses a region of
@@ -38,12 +36,6 @@ import android.util.Log;
  */
 public class YuvImage
 {
-
-	/**
-	 * Number of bytes of temp storage we use for communicating between the
-	 * native compressor and the java OutputStream.
-	 */
-	private static final int	WORKING_COMPRESS_STORAGE	= 4096;
 
 	/**
 	 * Number of bytes of temp storage we use for communicating between the
@@ -170,22 +162,6 @@ public class YuvImage
 	}
 
 	/**
-	 * @return the YUV format as defined in {@link PixelFormat}.
-	 */
-	public int getYuvFormat()
-	{
-		return mFormat;
-	}
-
-	/**
-	 * @return the number of row bytes in each image plane.
-	 */
-	public int[] getStrides()
-	{
-		return mStrides;
-	}
-
-	/**
 	 * @return the width of the image.
 	 */
 	public int getWidth()
@@ -264,32 +240,9 @@ public class YuvImage
 
 	// ////////// native methods
 
-	public static native boolean SaveJpegFreeOut(int oriYuv, int format, int width, int height, int[] offsets,
-			int[] strides, int quality, OutputStream stream, byte[] tempStorage);
-	
 	//Multithreaded version of SaveJpegFreeOut
 	public static native boolean SaveJpegFreeOutMT(int oriYuv, int format, int width, int height, int[] offsets,
 			int[] strides, int quality, OutputStream stream, byte[] tempStorage);	
-
-	// Return: pointer to the frame data in heap converted to int
-	public static synchronized native int GetFrame();
-
-	// Return: byte-array copy of the frame in heap
-	// Note: this will remove image from heap
-	public static synchronized native byte[] GetByteFrame();
-
-	public static synchronized native void RemoveFrame();
-
-	// Return: error status (0 = all ok)
-	public static synchronized native int CreateYUVImage(ByteBuffer Y, ByteBuffer U, ByteBuffer V, int pixelStrideY,
-			int rowStrideY, int pixelStrideU, int rowStrideU, int pixelStrideV, int rowStrideV, int sx, int sy);
-
-	public static synchronized native byte[] CreateYUVImageByteArray(ByteBuffer Y, ByteBuffer U, ByteBuffer V,
-			int pixelStrideY, int rowStrideY, int pixelStrideU, int rowStrideU, int pixelStrideV, int rowStrideV,
-			int sx, int sy);
-
-	// Return pointer to heap with size for one yuv image
-	public static synchronized native int AllocateMemoryForYUV(int sx, int sy);
 
 	static
 	{

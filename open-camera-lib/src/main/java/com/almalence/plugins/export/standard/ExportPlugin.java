@@ -47,7 +47,6 @@ import com.almalence.util.MLocation;
 
 public class ExportPlugin extends PluginExport
 {
-	boolean					should_save						= false;
 	private RotateImageView	gpsInfoImage;
 
 	boolean					isResultFromProcessingPlugin	= false;

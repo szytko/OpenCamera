@@ -16,22 +16,12 @@
 
 package com.almalence.googsharing;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -39,44 +29,25 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Video;
 import android.provider.MediaStore.Video.VideoColumns;
 import android.util.Log;
 
-//<!-- -+-
 import com.almalence.opencam.PluginManager;
-//-+- -->
-/* <!-- +++
-import com.almalence.opencam_plus.PluginManager;
-+++ --> */
-
-import com.almalence.util.Util;
 
 public class Thumbnail
 {
 	private static final String		TAG					= "Thumbnail";
 
-	public static final String		LAST_THUMB_FILENAME	= "last_thumb";
-	private static final int		BUFSIZE				= 4096;
-
 	private Uri						mUri;
 	private Bitmap					mBitmap;
 	private Bitmap					mFullBitmap;
-	// whether this thumbnail is read from file
-	private boolean					mFromFile			= false;
 
 	private static ContentResolver	mResolver			= null;
 
-	public static final String		DCIM				= Environment.getExternalStoragePublicDirectory(
-																Environment.DIRECTORY_DCIM).toString();
-	public static final String		DIRECTORY			= DCIM + "/Camera";
-	// Match the code in MediaProvider.computeBucketValues().
-	public static final String		BUCKET_ID			= String.valueOf(DIRECTORY.toLowerCase().hashCode());
 
 	public Thumbnail(Uri uri, Bitmap bitmap, Bitmap fullBitmap, int orientation)
 	{
@@ -96,47 +67,6 @@ public class Thumbnail
 	public Bitmap getBitmap()
 	{
 		return mBitmap;
-	}
-
-	public Bitmap getFullBitmap()
-	{
-		Media image = getLastImageThumbnail(mResolver);
-
-		if (image == null)
-			return null;
-
-		Bitmap fullBitmap = null;
-
-		try
-		{
-			fullBitmap = Images.Media.getBitmap(mResolver, image.uri);
-		} catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		mFullBitmap = null;
-		System.gc();
-
-		mUri = image.uri;
-		mFullBitmap = rotateImage(fullBitmap, image.orientation);
-		if (mFullBitmap == null)
-			throw new IllegalArgumentException("null bitmap");
-
-		return mFullBitmap;
-	}
-
-	public void setFromFile(boolean fromFile)
-	{
-		mFromFile = fromFile;
-	}
-
-	public boolean fromFile()
-	{
-		return mFromFile;
 	}
 
 	private static Bitmap rotateImage(Bitmap bitmap, int orientation)
@@ -164,67 +94,6 @@ public class Thumbnail
 		return bitmap;
 	}
 
-	// Stores the bitmap to the specified file.
-	public void saveTo(File file)
-	{
-		FileOutputStream f = null;
-		BufferedOutputStream b = null;
-		DataOutputStream d = null;
-		try
-		{
-			f = new FileOutputStream(file);
-			b = new BufferedOutputStream(f, BUFSIZE);
-			d = new DataOutputStream(b);
-			d.writeUTF(mUri.toString());
-			mBitmap.compress(Bitmap.CompressFormat.JPEG, 90, d);
-			d.close();
-		} catch (IOException e)
-		{
-			Log.e(TAG, "Fail to store bitmap. path=" + file.getPath(), e);
-		} finally
-		{
-			Util.closeSilently(f);
-			Util.closeSilently(b);
-			Util.closeSilently(d);
-		}
-	}
-
-	// Loads the data from the specified file.
-	// Returns null if failure.
-	public static Thumbnail loadFrom(File file)
-	{
-		Uri uri = null;
-		Bitmap bitmap = null;
-		FileInputStream f = null;
-		BufferedInputStream b = null;
-		DataInputStream d = null;
-		try
-		{
-			f = new FileInputStream(file);
-			b = new BufferedInputStream(f, BUFSIZE);
-			d = new DataInputStream(b);
-			uri = Uri.parse(d.readUTF());
-			bitmap = BitmapFactory.decodeStream(d);
-			d.close();
-		} catch (IOException e)
-		{
-			Log.i(TAG, "Fail to load bitmap. " + e);
-
-			return null;
-		} finally
-		{
-			Util.closeSilently(f);
-			Util.closeSilently(b);
-			Util.closeSilently(d);
-		}
-
-		Thumbnail thumbnail = createThumbnail(uri, bitmap, null, 0);
-		if (thumbnail != null)
-			thumbnail.setFromFile(true);
-
-		return thumbnail;
-	}
-
 	public static Thumbnail getLastThumbnail(ContentResolver resolver)
 	{
 		mResolver = resolver;
@@ -239,9 +108,6 @@ public class Thumbnail
 
 		try
 		{
-			// If there is only image or video, get its thumbnail. If both
-			// exist,
-			// get the thumbnail of the one that is newer.
 			if (image != null && (video == null || image.dateTaken >= video.dateTaken))
 			{
 				bitmap = Images.Thumbnails.getThumbnail(resolver, image.id, Images.Thumbnails.MICRO_KIND, null);
@@ -396,15 +262,6 @@ public class Thumbnail
 		}
 	}
 
-	public static Thumbnail createThumbnail(byte[] jpeg, int orientation, int inSampleSize, Uri uri)
-	{
-		// Create the thumbnail.
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inSampleSize = inSampleSize;
-		Bitmap bitmap = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length, options);
-		return createThumbnail(uri, bitmap, null, orientation);
-	}
-
 	private static Thumbnail createThumbnail(Uri uri, Bitmap bitmap, Bitmap fullBitmap, int orientation)
 	{
 		if (bitmap == null)
@@ -501,59 +358,4 @@ public class Thumbnail
 		}
 	}
 
-	public static Bitmap createVideoThumbnail(FileDescriptor fd, int targetWidth)
-	{
-		return createVideoThumbnail(null, fd, targetWidth);
-	}
-
-	public static Bitmap createVideoThumbnail(String filePath, int targetWidth)
-	{
-		return createVideoThumbnail(filePath, null, targetWidth);
-	}
-
-	private static Bitmap createVideoThumbnail(String filePath, FileDescriptor fd, int targetWidth)
-	{
-		Bitmap bitmap = null;
-		MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-		try
-		{
-			if (filePath != null)
-			{
-				retriever.setDataSource(filePath);
-			} else
-			{
-				retriever.setDataSource(fd);
-			}
-			bitmap = retriever.getFrameAtTime(-1);
-		} catch (IllegalArgumentException ex)
-		{
-			// Assume this is a corrupt video file
-		} catch (RuntimeException ex)
-		{
-			// Assume this is a corrupt video file.
-		} finally
-		{
-			try
-			{
-				retriever.release();
-			} catch (RuntimeException ex)
-			{
-				// Ignore failures while cleaning up.
-			}
-		}
-		if (bitmap == null)
-			return null;
-
-		// Scale down the bitmap if it is bigger than we need.
-		int width = bitmap.getWidth();
-		int height = bitmap.getHeight();
-		if (width > targetWidth)
-		{
-			float scale = (float) targetWidth / width;
-			int w = Math.round(scale * width);
-			int h = Math.round(scale * height);
-			bitmap = Bitmap.createScaledBitmap(bitmap, w, h, true);
-		}
-		return bitmap;
-	}
 }

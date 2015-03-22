@@ -45,11 +45,6 @@ public class JpegComponent implements Serializable
         _quantizationTableNumber = quantizationTableNumber;
     }
 
-    public int getComponentId()
-    {
-        return _componentId;
-    }
-
     /**
      * Returns the component name (one of: Y, Cb, Cr, I, or Q)
      * @return the component name

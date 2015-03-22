@@ -130,12 +130,6 @@ public class Rational extends java.lang.Number implements Serializable
     }
 
 
-    /** Returns the denominator. */
-    public final long getDenominator()
-    {
-        return this._denominator;
-    }
-
     /** Returns the numerator. */
     public final long getNumerator()
     {

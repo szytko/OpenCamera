@@ -37,13 +37,4 @@ public class MetadataException extends CompoundException
         super(msg);
     }
 
-    public MetadataException(@Nullable Throwable exception)
-    {
-        super(exception);
-    }
-
-    public MetadataException(@Nullable String msg, @Nullable Throwable innerException)
-    {
-        super(msg, innerException);
-    }
 }
