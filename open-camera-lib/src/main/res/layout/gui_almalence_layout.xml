@@ -210,100 +210,50 @@
 
 
     <!-- Top menu for main camera parameters: Scene mode, WB, Flash mode, Focus mode and Preferences button   -->
+    <!-- This is bar with icons for options elements -->
     <LinearLayout
         android:id="@+id/paramsLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/paramsLayoutHeight"
         android:layout_alignParentTop="true"
         android:layout_gravity="top"
-        android:background="@drawable/blacktransparentlayertop"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:background="@color/bg_oc_blue"
         android:orientation="horizontal">
+        <!-- android:background="@drawable/blacktransparentlayertop" -->
 
         <com.almalence.ui.RotateImageView
             android:id="@+id/evButton"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="7dip"
+            android:layout_margin="17dip"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@drawable/underlayer"
             android:onClick="onButtonClick" />
-        <!--
-        <com.almalence.ui.RotateImageView
-            android:id="@+id/sceneButton"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="7dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:onClick="onButtonClick" />
-        -->
+
         <com.almalence.ui.RotateImageView
             android:id="@+id/wbButton"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="7dip"
+            android:layout_margin="17dip"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@drawable/underlayer"
             android:onClick="onButtonClick" />
-
-        <!--
-        <com.almalence.ui.RotateImageView
-            android:id="@+id/focusButton"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="7dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:onClick="onButtonClick" />
-        -->
 
         <com.almalence.ui.RotateImageView
             android:id="@+id/flashButton"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="7dip"
+            android:layout_margin="17dip"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@drawable/underlayer"
             android:onClick="onButtonClick" />
 
 
-        <!--
-        <com.almalence.ui.RotateImageView
-            android:id="@+id/isoButton"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="7dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:onClick="onButtonClick" />
-
-        <com.almalence.ui.RotateImageView
-            android:id="@+id/meteringButton"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="7dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:onClick="onButtonClick" />
-
-
-        <com.almalence.ui.RotateImageView
-            android:id="@+id/camerachangeButton"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="7dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:onClick="onButtonClick" />
-            -->
     </LinearLayout>
 
     <RelativeLayout
@@ -367,15 +317,13 @@
             android:background="@drawable/store_background"></RelativeLayout>
     </RelativeLayout>
 
-    <!-- android:layout_below="@+id/topPanel" -->
     <RelativeLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/mainButtons"
         android:layout_below="@id/paramsLayout"
-
-        android:layout_marginTop="@dimen/buttonsLayoutMarginTop">
+        android:layout_marginTop="0dp">
 
         <LinearLayout
             android:id="@+id/evLayout"
@@ -460,87 +408,45 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/button_evplus" />
         </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/scenemodeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/blacktransparentlayersettings"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="gone">
-
-            <GridView
-                android:id="@+id/scenemodeGrid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:horizontalSpacing="10dp"
-                android:numColumns="3"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:stretchMode="columnWidth" />
-        </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/wbLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/blacktransparentlayersettings"
+            android:layout_marginLeft="0dip"
+            android:layout_marginRight="0dip"
+            android:background="@color/bg_oc_blue"
             android:orientation="vertical"
             android:padding="10dp"
             android:visibility="gone">
-
             <GridView
                 android:id="@+id/wbGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:horizontalSpacing="10dp"
-                android:numColumns="3"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
+                android:horizontalSpacing="0dp"
+                android:verticalSpacing="10dp"
+                android:numColumns="4"
+                android:padding="10dp"
+                android:adjustViewBounds="true"
+                android:columnWidth="@dimen/gridImageSize2x"
                 android:stretchMode="columnWidth" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/focusmodeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/blacktransparentlayersettings"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="gone">
-
-            <GridView
-                android:id="@+id/focusmodeGrid"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:horizontalSpacing="10dp"
-                android:numColumns="3"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:stretchMode="columnWidth" />
+                android:layout_height="1dp"
+                android:background="@color/Gray"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                />
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/flashmodeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/blacktransparentlayersettings"
+            android:layout_marginLeft="0dip"
+            android:layout_marginRight="0dip"
+            android:background="@color/bg_oc_blue"
             android:orientation="vertical"
             android:padding="10dp"
             android:visibility="gone">
@@ -550,60 +456,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:horizontalSpacing="10dp"
-                android:numColumns="3"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
+                android:horizontalSpacing="0dp"
+                android:verticalSpacing="10dp"
+                android:numColumns="4"
+                android:padding="10dp"
+                android:adjustViewBounds="true"
+                android:columnWidth="@dimen/gridImageSize2x"
                 android:stretchMode="columnWidth" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/isoLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/blacktransparentlayersettings"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="gone">
-
-            <GridView
-                android:id="@+id/isoGrid"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:horizontalSpacing="10dp"
-                android:numColumns="3"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:stretchMode="columnWidth" />
+                android:layout_height="1dp"
+                android:background="@color/Gray"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/meteringLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/blacktransparentlayersettings"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="gone">
-
-            <GridView
-                android:id="@+id/meteringmodeGrid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:horizontalSpacing="10dp"
-                android:numColumns="3"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:stretchMode="columnWidth" />
-        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -635,7 +503,7 @@
             android:adjustViewBounds="true"
             android:gravity="center"
             android:horizontalSpacing="10dp"
-            android:numColumns="3"
+            android:numColumns="4"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:stretchMode="columnWidth"
@@ -643,39 +511,5 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <!--
-    <com.almalence.ui.Panel
-        xmlns:my="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/topPanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        my:animationDuration="30"
-        my:closedHandle="@drawable/gui_almalence_handle_down"
-        my:downSpace="@dimen/paramsLayoutHeight"
-        my:linearFlying="true"
-        my:openedHandle="@drawable/gui_almalence_handle_up"
-        my:position="top">
-
-        <ImageButton
-            android:id="@+id/panelHandle"
-            android:layout_width="match_parent"
-            android:layout_height="10dip"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/paramsLayoutHeight"
-            android:background="@drawable/blacktransparentlayerpulldownmenu"
-            android:paddingBottom="5dip" />
-
-        <LinearLayout
-            android:id="@id/panelContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/blacktransparentlayerpulldownmenu"
-            android:orientation="vertical">
-
-            <include layout="@layout/gui_almalence_panel" />
-        </LinearLayout>
-    </com.almalence.ui.Panel>
-    -->
 
 </RelativeLayout>

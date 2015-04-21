@@ -26,9 +26,12 @@ package com.almalence.opencam.ui;
 
 import java.util.List;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.almalence.opencam.R;
 
 /***
  * Adapter for grids elements
@@ -39,9 +42,21 @@ public class ElementAdapter extends BaseAdapter
 
 	public List<View>	Elements;
 
+    public boolean isRect;
+    public Context context;
+
+    public ElementAdapter(boolean isRect, Context context)
+    {
+        this.isRect = isRect;
+        this.context = context;
+    }
+
 	public ElementAdapter()
 	{
+        this.isRect = false;
 	}
+
+
 
 	public int getCount()
 	{
@@ -62,6 +77,13 @@ public class ElementAdapter extends BaseAdapter
 	{
 		if (null == Elements)
 			return null;
-		return Elements.get(position);
+		View v = Elements.get(position);
+        if(this.isRect){
+            ViewGroup.LayoutParams p = v.getLayoutParams();
+            p.height = context.getResources().getDimensionPixelSize(R.dimen.gridImageSize2x);
+            p.width = context.getResources().getDimensionPixelSize(R.dimen.gridImageSize2x);
+            v.setLayoutParams(p);
+        }
+        return v;
 	}
 }

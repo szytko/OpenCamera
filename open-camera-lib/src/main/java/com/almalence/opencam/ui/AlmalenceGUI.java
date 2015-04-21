@@ -212,12 +212,12 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 	private View								quickControl3				= null;
 	private View								quickControl4				= null;
 
-	private ElementAdapter						scenemodeAdapter;
+	//private ElementAdapter						scenemodeAdapter;
 	private ElementAdapter						wbmodeAdapter;
-	private ElementAdapter						focusmodeAdapter;
+	//private ElementAdapter						focusmodeAdapter;
 	private ElementAdapter						flashmodeAdapter;
-	private ElementAdapter						isoAdapter;
-	private ElementAdapter						meteringmodeAdapter;
+	//private ElementAdapter						isoAdapter;
+	//private ElementAdapter						meteringmodeAdapter;
 
 	//private Map<Integer, View>					sceneModeButtons;
 	private Map<Integer, View>					wbModeButtons;
@@ -284,12 +284,12 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		topMenuButtons = new HashMap<Integer, View>();
 		topMenuPluginButtons = new HashMap<String, View>();
 
-		scenemodeAdapter = new ElementAdapter();
-		wbmodeAdapter = new ElementAdapter();
-		focusmodeAdapter = new ElementAdapter();
-		flashmodeAdapter = new ElementAdapter();
-		isoAdapter = new ElementAdapter();
-		meteringmodeAdapter = new ElementAdapter();
+		//scenemodeAdapter = new ElementAdapter();
+		wbmodeAdapter = new ElementAdapter(true, CameraScreenActivity.getMainContext());
+		//focusmodeAdapter = new ElementAdapter();
+		flashmodeAdapter = new ElementAdapter(true, CameraScreenActivity.getMainContext());
+		//isoAdapter = new ElementAdapter();
+		//meteringmodeAdapter = new ElementAdapter();
 
 		//sceneModeButtons = new HashMap<Integer, View>();
 		wbModeButtons = new HashMap<Integer, View>();
@@ -1226,6 +1226,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 	private void correctTopMenuButtonBackground(View topMenuView, boolean isEnabled)
 	{
+
 		if (topMenuView != null)
 		{
 			if (!isEnabled)
@@ -2687,6 +2688,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 			RotateImageView pressed_button = (RotateImageView) topMenuButtons.get(iTopMenuButtonSelected);
 			pressed_button.setPressed(false);
 			pressed_button.setSelected(true);
+
 		}
 
 		quickControlsVisible = false;
@@ -2720,9 +2722,9 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 			Integer it_button = it.next();
 			if (isTopMenuButtonEnabled(it_button))
 				(topMenuButtons.get(it_button)).setBackgroundDrawable(CameraScreenActivity.getMainContext().getResources()
-						.getDrawable(R.drawable.transparent_background));
+						.getDrawable(R.drawable.almalence_gui_button_background));
 		}
-
+        //transparent_background
 		if ((iTopMenuButtonPressed > -1 && isTopMenuButtonEnabled(iTopMenuButtonPressed))
 				&& topMenuButtons.containsKey(iTopMenuButtonPressed))
 		{
@@ -2747,16 +2749,20 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 	@Override
 	public void hideSecondaryMenus()
 	{
+
+        int c = CameraScreenActivity.getMainContext().getResources().getColor(android.R.color.transparent);
+        CameraScreenActivity.getInstance().findViewById(R.id.paramsLayout).setBackgroundColor(c);
+
 		if (!isSecondaryMenusVisible())
 			return;
 
 		guiView.findViewById(R.id.evLayout).setVisibility(View.GONE);
-		guiView.findViewById(R.id.scenemodeLayout).setVisibility(View.GONE);
+		//guiView.findViewById(R.id.scenemodeLayout).setVisibility(View.GONE);
 		guiView.findViewById(R.id.wbLayout).setVisibility(View.GONE);
-		guiView.findViewById(R.id.focusmodeLayout).setVisibility(View.GONE);
+		//guiView.findViewById(R.id.focusmodeLayout).setVisibility(View.GONE);
 		guiView.findViewById(R.id.flashmodeLayout).setVisibility(View.GONE);
-		guiView.findViewById(R.id.isoLayout).setVisibility(View.GONE);
-		guiView.findViewById(R.id.meteringLayout).setVisibility(View.GONE);
+		//guiView.findViewById(R.id.isoLayout).setVisibility(View.GONE);
+		//guiView.findViewById(R.id.meteringLayout).setVisibility(View.GONE);
 
 		guiView.findViewById(R.id.modeLayout).setVisibility(View.GONE);
 		guiView.findViewById(R.id.vfLayout).setVisibility(View.GONE);
@@ -2767,19 +2773,26 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 	public boolean isSecondaryMenusVisible()
 	{
 		if (guiView.findViewById(R.id.evLayout).getVisibility() == View.VISIBLE
-				|| guiView.findViewById(R.id.scenemodeLayout).getVisibility() == View.VISIBLE
+				//|| guiView.findViewById(R.id.scenemodeLayout).getVisibility() == View.VISIBLE
 				|| guiView.findViewById(R.id.wbLayout).getVisibility() == View.VISIBLE
-				|| guiView.findViewById(R.id.focusmodeLayout).getVisibility() == View.VISIBLE
+				//|| guiView.findViewById(R.id.focusmodeLayout).getVisibility() == View.VISIBLE
 				|| guiView.findViewById(R.id.flashmodeLayout).getVisibility() == View.VISIBLE
-				|| guiView.findViewById(R.id.isoLayout).getVisibility() == View.VISIBLE
-				|| guiView.findViewById(R.id.meteringLayout).getVisibility() == View.VISIBLE)
-			return true;
+				//|| guiView.findViewById(R.id.isoLayout).getVisibility() == View.VISIBLE
+				//|| guiView.findViewById(R.id.meteringLayout).getVisibility() == View.VISIBLE
+                ) {
+
+            return true;
+        }
 		return false;
 	}
 
 	// Decide what layout to show when some main's parameters button is clicked
 	private void showParams(int iButton)
 	{
+
+        int c = CameraScreenActivity.getMainContext().getResources().getColor(R.color.bg_oc_blue);
+        CameraScreenActivity.getInstance().findViewById(R.id.paramsLayout).setBackgroundColor(c);
+
 		DisplayMetrics metrics = new DisplayMetrics();
 		CameraScreenActivity.getInstance().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		int width = metrics.widthPixels;
@@ -3755,8 +3768,9 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		}
 
 		boolean isMenuOpened = false;
-		if (quickControlsChangeVisible || modeSelectorVisible || settingsControlsVisible || isSecondaryMenusVisible())
-			isMenuOpened = true;
+		if (quickControlsChangeVisible || modeSelectorVisible || settingsControlsVisible || isSecondaryMenusVisible()) {
+            isMenuOpened = true;
+        }
 
 		if (quickControlsChangeVisible
 				&& view.getParent() != (View) CameraScreenActivity.getInstance().findViewById(R.id.paramsLayout))
