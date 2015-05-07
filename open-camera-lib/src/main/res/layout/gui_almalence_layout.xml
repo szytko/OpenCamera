@@ -292,7 +292,7 @@
         android:src="@drawable/unlock"
         android:visibility="gone" />
 
-
+<!--
     <RelativeLayout
         android:id="@+id/viewPagerLayoutMain"
         android:layout_width="match_parent"
@@ -316,7 +316,7 @@
             android:layout_below="@+id/storeHeader"
             android:background="@drawable/store_background"></RelativeLayout>
     </RelativeLayout>
-
+-->
     <RelativeLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"

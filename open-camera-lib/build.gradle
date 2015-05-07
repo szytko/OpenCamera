@@ -14,7 +14,6 @@ android {
     }
 
     defaultConfig {
-        //applicationId "com.almalence.opencam"
         minSdkVersion 14
         targetSdkVersion 21
 
@@ -42,12 +41,5 @@ configurations {
 
 dependencies {
     compile files('libs/android-support-v13.jar')
-    //compile files('libs/androidexiv2.jar')
-    //compile files('libs/aspectjrt-1.7.3.jar')
-    //compile files('libs/isoparser-1.0.2.jar')
-    //compile files('libs/openiab-0.9.7.2.jar')
 
-    compile group: 'me.dm7.barcodescanner',
-            name:'zxing',
-            version: '1.5'
 }

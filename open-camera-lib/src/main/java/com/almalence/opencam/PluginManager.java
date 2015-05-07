@@ -102,7 +102,6 @@ import com.almalence.plugins.export.standard.ExifDriver.Values.ValueNumber;
 import com.almalence.plugins.export.standard.ExifDriver.Values.ValueRationals;
 import com.almalence.plugins.processing.simple.SimpleProcessingPlugin;
 import com.almalence.plugins.vf.aeawlock.AeAwLockVFPlugin;
-//import com.almalence.plugins.vf.barcodescanner.BarcodeScannerVFPlugin;
 import com.almalence.plugins.vf.focus.FocusVFPlugin;
 import com.almalence.plugins.vf.grid.GridVFPlugin;
 import com.almalence.plugins.vf.histogram.HistogramVFPlugin;

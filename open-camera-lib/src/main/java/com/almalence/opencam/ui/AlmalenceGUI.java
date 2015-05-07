@@ -4113,11 +4113,12 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 			}
 
 
+			/*
 			if ((guiView.findViewById(R.id.viewPagerLayoutMain)).getVisibility() == View.VISIBLE)
 			{
 				hideStore();
 				res++;
-			}
+			}*/
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_CAMERA)
@@ -4282,6 +4283,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 	public void updateThumbnailButton()
 	{
+
 
 		t = new UpdateThumbnailButtonTask(CameraScreenActivity.getInstance());
 		t.execute();
