@@ -253,6 +253,16 @@
             android:background="@drawable/underlayer"
             android:onClick="onButtonClick" />
 
+        <com.almalence.ui.RotateImageView
+            android:id="@+id/isoButton"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="17dip"
+            android:layout_weight="1"
+            android:background="@drawable/underlayer"
+            android:onClick="onButtonClick" />
+
 
     </LinearLayout>
 
@@ -438,6 +448,29 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/isoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blacktransparentlayersettings"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:visibility="gone" >
+
+            <GridView
+                android:id="@+id/isoGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:horizontalSpacing="7dp"
+                android:numColumns="4"
+                android:padding="6dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="2dp" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/flashmodeLayout"

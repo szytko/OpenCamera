@@ -194,12 +194,14 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 	private static final Map<Integer, String>	NAMES_FLASH					= AlmalenceGUIInitializer.NAMES_FLASH;
 
+	private static final Map<Integer, String> 	NAMES_ISO					= AlmalenceGUIInitializer.NAMES_ISO;
 
 
 	// Defining for top menu buttons (camera parameters settings)
 	private static final int					MODE_EV						= R.id.evButton;
 	private static final int					MODE_WB						= R.id.wbButton;
 	private static final int					MODE_FLASH					= R.id.flashButton;
+	private static final int					MODE_ISO					= R.id.isoButton;
 
 	private Map<Integer, View>					topMenuButtons;
 
@@ -216,14 +218,14 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 	private ElementAdapter						wbmodeAdapter;
 	//private ElementAdapter						focusmodeAdapter;
 	private ElementAdapter						flashmodeAdapter;
-	//private ElementAdapter						isoAdapter;
+	private ElementAdapter						isoAdapter;
 	//private ElementAdapter						meteringmodeAdapter;
 
 	//private Map<Integer, View>					sceneModeButtons;
 	private Map<Integer, View>					wbModeButtons;
 	//private Map<Integer, View>					focusModeButtons;
 	private Map<Integer, View>					flashModeButtons;
-	//private Map<Integer, View>					isoButtons;
+	private Map<Integer, View>					isoButtons;
 	private Map<Integer, View>					meteringModeButtons;
 
 	// Camera settings values which is exist at current device
@@ -288,14 +290,14 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		wbmodeAdapter = new ElementAdapter(true, CameraScreenActivity.getMainContext());
 		//focusmodeAdapter = new ElementAdapter();
 		flashmodeAdapter = new ElementAdapter(true, CameraScreenActivity.getMainContext());
-		//isoAdapter = new ElementAdapter();
+		isoAdapter = new ElementAdapter();
 		//meteringmodeAdapter = new ElementAdapter();
 
 		//sceneModeButtons = new HashMap<Integer, View>();
 		wbModeButtons = new HashMap<Integer, View>();
 		//focusModeButtons = new HashMap<Integer, View>();
 		flashModeButtons = new HashMap<Integer, View>();
-		//isoButtons = new HashMap<Integer, View>();
+		isoButtons = new HashMap<Integer, View>();
 		meteringModeButtons = new HashMap<Integer, View>();
 
 		activeScene = new ArrayList<View>();
@@ -434,6 +436,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 				((RotateImageView) topMenuButtons.get(MODE_EV)).setOrientation(AlmalenceGUI.mDeviceOrientation);
 				((RotateImageView) topMenuButtons.get(MODE_WB)).setOrientation(AlmalenceGUI.mDeviceOrientation);
 				((RotateImageView) topMenuButtons.get(MODE_FLASH)).setOrientation(AlmalenceGUI.mDeviceOrientation);
+				((RotateImageView) topMenuButtons.get(MODE_ISO)).setOrientation(AlmalenceGUI.mDeviceOrientation);
 
 				Set<String> keys = topMenuPluginButtons.keySet();
 				Iterator<String> it = keys.iterator();
@@ -588,12 +591,15 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		guiView.findViewById(R.id.evButton).setOnTouchListener(CameraScreenActivity.getInstance());
 		guiView.findViewById(R.id.wbButton).setOnTouchListener(CameraScreenActivity.getInstance());
 		guiView.findViewById(R.id.flashButton).setOnTouchListener(CameraScreenActivity.getInstance());
+		guiView.findViewById(R.id.isoButton).setOnTouchListener(CameraScreenActivity.getInstance());
 		// Get all top menu buttons
 		topMenuButtons.put(MODE_EV, guiView.findViewById(R.id.evButton));
 		topMenuButtons.put(MODE_WB, guiView.findViewById(R.id.wbButton));
 		topMenuButtons.put(MODE_FLASH, guiView.findViewById(R.id.flashButton));
+		topMenuButtons.put(MODE_ISO, guiView.findViewById(R.id.isoButton));
 		wbModeButtons = initCameraParameterModeButtons(ICONS_WB, NAMES_WB, wbModeButtons, MODE_WB);
 		flashModeButtons = initCameraParameterModeButtons(ICONS_FLASH, NAMES_FLASH, flashModeButtons, MODE_FLASH);
+		isoButtons = initCameraParameterModeButtons(ICONS_ISO, NAMES_ISO, isoButtons, MODE_ISO);
 
         createPluginTopMenuButtons();
 
@@ -660,6 +666,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
         if(mode == MODE_WB){ setWhiteBalance(system_name); return; }
         if(mode == MODE_FLASH){ setFlashMode(system_name); return; }
+		if(mode == MODE_ISO) { setISO(system_name); return; }
 	}
 
 	@Override
@@ -749,7 +756,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
         lp.topMargin =  (screen_height - lp.height)/2;
 
 
-		Log.e("GUI", "setLayoutParams. width = " + lp.width + " height = " + lp.height+" margin="+lp.topMargin );
+		Log.e("GUI", "setLayoutParams. width = " + lp.width + " height = " + lp.height + " margin=" + lp.topMargin);
 
 		guiView.findViewById(R.id.fullscreenLayout).setLayoutParams(lp);
 		guiView.findViewById(R.id.specialPluginsLayout).setLayoutParams(lp);
@@ -866,6 +873,9 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 				(ViewGroup) guiView.findViewById(R.id.paramsLayout), false);
 		quickControl.setOnClickListener(this);
 	}
+
+
+
 
 	// Called when camera object created in MainScreen.
 	// After camera creation it is possibly to obtain
@@ -1078,8 +1088,71 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 			mFlashMode = -1;
 		}
 
+		// Create ISO button and adding supported ISOs
+		int[] supported_iso = CameraController.getSupportedISO();
+		if ((supported_iso != null && supported_iso.length > 0 && activeISO != null)
+				|| (CameraController.isISOSupported() && activeISO != null))
+		{
+			if (supported_iso != null && supported_iso.length != 0)
+				for (int iso_name : supported_iso)
+				{
+					if (isoButtons.containsKey(iso_name))
+					{
+						activeISO.add(isoButtons.get(Integer.valueOf(iso_name)));
+						activeISONames.add(Integer.valueOf(iso_name));
+					}
+				}
+			else
+			{
+				for (String iso_name : CameraController.getIsoDefaultList())
+				{
+					activeISO.add(isoButtons.get(CameraController.getIsoKey().get(iso_name)));
+					activeISONames.add(CameraController.getIsoKey().get(iso_name));
+				}
+			}
+
+			if (!activeISONames.isEmpty())
+			{
+				mISOSupported = true;
+
+				isoAdapter.Elements = activeISO;
+				GridView gridview = (GridView) guiView.findViewById(R.id.isoGrid);
+				gridview.setAdapter(isoAdapter);
+
+				int initValue = preferences.getInt(CameraScreenActivity.sISOPref, CameraScreenActivity.sDefaultISOValue);
+				int meteringMode = preferences.getInt(CameraScreenActivity.sMeteringModePref,
+						CameraScreenActivity.sDefaultMeteringValue);
+
+				if (!activeISONames.contains(initValue))
+				{
+					if (CameraController.isFrontCamera())
+						initValue = activeISONames.get(0);
+					else
+						initValue = CameraScreenActivity.sDefaultISOValue;
+
+					preferences.edit().putInt(CameraScreenActivity.sISOPref, initValue).commit();
+				}
+				setButtonSelected(isoButtons, initValue);
+				setCameraParameterValue(MODE_ISO, initValue);
+
+				if (ICONS_ISO != null && ICONS_ISO.containsKey(initValue))
+				{
+					RotateImageView but = (RotateImageView) topMenuButtons.get(MODE_ISO);
+					int icon_id = ICONS_ISO.get(initValue);
+					but.setImageResource(icon_id);
+				}
+				CameraController.setCameraISO(mISO);
+			} else
+			{
+				mISOSupported = false;
+				mISO = -1;
+			}
+		} else
+		{
 			mISOSupported = false;
 			mISO = -1;
+		}
+
 
 
 		this.mMeteringAreasSupported = false;
@@ -1180,7 +1253,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
             if(cameraParameter == MODE_EV){ return mEVSupported; }
             if(cameraParameter == MODE_WB){ return mWBSupported; }
             if(cameraParameter == MODE_FLASH){ return mFlashModeSupported; }
-
+			if(cameraParameter == MODE_ISO) { return mISOSupported; }
 
 
 		}
@@ -1209,6 +1282,11 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 			topMenuView = topMenuButtons.get(MODE_FLASH);
 			isFlashEnabled = !bDisable;
 			break;
+		case CAMERA_PARAMETER_ISO:
+			topMenuView = topMenuButtons.get(MODE_ISO);
+			isIsoEnabled = !bDisable;
+			break;
+
 
 		default:
 			break;
@@ -1533,6 +1611,11 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 			else
 				createSettingEVOnClick(settingView);
 			break;
+		case ISO:
+			if (isQuickControl)
+				createQuickControlIsoOnClick(settingView);
+			else
+				createSettingIsoOnClick(settingView);
 		case MORE:
 			if (isQuickControl)
 				return;
@@ -1606,6 +1689,11 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
                 if (mFlashModeSupported)
                     addQuickSetting(SettingsType.FLASH, true);
             }
+			if(id == R.id.isoButton) {
+				if (mISOSupported) {
+					addQuickSetting(SettingsType.ISO, true);
+				}
+			}
 		}
 
 		// Add quick conrols from plugins
@@ -1719,11 +1807,21 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 	private void createQuickControlFlashOnClick(View flash)
 	{
-		flash.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v)
-			{
+		flash.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
 				quickControlOnClick(MODE_FLASH, CameraScreenActivity.getMainContext().getResources().getDrawable(ICONS_FLASH.get(mFlashMode)));
+			}
+
+		});
+	}
+
+
+	private void createQuickControlIsoOnClick(View iso)
+	{
+		iso.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				quickControlOnClick(MODE_ISO,
+						CameraScreenActivity.getMainContext().getResources().getDrawable(ICONS_ISO.get(mISO)));
 			}
 
 		});
@@ -1801,6 +1899,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		correctTopMenuButtonBackground(CameraScreenActivity.getInstance().findViewById(MODE_EV), isEVEnabled);
 		correctTopMenuButtonBackground(CameraScreenActivity.getInstance().findViewById(MODE_WB), isWBEnabled);
 		correctTopMenuButtonBackground(CameraScreenActivity.getInstance().findViewById(MODE_FLASH), isFlashEnabled);
+		correctTopMenuButtonBackground(CameraScreenActivity.getInstance().findViewById(MODE_ISO), isIsoEnabled);
 		PluginManager.getInstance().sendMessage(PluginManager.MSG_BROADCAST, PluginManager.MSG_CONTROL_UNLOCKED);
 	}
 
@@ -1868,6 +1967,11 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
                 if (mFlashModeSupported)
                     addQuickSetting(SettingsType.FLASH, false);
             }
+			if(id == R.id.isoButton) {
+				if (mISOSupported) {
+					addQuickSetting(SettingsType.ISO, true);
+				}
+			}
 		}
 
 		// Add quick conrols from plugins
@@ -1946,21 +2050,43 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		});
 	}
 
-
-	private void createSettingEVOnClick(View settingView)
+	private void createSettingIsoOnClick(View settingView)
 	{
 		settingView.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v)
 			{
-				if (!isEVEnabled)
+				if (!isIsoEnabled)
 				{
 					showToast(null, Toast.LENGTH_SHORT, Gravity.CENTER,
 							CameraScreenActivity.getAppResources().getString(R.string.settings_not_available), true, false);
 					return;
 				}
-				if (guiView.findViewById(R.id.evLayout).getVisibility() != View.VISIBLE)
+				int[] supported_iso = CameraController.getSupportedISO();
+				if ((supported_iso != null && supported_iso.length > 0) || CameraController.isISOSupported())
 				{
+
+					if (guiView.findViewById(R.id.isoLayout).getVisibility() != View.VISIBLE)
+					{
+						hideSecondaryMenus();
+						showParams(MODE_ISO);
+					} else
+						hideSecondaryMenus();
+				}
+			}
+		});
+	}
+
+	private void createSettingEVOnClick(View settingView)
+	{
+		settingView.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				if (!isEVEnabled) {
+					showToast(null, Toast.LENGTH_SHORT, Gravity.CENTER,
+							CameraScreenActivity.getAppResources().getString(R.string.settings_not_available), true, false);
+					return;
+				}
+				if (guiView.findViewById(R.id.evLayout).getVisibility() != View.VISIBLE) {
 					hideSecondaryMenus();
 					showParams(MODE_EV);
 				} else
@@ -1971,10 +2097,8 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
 	private void createSettingMoreOnClick(View settingView)
 	{
-		settingView.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v)
-			{
+		settingView.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
 				PluginManager.getInstance().onShowPreferences();
 				Intent settingsActivity = new Intent(CameraScreenActivity.getMainContext(), Preferences.class);
 				CameraScreenActivity.getInstance().startActivity(settingsActivity);
@@ -2022,24 +2146,20 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		gridview.setVisibility(View.GONE);
 		(guiView.findViewById(R.id.modeGrid)).setVisibility(View.GONE);
 
-		gone.setAnimationListener(new AnimationListener()
-		{
+		gone.setAnimationListener(new AnimationListener() {
 			@Override
-			public void onAnimationEnd(Animation animation)
-			{
+			public void onAnimationEnd(Animation animation) {
 				guiView.findViewById(R.id.modeLayout).clearAnimation();
 				guiView.findViewById(R.id.modeGrid).clearAnimation();
 			}
 
 			@Override
-			public void onAnimationRepeat(Animation animation)
-			{
+			public void onAnimationRepeat(Animation animation) {
 				// Not used
 			}
 
 			@Override
-			public void onAnimationStart(Animation animation)
-			{
+			public void onAnimationStart(Animation animation) {
 				// Not used
 			}
 		});
@@ -2612,6 +2732,32 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
                 }
 			}
 
+		if (id == R.id.isoButton)
+			{
+				if (changeQuickControlIfVisible(button)) {
+
+				} else
+
+				if (!isIsoEnabled)
+				{
+					showToast(null, Toast.LENGTH_SHORT, Gravity.CENTER,
+							CameraScreenActivity.getAppResources().getString(R.string.settings_not_available), true, false);
+				} else {
+
+					RelativeLayout layout = (RelativeLayout) guiView.findViewById(R.id.isoLayout);
+					if (layout.getVisibility() == View.GONE) {
+						quickControlsVisible = true;
+						unselectPrimaryTopMenuButtons(MODE_ISO);
+						hideSecondaryMenus();
+						showParams(MODE_ISO);
+					} else {
+						quickControlsVisible = false;
+						unselectPrimaryTopMenuButtons(-1);
+						hideSecondaryMenus();
+					}
+				}
+			}
+
 		this.initSettingsMenu(false);
 	}
 
@@ -2669,6 +2815,25 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		unselectPrimaryTopMenuButtons(-1);
 
 		PluginManager.getInstance().sendMessage(PluginManager.MSG_BROADCAST, PluginManager.MSG_FLASH_CHANGED);
+	}
+
+	private void setISO(int newMode)
+	{
+		if (newMode != -1)
+		{
+			CameraController.setCameraISO(newMode);
+			mISO = newMode;
+			setButtonSelected(isoButtons, mISO);
+			preferences.edit().putInt(CameraScreenActivity.sISOPref, newMode).commit();
+		}
+
+		RotateImageView but = (RotateImageView) topMenuButtons.get(MODE_ISO);
+		int icon_id = ICONS_ISO.get(mISO);
+		but.setImageResource(icon_id);
+
+		initSettingsMenu(false);
+		hideSecondaryMenus();
+		unselectPrimaryTopMenuButtons(-1);
 	}
 
 	// Hide all pop-up layouts
@@ -2742,6 +2907,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
         if(iTopMenuButtonKey == MODE_WB ) { if (isWBEnabled) isEnabled = true; }
         if(iTopMenuButtonKey == MODE_FLASH ) { if (isFlashEnabled) isEnabled = true; }
         if(iTopMenuButtonKey == MODE_EV ) { if (isEVEnabled) isEnabled = true; }
+        if(iTopMenuButtonKey == MODE_ISO ) { if (isIsoEnabled) isEnabled = true; }
 		return isEnabled;
 	}
 
@@ -2761,7 +2927,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 		guiView.findViewById(R.id.wbLayout).setVisibility(View.GONE);
 		//guiView.findViewById(R.id.focusmodeLayout).setVisibility(View.GONE);
 		guiView.findViewById(R.id.flashmodeLayout).setVisibility(View.GONE);
-		//guiView.findViewById(R.id.isoLayout).setVisibility(View.GONE);
+		guiView.findViewById(R.id.isoLayout).setVisibility(View.GONE);
 		//guiView.findViewById(R.id.meteringLayout).setVisibility(View.GONE);
 
 		guiView.findViewById(R.id.modeLayout).setVisibility(View.GONE);
@@ -2777,7 +2943,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 				|| guiView.findViewById(R.id.wbLayout).getVisibility() == View.VISIBLE
 				//|| guiView.findViewById(R.id.focusmodeLayout).getVisibility() == View.VISIBLE
 				|| guiView.findViewById(R.id.flashmodeLayout).getVisibility() == View.VISIBLE
-				//|| guiView.findViewById(R.id.isoLayout).getVisibility() == View.VISIBLE
+				|| guiView.findViewById(R.id.isoLayout).getVisibility() == View.VISIBLE
 				//|| guiView.findViewById(R.id.meteringLayout).getVisibility() == View.VISIBLE
                 ) {
 
@@ -2808,6 +2974,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 
         if( iButton == MODE_WB){ views = activeWB; }
         if( iButton == MODE_FLASH){ views = activeFlash; }
+        if( iButton == MODE_ISO) { views = activeISO; }
         if (views != null)
 		{
 			for (int i = 0; i < views.size(); i++)
@@ -2830,6 +2997,10 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
         if(iButton == MODE_FLASH ){
             guiView.findViewById(R.id.flashmodeLayout).setVisibility(View.VISIBLE);
         }
+
+		if(iButton == MODE_ISO) {
+			guiView.findViewById(R.id.isoLayout).setVisibility(View.VISIBLE);
+		}
 
 		quickControlsVisible = true;
 
@@ -2857,6 +3028,7 @@ public class AlmalenceGUI extends GUI implements SeekBar.OnSeekBarChangeListener
 	{
         if(iParameter == MODE_WB ){ mWB = sValue; }
         if(iParameter == MODE_FLASH ){ mFlashMode = sValue; }
+		if(iParameter == MODE_ISO) { mISO = sValue; }
 	}
 
 

@@ -50,6 +50,7 @@ import android.widget.Toast;
 
 import com.almalence.SwapHeap;
 import com.almalence.opencam.CameraScreenActivity;
+import com.almalence.opencam.ui.GUI;
 import com.almalence.util.ImageConversion;
 //<!-- -+-
 import com.almalence.opencam.ApplicationInterface;
@@ -187,6 +188,9 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
     public static boolean							isVideoModeLaunched				= false;
 
     protected static boolean						isRAWCaptureSupported			= false;
+
+    public static boolean   isCamera2 = false;
+    private static boolean							isUseISO2Keys					= true;
 
 
     // Flags to know which camera feature supported at current device
@@ -583,6 +587,8 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
                 put(iso3200_2, CameraParameters.ISO_3200);
             }
         };
+
+        setCameraISO(CameraParameters.ISO_3200);
     }
 
 
@@ -926,6 +932,17 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
         }
 
         return;
+    }
+
+
+    public static Map<String, Integer> getIsoKey()
+    {
+        return key_iso;
+    }
+
+    public static List<String> getIsoDefaultList()
+    {
+        return iso_default;
     }
 
     protected static void fillResolutionsListMultishot(int ii, int currSizeWidth, int currSizeHeight)
@@ -1481,6 +1498,11 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
         return mISOSupported;
     }
 
+    public static int[] getSupportedISO()
+    {
+        return supportedISOModes;
+    }
+
     private static int[] getSupportedISOInternal()
     {
         if (CameraProvider.getInstance().getCamera() != null)
@@ -1526,10 +1548,13 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
             for (int i = 0, index = 0; i < isoModes.size(); i++)
             {
                 String mode = isoModes.get(i);
-                if (CameraController.key_iso.containsKey(mode))
+                if (CameraController.key_iso.containsKey(mode)) {
                     iso[index++] = CameraController.key_iso.get(isoModes.get(i)).byteValue();
-                else if (CameraController.key_iso2.containsKey(mode))
+                    isUseISO2Keys = false;
+                } else if (CameraController.key_iso2.containsKey(mode)) {
                     iso[index++] = CameraController.key_iso2.get(isoModes.get(i)).byteValue();
+                    isUseISO2Keys = true;
+                }
             }
 
             return iso;
@@ -1714,6 +1739,25 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
         }
 
         return -1;
+    }
+
+    public static void setCameraSceneMode(int mode)
+    {
+        if (CameraProvider.getInstance().getCamera() != null)
+        {
+            try
+            {
+                Camera.Parameters params = CameraProvider.getInstance().getCamera().getParameters();
+                if (params != null)
+                {
+                    params.setSceneMode(CameraController.mode_scene.get(mode));
+                    setCameraParameters(params);
+                }
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void setCameraWhiteBalance(int mode)
@@ -1951,8 +1995,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
         }
     }
 
-    public static void cancelAutoFocus()
-    {
+    public static void cancelAutoFocus() {
         CameraController.setFocusState(CameraController.FOCUS_STATE_IDLE);
         if (CameraProvider.getInstance().getCamera() != null)
         {
@@ -2002,8 +2045,7 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
             pluginManager.onImageTaken(yuvFrame, frameData, frameLen, CameraController.YUV);
         }
 
-        try
-        {
+        try {
             CameraController.startCameraPreview();
         } catch (RuntimeException e)
         {
@@ -2100,6 +2142,52 @@ public class CameraController implements Camera.PictureCallback, Camera.AutoFocu
             return;
         }
     }
+
+
+    public static void setCameraISO(int mode)
+    {
+        if (CameraProvider.getInstance().getCamera() != null)
+        {
+            //ISO isn't documented by google, so quite all devices has different parameter names and values for ISO
+            //There we iterate all known options for ISO
+            Camera.Parameters params = CameraProvider.getInstance().getCamera().getParameters();
+            if (params != null)
+            {
+                String iso = isUseISO2Keys ? CameraController.mode_iso2.get(mode) : CameraController.mode_iso
+                        .get(mode);
+                if (params.get(CameraParameters.isoParam) != null)
+                    params.set(CameraParameters.isoParam, iso);
+                else if (params.get(CameraParameters.isoParam2) != null)
+                    params.set(CameraParameters.isoParam2, iso);
+                else if (params.get(CameraParameters.isoParam3) != null)
+                    params.set(CameraParameters.isoParam3, iso);
+                else
+                    params.set(CameraParameters.isoParam, iso);
+
+                Log.d("ISO SET 1", CameraParameters.isoParam);
+                Log.d("ISO SET 2", CameraParameters.isoParam2);
+                Log.d("ISO SET 3", CameraParameters.isoParam3);
+
+                if (!setCameraParameters(params))
+                {
+                    iso = isUseISO2Keys ? CameraController.mode_iso.get(mode) : CameraController.mode_iso2
+                            .get(mode);
+                    if (params.get(CameraParameters.isoParam) != null)
+                        params.set(CameraParameters.isoParam, iso);
+                    else if (params.get(CameraParameters.isoParam2) != null)
+                        params.set(CameraParameters.isoParam2, iso);
+                    else if (params.get(CameraParameters.isoParam3) != null)
+                        params.set(CameraParameters.isoParam3, iso);
+                    else
+                        params.set(CameraParameters.isoParam, iso);
+
+                    setCameraParameters(params);
+                }
+            }
+        }
+
+    }
+
     // ^^^^^^^^^^^^^^^^^^^^^ Image data manipulation ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     public static class Size

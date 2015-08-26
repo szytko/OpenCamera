@@ -251,7 +251,7 @@ public class CameraScreenActivity extends Activity implements ApplicationInterfa
     public static int sDefaultFocusValue = CameraParameters.AF_MODE_CONTINUOUS_PICTURE;
     public static int sDefaultFlashValue = CameraParameters.FLASH_MODE_OFF;
     public static int sDefaultMeteringValue = CameraParameters.meteringModeAuto;
-
+    public static int sDefaultISOValue = CameraParameters.ISO_AUTO;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
